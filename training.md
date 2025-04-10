@@ -14,16 +14,6 @@ Import Data for this training including:
 
 ![](https://static.observableusercontent.com/files/7c866806e7be981707bfd0c2503b60a2ff322b196637b2d15c77b435559b203a257d127f7a514763a52537383f4b507c9ffaf7ef9049fa098aa1ed7de8f2b40a)
 
-```js 
-var dataset = ee.Image('CGIAR/SRTM90_V4'); var elevation = dataset.select('elevation'); var slope = ee.Terrain.slope(elevation);   
-//Map.addLayer(slope, {min: 0, max: 60}, 'slope');   
-var slope = slope.expression(   
-  'slope * 1', {   
-      'slope': slope.select('slope'),   
-}).rename("slope");   
-print(slope, 'SRTM') }   
-```
-
 # Step 2
 Refresh the assets tab and import each of the new layers (assets) into a blank script. Rename the layers to:
 
