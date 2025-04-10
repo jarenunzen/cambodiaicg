@@ -101,8 +101,6 @@ return img.addBands(ndvi);
 
 // print metadata and attributes 
 
-print("NDVI!!!!", ndvi); 
-
 // limit values returned to ONE value in the 50th percentile; not using max to avoid outliers 
 
 var ndvi_95 = ndvi.reduce(ee.Reducer.percentile([30])); 
