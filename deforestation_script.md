@@ -40,7 +40,6 @@ function reducer (year1, year2) {
   return [area, deforestation_cropped];
 }
 
-
 // Hectare output
 var area_1 = ee.Number(reducer(forest_mask_2017, forest_mask_2018)[0].get('b1')).divide(10000);
 var area_2 = ee.Number(reducer(forest_mask_2018, forest_mask_2019)[0].get('b1')).divide(10000);
@@ -60,6 +59,19 @@ print('Deforestation in hectares (2022-2023):', area_6);
 print('Deforestation in hectares (2023-2024):', area_7);
 print('Deforestation in hectares (2024-2025):', area_8);
 
+// Print percent change // 2017-2018
+var old_year = forest_mask_2017;
+var total_forests = old_year.updateMask(old_year).clip(roi);
+var area = total_forests.multiply(pixel_area).reduceRegion({
+  reducer: ee.Reducer.sum(),
+  geometry: roi,
+  scale: 30,
+  maxPixels: 1e13
+  });
+
+var total_forest_area = ee.Number(area.get('b1')).divide(10000);
+var percent_change = (area_1.divide(total_forest_area));
+print('Percent change forests (2017-2018):', percent_change);
 
 // Add to map
 Map.addLayer(reducer(forest_mask_2017, forest_mask_2018)[1], {palette:'red'}, 'deforestation');
