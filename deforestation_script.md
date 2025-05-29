@@ -91,7 +91,7 @@ function reducer_total_area (year) {
   var area = cropped.multiply(pixel_area).reduceRegion({
   reducer: ee.Reducer.sum(),
   geometry: roi,
-  scale: 30,
+  scale: 10,
   maxPixels: 1e13
   });
   
@@ -110,7 +110,7 @@ function reducer_crop (forest, crop) {
   var area = change_cropped.multiply(pixel_area).reduceRegion({
   reducer: ee.Reducer.sum(),
   geometry: roi,
-  scale: 30,
+  scale: 10,
   maxPixels: 1e13
   });
   return [area, change_cropped];
@@ -127,7 +127,7 @@ function reducer (year1, year2) {
   var area = deforestation_cropped.multiply(pixel_area).reduceRegion({
   reducer: ee.Reducer.sum(),
   geometry: roi,
-  scale: 30,
+  scale: 10,
   maxPixels: 1e13
   });
   return [area, deforestation_cropped];
