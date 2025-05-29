@@ -292,7 +292,7 @@ var total_forests = old_year.updateMask(old_year).clip(roi);
 var area = total_forests.multiply(pixel_area).reduceRegion({
   reducer: ee.Reducer.sum(),
   geometry: roi,
-  scale: 30,
+  scale: 10,
   maxPixels: 1e13
   });
 
