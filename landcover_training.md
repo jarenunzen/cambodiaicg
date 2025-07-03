@@ -17,7 +17,8 @@ Import Data for this training including:
 For more information on how to upload spatial data (assets) to GEE, please visit: (https://developers.google.com/earth-engine/guides/manage_assets)
 
 
-![](https://static.observableusercontent.com/files/7c866806e7be981707bfd0c2503b60a2ff322b196637b2d15c77b435559b203a257d127f7a514763a52537383f4b507c9ffaf7ef9049fa098aa1ed7de8f2b40a)
+![](<img width="782" alt="image" src="https://github.com/user-attachments/assets/868780e2-87d9-4541-b69e-af95fb0ca391" />
+)
 
 # Step 2
 Refresh the assets tab and import each of the new layers (assets) into a blank script. Rename the layers to:
