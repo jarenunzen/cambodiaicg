@@ -27,11 +27,11 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 - cassava
 - developed
 - forest
-- openforest
 - othercrop
 - paddyrice
 - rubber
 - water
+- grassland
 
 ![](https://static.observableusercontent.com/files/06f8b776a898da80048cf4ec8bb9b84cce6f60a399a8f71c489af16240cd60ce043571b7e358ee85270f774fe200ba458e56ea020d5cb3cd30eb3fb668c31fb4)
 
