@@ -12,6 +12,8 @@ Import Data for this training including:
 - Water reference data
 - Grasslands reference data
 
+This information is located within the 'LandCover_ReferenceData_2022to2025' folder of this repository. 
+
 For more information on how to upload spatial data (assets) to GEE, please visit: (https://developers.google.com/earth-engine/guides/manage_assets)
 
 
