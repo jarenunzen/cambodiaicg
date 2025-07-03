@@ -33,8 +33,11 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 - water
 - grassland
 
-![](<img width="782" alt="image" src="https://github.com/user-attachments/assets/8178a4c7-c6a3-4609-88da-927386c4f775" />
+![](https://github.com/user-attachments/assets/8178a4c7-c6a3-4609-88da-927386c4f775
 )
+
+
+
 
 # Step 3
 
