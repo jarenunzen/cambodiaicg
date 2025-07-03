@@ -13,6 +13,8 @@ Import Data for this training including:
 - Grasslands reference data
 
 For more information on how to upload spatial data (assets) to GEE, please visit: (https://developers.google.com/earth-engine/guides/manage_assets)
+
+
 ![](https://static.observableusercontent.com/files/7c866806e7be981707bfd0c2503b60a2ff322b196637b2d15c77b435559b203a257d127f7a514763a52537383f4b507c9ffaf7ef9049fa098aa1ed7de8f2b40a)
 
 # Step 2
