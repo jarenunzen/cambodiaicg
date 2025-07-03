@@ -17,8 +17,7 @@ Import Data for this training including:
 For more information on how to upload spatial data (assets) to GEE, please visit: (https://developers.google.com/earth-engine/guides/manage_assets)
 
 
-![](<img width="782" alt="image" src="https://github.com/user-attachments/assets/868780e2-87d9-4541-b69e-af95fb0ca391" />
-)
+
 
 # Step 2
 Refresh the assets tab and import each of the new layers (assets) into a blank script. Rename the layers to:
@@ -34,7 +33,8 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 - water
 - grassland
 
-![](https://static.observableusercontent.com/files/06f8b776a898da80048cf4ec8bb9b84cce6f60a399a8f71c489af16240cd60ce043571b7e358ee85270f774fe200ba458e56ea020d5cb3cd30eb3fb668c31fb4)
+![](<img width="782" alt="image" src="https://github.com/user-attachments/assets/8178a4c7-c6a3-4609-88da-927386c4f775" />
+)
 
 # Step 3
 
