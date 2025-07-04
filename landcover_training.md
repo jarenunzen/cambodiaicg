@@ -48,7 +48,10 @@ Enter a new header (using comment syntax) for the script and save it as ‘KSWS_
 
 
 # Step 4
-Call a Sentinel-2 image collection and add it to the map as a median pixel composite for 2024. Note that this imagery is selected between November 2023 and February 2024. 
+Call a Sentinel-2 image collection and add it to the map as a median pixel composite for 2024. 
+- Note that this imagery is selected between November 2023 and February 2024.
+
+Google Earth Engine Sentinel-2 L1C Imagery: (https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_HARMONIZED)
 
 >What happens when you call imagery from May OR June 2024?
 
