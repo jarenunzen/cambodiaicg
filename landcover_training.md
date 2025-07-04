@@ -72,7 +72,7 @@ var end = ee.Date('2024-02-01');
 // Setinel 2 L1C Imagery 
 // In this case "geometry" is a rectangle drawn by the user that is slightly larger than the buffer area 
 
-var collection = ee.ImageCollection('COPERNICUS/S2') // searches all sentinel 2 imagery pixels... 
+var collection = ee.ImageCollection('COPERNICUS/S2_HARMONIZED') // searches all sentinel 2 imagery pixels... 
   .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 20)) // ...filters on the metadata for pixels less than 20% cloud 
   .filterDate(start ,end) //... chooses only pixels between the dates you define here 
   .filterBounds(KSWS); // ... that are within your aoi 
