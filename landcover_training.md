@@ -402,7 +402,7 @@ If you are satisfied with the overall (and class-specific) accuracy, use the fol
 // Export the classified map to Google Drive 
 Export.image.toDrive({ 
   image: classified, // Name of the classified image 
-  description: 'KeoSeima_RF_Classification_2024',  // File name, will be a GeoTiff format 
+  description: 'KeoSeima_RF_Classification_2025',  // File name, will be a GeoTiff format 
   scale: 10,  // Spatial resolution/pixel size 
   maxPixels: 1e13,  // Sets a limit on data size... (i.e., max number of pixels) 1e12 is max 
   crs: 'EPSG:32648', // WGS 84/UTM Zone 48N 
