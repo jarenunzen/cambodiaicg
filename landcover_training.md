@@ -278,7 +278,22 @@ Import the reference data samples and merge these samples into a singular variab
 
 var training = cassava.merge(cashew).merge(rubber).merge(water).merge(developed).merge(paddyrice).merge(forest).merge(openforest); 
 
-print("Training Data", training.limit(1000));  //this number should match the number of training samples (view at very top), unless there are over 5000 samples.
+// Guide: https://developers.google.com/earth-engine/guides/classification 
+// The original ground control points for each of the classes are being imported to guide  
+// the drawing of the reference data for this algorithm. 
+// ! Shapefile import cannot contain the .sbx file type 
+
+// *The original shapefile and csv. have the incorrect attribute formats for importing as a  
+//   singular feature collection. [Perhaps this can be fixed in the future] 
+
+// *These shapefiles must being in the EPSG: 4326 coordinate system (WGS 84) to be positionally accurate in GEE 
+// https://developers.google.com/earth-engine/guides/table_upload#:~:text=4326%20before%20uploading.-,Upload%20a%20Shapefile,on%20your%20local%20file%20system. 
+
+// Merge the training samples into a singular collection 
+
+var training = cassava.merge(cashew).merge(rubber).merge(water).merge(developed).merge(paddyrice).merge(forest).merge(openforest).merge(grassland); 
+
+print("Training Data", training);  //this number should match the number of training samples (view at very top), unless there are over 5000 samples.;  //this number should match the number of training samples (view at very top), unless there are over 5000 samples.
 ```
 
 # Step 10
