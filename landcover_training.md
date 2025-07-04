@@ -102,7 +102,6 @@ Map.addLayer(median, visualization, 'Median Pixel Composite');
 Map.centerObject(KSWS);  
 // This line  
 Map.setOptions('SATELLITE'); 
-}
 ```
 
 # Step 5
