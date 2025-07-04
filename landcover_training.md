@@ -557,6 +557,10 @@ var bands = ["B2_p30", "B3_p30", "B4_p30", 'B5_p30', 'B6_p30', 'B7_p30', 'B8_p30
 ```
 
 # Step 5
-Review the new classification results. How much better are the OA, Cashew, Cassava, Forest, and Open Forest Accuracies? Record your results in a separate file.
+Review the new classification results. 
+
+>How much better are the OA, Cashew, Cassava, Forest, and Open Forest Accuracies?
+
+Record your results in a separate file.
 
 ![](https://static.observableusercontent.com/files/ffe6cc2746cf0cf1f14b0f821f24fa08e516e2781e5a5ab0ec9459dc7693debe7605852a2e94798f4e12a432a4e2687e403989547104b776159ff3321843a09e)
