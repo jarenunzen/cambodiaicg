@@ -14,7 +14,7 @@ Import Data for this training including:
 
 *This information is located within the 'LandCover_ReferenceData_2022to2025' folder of this repository.* 
 
-For more information on how to upload spatial data (assets) to GEE, please visit: (https://developers.google.com/earth-engine/guides/manage_assets)
+For more information on **how to upload spatial data (assets) to GEE**, please visit: (https://developers.google.com/earth-engine/guides/manage_assets)
 
 
 
@@ -52,7 +52,7 @@ Call a Sentinel-2 image collection and add it to the map as a median pixel compo
 > [!NOTE]
 > Note that this imagery is selected between November 2023 and February 2024.
 
-Google Earth Engine Sentinel-2 L1C Imagery: (https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_HARMONIZED)
+**Google Earth Engine Sentinel-2 L1C Imagery:** (https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_HARMONIZED)
 
 >What happens when you call imagery from May OR June 2024?
 
