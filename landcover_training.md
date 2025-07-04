@@ -43,6 +43,10 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 
 Enter a new header (using comment syntax) for the script and save it as ‘KSWS_SAR_Training_2024’.
 
+
+![](https://github.com/user-attachments/assets/6722e3cc-9413-4541-8f32-85a02e9ef2e4)
+
+
 # Step 4
 Call a Sentinel-2 image collection and add it to the map as a median pixel composite for 2024. Note that this imagery is selected between November 2023 and February 2024. *What happens when you call imagery from May OR June 2024?
 ```js
