@@ -67,8 +67,8 @@ var aoi = KSWS;
 // DRY season: NOV - MARCH 
 // WET season: JULY - OCT 
 
-var start = ee.Date('2023-11-01');
-var end = ee.Date('2024-02-01'); 
+var start = ee.Date('2024-11-01');
+var end = ee.Date('2025-03-01'); 
 
 // Setinel 2 L1C Imagery 
 // In this case "geometry" is a rectangle drawn by the user that is slightly larger than the buffer area 
