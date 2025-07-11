@@ -61,6 +61,10 @@ Call a Sentinel-2 image collection and add it to the map as a median pixel compo
 
 >What happens when you call imagery from May OR June 2024?
 
+> [!NOTE]
+> Dry Season: NOV - MARCH
+> Wet Season: JULY - OCT
+
 ```js
 // Median Pixel Composite
 // Import Protected Area Boundary 
@@ -69,8 +73,6 @@ Call a Sentinel-2 image collection and add it to the map as a median pixel compo
 var aoi = KSWS;
 
 // Define start and end date for the image collection. 
-// DRY season: NOV - MARCH 
-// WET season: JULY - OCT 
 
 var start = ee.Date('2024-11-01');
 var end = ee.Date('2025-03-01'); 
@@ -115,6 +117,9 @@ Map.centerObject(KSWS);
 // This line  
 Map.setOptions('SATELLITE'); 
 ```
+
+<img width="1243" height="661" alt="image" src="https://github.com/user-attachments/assets/b4f7acf3-78e3-44d9-bd7b-e957364d37e0" />
+
 
 # Step 5
 Create a secondary pixel-based composite based on the ‘Greenest Pixel Composite’ (NDVI) percentile function. Compare the results between the median pixel composite and the Greenest Pixel Composite.
