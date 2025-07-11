@@ -581,3 +581,9 @@ Optimize the classification using the Feature Importance test, reference data sa
 ![](https://static.observableusercontent.com/files/35e827595a416095378947b528c09ed52979504c136396d49acb899c4f31249d22b9954cbaa98ec06d38eee210f3c407e423b96855981ab234b3fef1db67a53a)
 
 
+# Step 20
+To rerun the classificaiton on a new year:
+1. Change the **'startdate'** and **'enddate'** variables in Steps #4 and #7
+2. Change the name of the output task (**description**) and file in Step #17
+>[!WARNING]
+>The user must be careful when applying reference data across multiple years, the best practice is the review and edit the reference data for **either each year** or at least every few years. Applying the same reference data from 2022 to 2016 imagery will result in **significant error!**
