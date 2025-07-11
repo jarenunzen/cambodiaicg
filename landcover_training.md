@@ -123,10 +123,12 @@ Map.setOptions('SATELLITE');
 
 # Step 5
 Create a secondary pixel-based composite based on the ‘Greenest Pixel Composite’ (NDVI) percentile function. Compare the results between the median pixel composite and the Greenest Pixel Composite.
-```js
-// Guide: 
-// https://gis.stackexchange.com/questions/315554/google-engine-make-a-greenest-pixel-composite-for-sentinel-2 
 
+>[!TIP]
+> Guide:
+> (https://gis.stackexchange.com/questions/315554/google-engine-make-a-greenest-pixel-composite-for-sentinel-2)
+
+```js
 // Compute ndvi using red band 4 and NIR band 8a; calculated as 
 // : (b8-b4)/(b8+b4) 
 
@@ -153,8 +155,10 @@ print("Filtered collection by NDVI", ndvi_95);
 
 # Step 6
 Add the SRTM Elevation and Slope datasets to the script.
+>[!NOTE]
+>Data Available at: (https://developers.google.com/earth-engine/datasets/catalog/CGIAR_SRTM90_V4) 
+
 ```js
-// Data Available at: https://developers.google.com/earth-engine/datasets/catalog/CGIAR_SRTM90_V4 
 
 var dataset = ee.Image('CGIAR/SRTM90_V4'); 
 var elevation = dataset.select('elevation'); 
@@ -172,13 +176,13 @@ print(slope, 'SRTM')
 
 # Step 7
 Create a separate image for the NDVI composite.
-```js
-// Based on guides: https://www.geo.fu-berlin.de/en/v/geo-it/gee/2-monitoring-ndvi-nbr/2-2-calculating-indices/index.html 
-// This process is much quicker in GEE, rather than ArcGIS 
-// All Spectral (Vegetation) Indices can be added to the mosaic before exporting the imagery 
-// Principal Component Analysis will still be completed in ArcGIS 
-// *If the cloud mask, and not the greenest pixel mosaic is used, each of the 'image' names and 'band' names will need to be adjusted.  
+>[!TIP]
+>Based on guides: https://www.geo.fu-berlin.de/en/v/geo-it/gee/2-monitoring-ndvi-nbr/2-2-calculating-indices/index.html
 
+>[!WARNING]
+>If the cloud mask, and not the greenest pixel mosaic is used, each of the 'image' names and 'band' names will need to be adjusted.  
+
+```js
 // Calculate the NDVI manually:   NDVI = (B8 - B4) / (B8 + B4) 
 var NDVI = ndvi_95.expression( 
   '(NIR - RED) / (NIR + RED)', { 
