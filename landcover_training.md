@@ -1,3 +1,6 @@
+Access to the Google Earth Engine Code Editor: 
+https://code.earthengine.google.com/
+
 # Step 1   
 Import Data for this training including:
 
@@ -52,7 +55,8 @@ Call a Sentinel-2 image collection and add it to the map as a median pixel compo
 > [!NOTE]
 > Note that this imagery is selected between November 2023 and February 2024.
 
-**Google Earth Engine Sentinel-2 L1C Imagery:** (https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_HARMONIZED)
+**Google Earth Engine Sentinel-2 L1C Imagery:** 
+(https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_HARMONIZED)
 
 >What happens when you call imagery from May OR June 2024?
 
@@ -259,6 +263,22 @@ ndvi_95 = ndvi_95.addBands(newBands);
 
 print(ndvi_95, 'All bands BLXY (SAR)') 
 ```
+# (Optionally)
+Export the new image composite to your Google Drive account
+```js
+Export.image.toDrive({
+image: ndvi_95.select("B2_p50", "B3_p50", "B4_p50", 'B5_p50', 'B6_p50', 'B7_p50',
+'B8_p50', 'B8A_p50', 'B11_p50', 'B12_p50', 'NDVI', "ndwi", "EVI", "GI", "MSI", "SAVI"),
+description: 'KeoSeima_L1C_16Bands_DRY_2021',
+scale: 10,
+maxPixels: 1e13,
+crs: 'EPSG:32648',
+region: geometry
+});
+```
+
+
+
 
 # Step 9
 Import the reference data samples and merge these samples into a singular variable.
