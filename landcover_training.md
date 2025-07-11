@@ -572,7 +572,8 @@ Export.image.toDrive({ 
 # Step 18
 Review the Error Matrix and Overall Accuracy. Record your results in a separate file (excel suggested).
 
-![](https://static.observableusercontent.com/files/775e345a0a5006edc71c3e68dd5a77841ae4006424a964d3da4234f6f9775b405506f62bcb155608f4e5161ba0570cd7f6e4eb2c5f33db5ea121261460907ca7)
+![](https://static.observableusercontent.com/files/ffe6cc2746cf0cf1f14b0f821f24fa08e516e2781e5a5ab0ec9459dc7693debe7605852a2e94798f4e12a432a4e2687e403989547104b776159ff3321843a09e)
+
 
 # Step 19
 Optimize the classification using the Feature Importance test, reference data samples, and classification parameters.
@@ -580,7 +581,3 @@ Optimize the classification using the Feature Importance test, reference data sa
 ![](https://static.observableusercontent.com/files/35e827595a416095378947b528c09ed52979504c136396d49acb899c4f31249d22b9954cbaa98ec06d38eee210f3c407e423b96855981ab234b3fef1db67a53a)
 
 
-
-
-
-![](https://static.observableusercontent.com/files/ffe6cc2746cf0cf1f14b0f821f24fa08e516e2781e5a5ab0ec9459dc7693debe7605852a2e94798f4e12a432a4e2687e403989547104b776159ff3321843a09e)
