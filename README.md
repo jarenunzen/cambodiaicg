@@ -17,7 +17,7 @@ UNH ICG Training for WCS Cambodia
 -   https://www.mdpi.com/2072-4292/14/8/1875
 
 -   Chea, M.; Fraser, B.T.; Nay, S.; Sok, L.; Strasser, H.; Tizard, R. A Survey of Changes in Grasslands within the Tonle Sap Lake Landscape from 2004 to 2023. Diversity 2024, 16, 448. https://doi.org/10.3390/d16080448
--     https://www.mdpi.com/1424-2818/16/8/448
+-    https://www.mdpi.com/1424-2818/16/8/448
 
 - Crop cover mapping Spectral Indices:
     https://doi.org/10.1016/j.rsase.2022.100746
