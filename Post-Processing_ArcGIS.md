@@ -52,3 +52,8 @@ Once the area of all polygons within a layer has been calculated, use the **Sele
 
 <img width="2004" height="1107" alt="image" src="https://github.com/user-attachments/assets/cfba3f81-c730-4226-995a-b32597a525f6" />
 
+# Step 7
+Use the **Eliminate** tool to dissolve the selected polygons into their surrounding neighbors. 
+>[!NOTE] Specifically, in this step we are specifying that polygons which are less than or equal to
+>>0.03 hecatres, not of the class of 'Developed' (gridcode = 6) merged with neighbors of the largest >size.
+>>The 0.03 hectares size threshold was used to eliminate polygons 3 cells in size or less. If your project has a specific Minimum Mapping Unit (MMU) this may be a more appropriate size to use.
