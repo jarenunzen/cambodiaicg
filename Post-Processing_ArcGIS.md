@@ -30,4 +30,14 @@ Use the **Raster to Polygon Tool** to convert each of the outputs from Google Ea
 <img width="760" height="1514" alt="image" src="https://github.com/user-attachments/assets/bf05bdb7-2751-454b-a01c-0e86a088490e" />
 
 # Step 3
-Clip the 
+**Clip** the new vector output from Step #2 to the Keo Seima boundary layer.
+> This step must be run on: 2016.tif, 2017.tif, 2018.tif, 2019.tif, 2020.tif, 2021.tif, 2022.tif, 2023.tif, 2024.tif
+
+# Step 4
+Create a new Field using the attribute table. Name this field **"hectares"** with a TYPE of **float**. 
+
+>[!WARNING]
+>Using any other number (integer) or text type will not allow you to calculate polygon-specific sizes with decimal point values. 
+
+# Step 5
+
