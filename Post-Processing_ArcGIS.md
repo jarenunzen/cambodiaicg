@@ -13,11 +13,11 @@ Use the **Raster to Polygon Tool** to convert each of the outputs from Google Ea
 
 > Procesing time per layer: ##minutes
 
--**Input:**2024 land cover raster output from GEE
+-**Input:** 2024 land cover raster output from GEE
 
 -**Output:** KeoSeima_LandCover2024
 
--**Field:**Value [integer value for land cover class]
+-**Field:** Value [integer value for land cover class]
 
 -**Simplify Polygons:** NO
 
