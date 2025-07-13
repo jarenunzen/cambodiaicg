@@ -8,4 +8,8 @@ Import Data for this training including:
 - Raster land cover maps from the GEE tutorial (.tif)
 
 # Step 2
+Use the **Raster to Polygon Tool**
+> This step must be run on:
+**Procesing time per layer: ##minutes**
 
+# Step 3
