@@ -14,7 +14,7 @@ Use the **Raster to Polygon Tool** to convert each of the outputs from Google Ea
 > Procesing time per layer: ##minutes
 
 >[!TIP]
->If this step takes a long time to process each layer, you can also choose to clip the data to the Keo Seima boundary before performing this conversion. Either the **Extract by Mask** or **RAster Clip** tools will work for this task, as long as you clip to the vector layer boundary.
+>If this step takes a long time to process each layer, you can also choose to clip the data to the Keo Seima boundary before performing this conversion. Either the **Extract by Mask** or **Raster Clip** tools will work for this task, as long as you clip to the vector layer boundary.
 
 <img width="760" height="1514" alt="image" src="https://github.com/user-attachments/assets/bf05bdb7-2751-454b-a01c-0e86a088490e" />
 
