@@ -40,4 +40,15 @@ Create a new Field using the attribute table. Name this field **"hectares"** wit
 >Using any other number (integer) or text type will not allow you to calculate polygon-specific sizes with decimal point values. 
 
 # Step 5
+In the attribute table **Calculate the Geometry** of the new attribute (field) using the Geodesic area and **hectares** unit. 
+
+>[!TIP]
+>Calculating the geoemtry of several hundred thousand polygons may take several minute or longer. This processing, which is necessary for each year, can be conducted simultaneously with Geoprocessing tools though. To save times, users are encouraged to intermix attribute-based calculations and geoprocessing tools for the remainder of this tutorial.
+
+# Step 6
+Once the area of all polygons within a layer has been calculated, use the **Select By Attributes** tool to set the Expression:
+
+**hectares is less than or equal to 0.03**
+
+<img width="2004" height="1107" alt="image" src="https://github.com/user-attachments/assets/cfba3f81-c730-4226-995a-b32597a525f6" />
 
