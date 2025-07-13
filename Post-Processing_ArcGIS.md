@@ -73,3 +73,17 @@ These vector layers will serve as the final vector land cover maps for this anal
 <img width="764" height="1492" alt="image" src="https://github.com/user-attachments/assets/6e2a28d9-d30a-4524-b6de-c121c3f7cf07" />
 
 # Step 9
+Repeat Steps #4 and #5 above, creating a new **'hectares'** field. This field will serve as the final estimate of land area per year and will be essential for subsequent analyses and reports. 
+
+# Step 10
+Convert each of the finalized land cover polygon (.shp) layers to Raster layers using the **Polygon to Raster** tool. These will be used for the Deforestation and Kernel Density analyses. 
+
+<img width="763" height="1511" alt="image" src="https://github.com/user-attachments/assets/03c8dfda-a1c5-47f3-bcd7-e2337a383402" />
+
+# Step 11 (optional)
+As desired, provide symbology for the land cover **Polygon** and **Raster** layers. 
+
+>[!TIP]
+>The **Import Symbology** OR **Import Symbolgy from Layer** menu option (found in the upper-right of the Symbology pane) can be used to apply the symbology from one raster opr vector layer to another. This can save considerable time within this menu when creating symbology for multiple years.
+
+<img width="864" height="1561" alt="image" src="https://github.com/user-attachments/assets/1232eb34-4cfa-4e5d-94d5-abe843fb9b68" />
