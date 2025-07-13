@@ -31,7 +31,7 @@ Use the **Raster to Polygon Tool** to convert each of the outputs from Google Ea
 
 # Step 3
 **Clip** the new vector output from Step #2 to the Keo Seima boundary layer.
-> This step must be run on: 2016.tif, 2017.tif, 2018.tif, 2019.tif, 2020.tif, 2021.tif, 2022.tif, 2023.tif, 2024.tif
+> This step must be run on: 2016.shp, 2017.shp, 2018.shp, 2019.shp, 2020.shp, 2021.shp, 2022.shp, 2023.shp, 2024.shp
 
 # Step 4
 Create a new Field using the attribute table. Name this field **"hectares"** with a TYPE of **float**. 
@@ -59,3 +59,17 @@ Use the **Eliminate** tool to dissolve the selected polygons into their surround
 >0.03 hecatres, not of the class of 'Developed' (gridcode = 6) merged with neighbors of the largest >size.
 >The 0.03 hectares size threshold was used to eliminate polygons 3 cells in size or less. If your
 >project has a specific Minimum Mapping Unit (MMU) this may be a more appropriate size to use.
+
+<img width="772" height="1496" alt="image" src="https://github.com/user-attachments/assets/06727b63-232d-4e3d-85c0-88aafb08de78" />
+
+# Step 8
+**Dissolve** the newly revised polygon layers based on the gridcode field (land cover class integer attribute). At this point, we will want to have the **Create multipart features** option **ENABLED**.
+
+>[!NOTE]
+>(Optionally) users can choose to **SUM** the hectares/area field. Note that we will calculate a final area estimate for each class in the next step using the dissolved features. This value may differ and it is recomended to use that estimate instead of the one provided here. 
+
+These vector layers will serve as the final vector land cover maps for this analysis. 
+
+<img width="764" height="1492" alt="image" src="https://github.com/user-attachments/assets/6e2a28d9-d30a-4524-b6de-c121c3f7cf07" />
+
+# Step 9
