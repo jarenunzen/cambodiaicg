@@ -10,6 +10,6 @@ Import Data for this training including:
 # Step 2
 Use the **Raster to Polygon Tool**
 > This step must be run on:
-**Procesing time per layer: ##minutes**
+> Procesing time per layer: ##minutes
 
 # Step 3
