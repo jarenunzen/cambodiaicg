@@ -57,6 +57,5 @@ Use the **Eliminate** tool to dissolve the selected polygons into their surround
 >[!NOTE]
 >Specifically, in this step we are specifying that polygons which are less than or equal to
 >0.03 hecatres, not of the class of 'Developed' (gridcode = 6) merged with neighbors of the largest >size.
-
 >The 0.03 hectares size threshold was used to eliminate polygons 3 cells in size or less. If your
 >project has a specific Minimum Mapping Unit (MMU) this may be a more appropriate size to use.
