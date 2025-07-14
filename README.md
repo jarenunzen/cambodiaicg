@@ -2,7 +2,7 @@ UNH ICG Training for WCS Cambodia
 
 **Resources for Google Earth Engine**
 - Guides directly from Google Developers
--   https://developers.google.com/earth-engine/
+- -  https://developers.google.com/earth-engine/
   
 - Youtube tutorial that taught me the fundamentals of GEE
 -   https://www.youtube.com/watch?v=I-wFYm4Hnhg
