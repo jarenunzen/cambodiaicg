@@ -36,6 +36,9 @@ Use the **Raster to Polygon Tool** to convert each of the outputs from Google Ea
 **Clip** the new vector output from Step #2 to the Keo Seima boundary layer.
 > This step must be run on: 2016.shp, 2017.shp, 2018.shp, 2019.shp, 2020.shp, 2021.shp, 2022.shp, 2023.shp, 2024.shp
 
+<img width="959" height="562" alt="image" src="https://github.com/user-attachments/assets/21c5641c-85ca-4dbc-9c14-854b56c9a328" />
+
+
 # Step 4
 Create a new Field using the attribute table. Name this field **"hectares"** with a TYPE of **float**. 
 
