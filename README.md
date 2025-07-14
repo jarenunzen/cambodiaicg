@@ -1,6 +1,6 @@
 UNH ICG Training for WCS Cambodia
 
-**Resources for Google Earth Engine**
+# **Resources for Google Earth Engine**
 - Guides directly from Google Developers
 -   https://developers.google.com/earth-engine/
   
@@ -13,7 +13,7 @@ UNH ICG Training for WCS Cambodia
 - Google Earth Engine Image Classification
 -   https://developers.google.com/earth-engine/guides/classification
 
-**Resources for Land Cover Mapping:**
+# **Resources for Land Cover Mapping:**
 
 - Fatchurrachman; Rudiyanto; Soh, N.C.; Shah, R.M.; Giap, S.G.E.; Setiawan, B.I.; Minasny, B. High-Resolution Mapping of Paddy Rice Extent and Growth Stages across Peninsular Malaysia Using a Fusion of Sentinel-1 and 2 Time Series Data in Google Earth Engine. Remote Sens. 2022, 14, 1875. https://doi.org/10.3390/rs14081875
 -   https://www.mdpi.com/2072-4292/14/8/1875
@@ -29,14 +29,18 @@ UNH ICG Training for WCS Cambodia
     https://doi.org/10.1101/2021.10.26.465837
 
 
-**Resources for Accuracy Assessments**
+# **Resources for Accuracy Assessments**
 - Congalton, R.G., & Green, K. (2019). Assessing the Accuracy of Remotely Sensed Data: Principles and Practices, Third Edition (3rd ed.). CRC Press. https://doi.org/10.1201/9780429052729
 - Olofsson, P., Foody, G.M., Herold, M., Stehman, S.V., Woodcock, C.E. and Wulder, M.A., 2014. Good practices for estimating area and assessing accuracy of land change. Remote sensing of Environment, 148, pp.42-57.
 - Olofsson, P., Foody, G.M., Stehman, S.V. and Woodcock, C.E., 2013. Making better use of accuracy data in land change studies: Estimating accuracy and area and quantifying uncertainty using stratified estimation. Remote sensing of environment, 129, pp.122-131.
 
 
-**Resources for Deforestation Mapping**
+# **Resources for Deforestation Mapping**
 - https://www.globalforestwatch.org/map/
 - https://forest-observatory.ec.europa.eu/forest
+
+- Kernel Density
+- ArcGIS Pro Toolset: (https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-kernel-density-works.htm)
+- Space Time Kernel Density (https://www.esri.com/arcgis-blog/products/arcgis-pro/analytics/density-tools-in-arcgis-pro)
 
 **Resources for Measuring Landscape Structure**
