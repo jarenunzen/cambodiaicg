@@ -7,6 +7,9 @@ Import Data for this training including:
 - Boundary file for Keo Seima (.shp)
 - Raster land cover maps from the GEE tutorial (.tif)
 
+<img width="1956" height="1374" alt="image" src="https://github.com/user-attachments/assets/9b75fedc-e72d-4a36-a475-e17abbd0cdb0" />
+
+
 # Step 2
 Use the **Raster to Polygon Tool** to convert each of the outputs from Google Earth Engine to polygon (vector) datasets. 
 > This step must be run on: 2016.tif, 2017.tif, 2018.tif, 2019.tif, 2020.tif, 2021.tif, 2022.tif, 2023.tif, 2024.tif
@@ -35,6 +38,9 @@ Use the **Raster to Polygon Tool** to convert each of the outputs from Google Ea
 
 # Step 4
 Create a new Field using the attribute table. Name this field **"hectares"** with a TYPE of **float**. 
+
+<img width="1704" height="650" alt="image" src="https://github.com/user-attachments/assets/5f13233b-7cba-4e86-a466-32d41fda9f3e" />
+
 
 >[!WARNING]
 >Using any other number (integer) or text type will not allow you to calculate polygon-specific sizes with decimal point values. 
