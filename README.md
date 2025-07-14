@@ -28,10 +28,13 @@ UNH ICG Training for WCS Cambodia
 
 
 **Resources for Accuracy Assessments**
-
+- Congalton, R.G., & Green, K. (2019). Assessing the Accuracy of Remotely Sensed Data: Principles and Practices, Third Edition (3rd ed.). CRC Press. https://doi.org/10.1201/9780429052729
+- Olofsson, P., Foody, G.M., Herold, M., Stehman, S.V., Woodcock, C.E. and Wulder, M.A., 2014. Good practices for estimating area and assessing accuracy of land change. Remote sensing of Environment, 148, pp.42-57.
+- Olofsson, P., Foody, G.M., Stehman, S.V. and Woodcock, C.E., 2013. Making better use of accuracy data in land change studies: Estimating accuracy and area and quantifying uncertainty using stratified estimation. Remote sensing of environment, 129, pp.122-131.
 
 
 **Resources for Deforestation Mapping**
-
+- https://www.globalforestwatch.org/map/
+- https://forest-observatory.ec.europa.eu/forest
 
 **Resources for Measuring Landscape Structure**
