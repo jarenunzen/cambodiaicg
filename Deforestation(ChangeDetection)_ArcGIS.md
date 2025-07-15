@@ -86,10 +86,10 @@ Use the 'YEAR' field from Step 7 as the **'Dissolve Fields'** and Enable the 'Cr
 <img width="764" height="927" alt="image" src="https://github.com/user-attachments/assets/cc464ff7-47a4-464f-a531-273dca00d920" />
 
 # Step 9
-**Merge** each of the change detection into a single output file. Mkae sure to name this file in a logical manner. 
+**Merge** each of the change detection into a single output file. Make sure to name this file in a logical manner. 
 
 # Step 10
-> * *(1) Think about where this newly combined change layer may be overestimating the amount of chagne to croplands throughout the study region.* 
+> * *(1) Think about where this newly combined change layer may be overestimating the amount of change to croplands throughout the study region.* 
 >
 > * *(2) Also consider where we may be able to control for overestimated (comission) in the change layer.* 
 
