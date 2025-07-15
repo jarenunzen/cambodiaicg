@@ -74,6 +74,8 @@ For example, if forest, open forest, or grasslands were converted to cashew in t
 
 <img width="1040" height="794" alt="image" src="https://github.com/user-attachments/assets/ac23dd00-a425-4a4c-9e74-0f056766fc3b" />
 
+> **Discussion Point:** Is it more important from a users' perspective to analyze the land cover class first attributed to each land cover change OR the land cover class currently residing in areas of change? 
+
 # Step 8
 Use the **Dissolve** or **Pairwise Dissolve** tool to represent land cover change as a singular type for each of the respective years. 
 
@@ -122,7 +124,7 @@ Symbolize and explore the change detection raster from Step 13.
 
 # Step 15
 **Intersect** the change detection polygon layer with the 2016 land cover: selected for the forest, open forest, and grassland classes. 
-> * *Think about what this new layer will help us quantify* *
+> *Think about what this new layer will help us quantify* 
 
 Calculate the relative proporion **(area, in hectares)** of each of these three 2016 land cover represented by this new layer. 
 
@@ -149,3 +151,12 @@ Calculate the following summary statistics using a combination of the change lay
 - [ ] Relative area of forest, open forest, and grassland within Keo Seima in 2016
 - [ ] Relative area of forest, open forest, and grassland within Keo Seima in 2024
 
+# Step 18
+Return to Step 7 and to select and export **(Data -> Export Data):**
+1. The yearly loss due to cashew crop cover
+2. The yearly loss due to cassava crop cover
+
+# Step 19
+Convert both of the layers created in Step 18 to raster using the **Polygon to Raster** tool. 
+
+Select 'YEAR' as the field and a 10m pixel spatial resolution. 
