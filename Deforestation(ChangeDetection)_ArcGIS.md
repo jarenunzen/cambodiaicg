@@ -87,9 +87,9 @@ Use the 'YEAR' field from Step 7 as the **'Dissolve Fields'** and Enable the 'Cr
 **Merge** each of the change detection into a single output file. Mkae sure to name this file in a logical manner. 
 
 # Step 10
-> * *(1) Think about where this newly combined change layer may be overestimating the amount of chagne to croplands throughout the study region.* *
+> * *(1) Think about where this newly combined change layer may be overestimating the amount of chagne to croplands throughout the study region.* 
 >
-> * *(2) Also consider where we may be able to control for overestimated (comission) in the change layer.* *
+> * *(2) Also consider where we may be able to control for overestimated (comission) in the change layer.* 
 
 Use the **Erase** or **Pairwise Erase** tool to selectively remove the the 2024 forests, open forests, and grasslands from the change layer. 
 
@@ -115,6 +115,8 @@ Make sure the match the spatial resolution of the original imagery **(10m)**.
 
 # Step 14
 Symbolize and explore the change detection raster from Step 13. 
+
+> Think carefully about the symbology here. *What color gradients work best for your audience/reports?*  
 
 <img width="140" height="355" alt="image" src="https://github.com/user-attachments/assets/b308dcc4-52d0-496f-8fb0-4527078e013e" />
 
