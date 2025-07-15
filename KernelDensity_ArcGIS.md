@@ -1,1 +1,16 @@
+The goal of this training is to estimate the density of change across Keo Seima and visualize the hotspots at which this change occurs. This will be done in **three main sections:** 
 
+# 1) Estimating the Density of Change Across the 9-year Period: This will involve calculating the overall density of all changes that occurred across the entire 9-year period.
+
+# 2) Visualizing the Shifts in Hotspots: This will involve creating biannual Kernel Density maps for individual change detection maps, providing insight into how hotspots have shifted over time.
+
+# 3) Visualizing Hotspots for Individual Land Cover Types: this will involve creating Kernel Density maps for specific land cover types (Forest, Open Forest, and Grassland) transition to croplands.
+
+These three analyses will help us understand where the areas of greatest concern are, based on the density of change in a given area. Furthermore, the latter sections will help visualize temporal trends and highlight where specific land cover types are most vulnerable to change.
+
+**Guide to Kernel Density:**
+(https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-kernel-density-works.htm)
+
+<img width="1563" height="765" alt="image" src="https://github.com/user-attachments/assets/841c6dec-b6ad-45f3-833a-9ca9950f7094" />
+
+# Step 1
