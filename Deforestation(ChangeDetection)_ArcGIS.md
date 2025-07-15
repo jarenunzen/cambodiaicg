@@ -139,5 +139,11 @@ Calculate the following summary statistics using a combination of the change lay
 
 - [ ] Total forest loss (ha)
 - [ ] Total forest loss (%)
-- [ ] Annual rate of forest, open forest, or grassland change
-- [ ] 
+- [ ] Total area of the Keo Seima study area
+- [ ] Annual rate of forest, open forest, or grassland change (ha and %)
+- [ ] Contribution of each crop type to forest loss (%)
+- [ ] Total increase in cashew and cassava croplands (ha)
+- [ ] Total increase in cashew and cassava croplands (%)
+- [ ] Relative area of forest, open forest, and grassland within Keo Seima in 2016
+- [ ] Relative area of forest, open forest, and grassland within Keo Seima in 2024
+
