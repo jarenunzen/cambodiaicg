@@ -21,4 +21,8 @@ These three analyses will help us understand where the areas of greatest concern
 
 # Discussion Question
 
+#### 1) How can we imagine applying a barrier weighted kernel density to the Keo Seima (or similar) analysis? 
 <img width="1465" height="928" alt="image" src="https://github.com/user-attachments/assets/f5ed29d0-9018-4802-84e3-6ccd7e8af4df" />
+
+#### 2) 
+([https://pro.arcgis.com/en/pro-app/3.4/tool-reference/spatial-analyst/space-time-kernel-density.htm](https://pro.arcgis.com/en/pro-app/3.4/tool-reference/spatial-analyst/how-space-time-kernel-density-works.htm))
