@@ -134,7 +134,7 @@ Now **Intersect** the same (final) change layer from Step 11 with the 2024 crop 
 <img width="2563" height="1566" alt="image" src="https://github.com/user-attachments/assets/572d0de1-b8b6-4b2a-92dc-9b253a7f8e0c" />
 
 
-# Step 16
+# Step 17
 Calculate the following summary statistics using a combination of the change layer (vector/polygon) and land cover layers (vector). 
 
 - [ ] Total forest loss (ha)
