@@ -19,8 +19,42 @@ These three analyses will help us understand where the areas of greatest concern
 Download and Open either the **ArcGIS Project Package for Kernel Density** or the **Input data** folder. 
 
 # Step 2
-Explore the 
+Provided in Part 1 group in the contents pane are a raster and shapefile containing the full 9-year change detection results. Symbolize the layers and open their attribute table to explore the data that they contain. 
 
+Additionally, there is a shapefile provided that represents that boundary of KSWS located outside of the Part 1 group layer in the contents pane.
+
+Both of these can be found within the **ArcGIS Pro Project Package**.
+
+# Step 3
+>[!Note]
+>Point (or line) features are required to be input into a Kernel Density model. This will require
+>converting the raster layer representing deforestation or landcover change to a point layer.
+
+Open the **Raster to Point** tool in the geoprocessing toolbox. 
+
+Convert the raster cells to points, based on the value field. 
+
+This will create a new point feature layer where every cell in the raster dataset will be assigned a point. This may take some time to process and visualize. 
+
+<img width="920" height="1565" alt="image" src="https://github.com/user-attachments/assets/b96b8546-aa0b-421c-ab13-d49874a690f7" />
+
+<img width="1212" height="825" alt="image" src="https://github.com/user-attachments/assets/73e787f5-a49a-44c7-8baa-50a7472f74ed" />
+
+# Step 4
+In the Geoprocessing Toolbox, search for and select the **Kernel Density tool**.
+
+A)	Input point or polyline features: select the newly created point feature layer (i.e. Deforestation_2016to2024_Point)
+B)	Population field: NONE
+C)	Output Raster: provide a logical name (KernelDensity_2016to2024)
+D)	Output cell size: 10
+E)	Search Radius: leave default
+F)	Area Units: Hectares
+G)	Output cell values: Densities
+H)	Method: Planar
+I)	Input barrier features: KSWS_2023F_WGS84
+
+>[!WARNING]
+>This step will take a significant amount of time to process. For the purpose of this training the output file is provided.  To see what the output looks like open the “KernelDensity_2016to2024” file. This shows the hotpots of change across the 9 years.
 
 # Discussion Question
 
