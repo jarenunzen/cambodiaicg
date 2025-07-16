@@ -479,6 +479,8 @@ Split the training and validation data and run the Random Forest classification 
 >validation (100 each) while not being weighted too unevenly across all classes.
 
 ```js
+var input = ndvi_95.select(bands); 
+
 var trainImage = ndvi_95.sampleRegions({ 
   collection: training, 
   properties: ['lclu'], 
