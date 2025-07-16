@@ -44,13 +44,21 @@ This will create a new point feature layer where every cell in the raster datase
 In the Geoprocessing Toolbox, search for and select the **Kernel Density tool**.
 
 A)	Input point or polyline features: select the newly created point feature layer (i.e. Deforestation_2016to2024_Point)
+
 B)	Population field: NONE
+
 C)	Output Raster: provide a logical name (KernelDensity_2016to2024)
+
 D)	Output cell size: 10
+
 E)	Search Radius: leave default
+
 F)	Area Units: Hectares
+
 G)	Output cell values: Densities
+
 H)	Method: Planar
+
 I)	Input barrier features: KSWS_2023F_WGS84
 
 >[!WARNING]
