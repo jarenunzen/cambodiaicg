@@ -64,6 +64,15 @@ H)	**Method:** Planar
 
 I)	**Input barrier features:** KSWS_2023F_WGS84
 
+# Step 5
+Open the point layer created during Step 3 **(Raster to Point Output)**. Use the **Select by Attribute** tool to select the deforestation modeled between 2020 and 2024. 
+
+<img width="2059" height="1643" alt="image" src="https://github.com/user-attachments/assets/1538b68f-4398-4952-bf70-799ce465cea9" />
+
+# Step 6
+Repeat Step 4 **(Kernel Density)** using this new, more recent, output from Step 5. 
+> 
+
 
 # Discussion Question
 
@@ -77,3 +86,4 @@ I)	**Input barrier features:** KSWS_2023F_WGS84
 
 <img width="1419" height="832" alt="image" src="https://github.com/user-attachments/assets/b282bc55-6ce2-4c6d-b1bf-490b0f1268c3" />
 
+#### 3) If we wanted to apply the Kernel Density to a singular crop cover type, how would we adapt the methods? 
