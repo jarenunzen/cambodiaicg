@@ -692,3 +692,4 @@ This thematic (raster) layer will be automatically drawn each time the classific
 Map.addLayer(classified.clip(ksws), {palette: landcoverPalette, min:1, max:9}, 'Classification: Random Forest');
 ```
 
+<img width="618" height="456" alt="image" src="https://github.com/user-attachments/assets/707de793-ffe7-4284-ae3c-e1abe5783482" />
