@@ -601,6 +601,7 @@ Use the following functions to add a legend to the left side of the mapping wind
 >[!WARNING]
 > The number of classes in the **landcoverPalette** function and **landcoverName**, and **# of rows in the final function here** must match the number of classes, or this will report an ERROR. Please adjust all lines if you change the number or names of classes. 
 
+```js
 // Define color parameters for displaying the classified image
 var landcoverPalette = [
   
@@ -678,6 +679,7 @@ for (var i = 0; i < 9; i++) {
   }  
 // add legend to map (alternatively you can also print the legend to the console)
 Map.add(legend);
+```
 
 
 # Step 22
@@ -685,6 +687,8 @@ Add the classified map to the GEE mapping window.
 
 This thematic (raster) layer will be automatically drawn each time the classification is performed. 
 
+```js
 // Add the land cover layer to the map (below)
 Map.addLayer(classified.clip(ksws), {palette: landcoverPalette, min:1, max:9}, 'Classification: Random Forest');
+```
 
