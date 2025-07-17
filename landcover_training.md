@@ -589,3 +589,102 @@ To rerun the classificaiton on a new year:
 2. Change the name of the output task (**description**) and file in Step #17
 >[!WARNING]
 >The user must be careful when applying reference data across multiple years, the best practice is the review and edit the reference data for **either each year** or at least every few years. Applying the same reference data from 2022 to 2016 imagery will result in **significant error!**
+
+# Adding a Legend and Land Cover Map to the GEE Map Window
+
+# Step 21
+Use the following functions to add a legend to the left side of the mapping window. 
+
+>[!TIP]
+> Color parameters are HEXCODE, provided by: https://htmlcolorcodes.com/
+
+>[!WARNING]
+> The number of classes in the **landcoverPalette** function and **landcoverName**, and **# of rows in the final function here** must match the number of classes, or this will report an ERROR. Please adjust all lines if you change the number or names of classes. 
+
+// Define color parameters for displaying the classified image
+var landcoverPalette = [
+  
+  'ff5df0', // Cashew: (1)
+  'e7e138', // Cassava: (2)
+  '9a9a9a', // Rubber: (3)
+  '818a52', // Paddy Rice: (4)
+  '5b7be8', // Water: (5)
+  'e53b00', // Developed: (6)
+  '377315', // Forest: (7)
+  '81a43b', // Open Forest: (8)
+  '24ec1e', // Grassland: (9)
+];
+
+// set position of panel
+var legend = ui.Panel({
+  style: {
+    position: 'bottom-left',
+    padding: '8px 15px',
+    shown: true
+  }
+});
+
+
+// Create legend title
+var legendTitle = ui.Label({
+  value: 'Legend',
+  style: {
+    fontWeight: 'bold',
+    fontSize: '16px',
+    margin: '0 0 4px 0',
+    padding: '0'
+    }
+});
+
+// Add the title to the panel
+legend.add(legendTitle);
+
+// Creates and styles 1 row of the legend.
+var makeRow = function(color, name) {
+
+      // Create the label that is actually the colored box.
+      var colorBox = ui.Label({
+        style: {
+          backgroundColor: '#' + color,
+          // Use padding to give the box height and width.
+          padding: '8px',
+          margin: '0 0 4px 0'
+        }
+      });
+
+      // Create the label filled with the description text.
+      var description = ui.Label({
+        value: name,
+        style: {margin: '0 0 4px 6px'},
+      });
+
+      // return the panel
+      return ui.Panel({
+        widgets: [colorBox, description],
+        layout: ui.Panel.Layout.Flow('horizontal')
+      });
+};
+
+//  Palette with the colors
+
+
+// name of the legend
+var landcoverNames = ['Cashew','Cassava','Rubber', 'Paddy Rice', 'Water', 'Developed', 'Forest', 'Open Forest', 'Grassland'];
+
+
+// Adding the specific number of rows to the legend 
+for (var i = 0; i < 9; i++) {
+  legend.add(makeRow(landcoverPalette[i], landcoverNames[i]));
+  }  
+// add legend to map (alternatively you can also print the legend to the console)
+Map.add(legend);
+
+
+# Step 22
+Add the classified map to the GEE mapping window. 
+
+This thematic (raster) layer will be automatically drawn each time the classification is performed. 
+
+// Add the land cover layer to the map (below)
+Map.addLayer(classified.clip(ksws), {palette: landcoverPalette, min:1, max:9}, 'Classification: Random Forest');
+
