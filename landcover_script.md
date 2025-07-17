@@ -1,7 +1,7 @@
 # Full Code   
 Feel free to copy and paste the full, working code if you encounter any issues with the training.
 
->**This version has been updated following the July 2025 training (July_17_2025)**
+**This version has been updated following the July 2025 training (July_17_2025)**
 
 ```js
 
@@ -17,6 +17,7 @@ Keo Seima
 
 
 // Import Reference Data Points
+/*
 Map.addLayer(cashew, {color: 'white'}, 'Cashew Reference Data'); 
 Map.addLayer(cassava, {color: 'white'}, 'Cassava Reference Data'); 
 Map.addLayer(rubber, {color: 'red'}, 'Rubber Reference Data'); 
@@ -26,15 +27,15 @@ Map.addLayer(developed, {color: 'grey'}, 'Developed Reference Data');
 Map.addLayer(forest, {color: 'green'}, 'Forest Reference Data'); 
 Map.addLayer(openforest, {color: 'green'}, 'Open Forest Reference Data'); 
 Map.addLayer(grassland, {color: 'green'}, 'Grassland Reference Data'); 
-
+*/
 
 
 // Area of interest (aoi)
 var aoi = geometry;
 
-//------------------------------------------
-
 // Define start and end date for the image collection. 
+// DRY season: NOV - MARCH 
+// WET season: JULY - OCT 
 
 var start = ee.Date('2023-11-01');
 var end = ee.Date('2024-03-01'); 
@@ -115,7 +116,9 @@ var slope = slope.expression(
       'slope': slope.select('slope'), 
   }).rename("slope"); 
 
-//---------------------------------------------------
+
+
+
 
 // Define ROI 
 var roi= geometry; 
@@ -217,7 +220,7 @@ var SAR = multibands1.rename(bandsName).clip(roi);//.rename(monLists1).clip(roi)
 
 Map.addLayer(SAR,  {min: -25, max: -10}, 'SAR VH Image',0); 
 
-//-----------------------------------------------------
+
 
 // Calculate the NDVI manually:   NDVI = (B8 - B4) / (B8 + B4) 
 var NDVI = ndvi_95.expression( 
@@ -310,7 +313,7 @@ var ndvi_95 = ndvi_95.addBands(multiband1_ndvi);
 
 print(ndvi_95, 'Final image with all bands (SAR+)')
 
-//--------------------------------------------------
+
 
 // Guide: https://developers.google.com/earth-engine/guides/classification 
 
@@ -407,5 +410,90 @@ Export.image.toDrive({ 
   region: KSWS  // Change this back to 'geometry' to make the image area. 'KS' is buffer zone  
 });
 
+
+// ADD A LEGEND 
+
+// Define color parameters for displaying the classified image
+// Provided by: https://htmlcolorcodes.com/
+var landcoverPalette = [
+  
+  'ff5df0', // Cashew: (1)
+  'e7e138', // Cassava: (2)
+  '9a9a9a', // Rubber: (3)
+  '818a52', // Paddy Rice: (4)
+  '5b7be8', // Water: (5)
+  'e53b00', // Developed: (6)
+  '377315', // Forest: (7)
+  '81a43b', // Open Forest: (8)
+  '24ec1e', // Grassland: (9)
+];
+
+// set position of panel
+var legend = ui.Panel({
+  style: {
+    position: 'bottom-left',
+    padding: '8px 15px',
+    shown: true
+  }
+});
+
+
+// Create legend title
+var legendTitle = ui.Label({
+  value: 'Legend',
+  style: {
+    fontWeight: 'bold',
+    fontSize: '16px',
+    margin: '0 0 4px 0',
+    padding: '0'
+    }
+});
+
+// Add the title to the panel
+legend.add(legendTitle);
+
+// Creates and styles 1 row of the legend.
+var makeRow = function(color, name) {
+
+      // Create the label that is actually the colored box.
+      var colorBox = ui.Label({
+        style: {
+          backgroundColor: '#' + color,
+          // Use padding to give the box height and width.
+          padding: '8px',
+          margin: '0 0 4px 0'
+        }
+      });
+
+      // Create the label filled with the description text.
+      var description = ui.Label({
+        value: name,
+        style: {margin: '0 0 4px 6px'},
+      });
+
+      // return the panel
+      return ui.Panel({
+        widgets: [colorBox, description],
+        layout: ui.Panel.Layout.Flow('horizontal')
+      });
+};
+
+//  Palette with the colors
+
+
+// name of the legend
+var landcoverNames = ['Cashew','Cassava','Rubber', 'Paddy Rice', 'Water', 'Developed', 'Forest', 'Open Forest', 'Grassland'];
+
+
+// Adding the specific number of rows to the legend 
+for (var i = 0; i < 9; i++) {
+  legend.add(makeRow(landcoverPalette[i], landcoverNames[i]));
+  }  
+// add legend to map (alternatively you can also print the legend to the console)
+Map.add(legend);
+
+
+// Add the land cover layer to the map (below)
+Map.addLayer(classified.clip(KSWS), {palette: landcoverPalette, min:1, max:9}, 'Classification: Random Forest');
 
 ```
