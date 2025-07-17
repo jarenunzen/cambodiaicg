@@ -481,7 +481,7 @@ Split the training and validation data and run the Random Forest classification 
 ```js
 var input = ndvi_95.select(bands); 
 
-var trainImage = ndvi_95.sampleRegions({ 
+var trainImage = input.sampleRegions({ 
   collection: training, 
   properties: ['lclu'], 
   scale: 10  
