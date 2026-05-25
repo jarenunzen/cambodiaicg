@@ -37,9 +37,7 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 - water
 - grassland
 
-![imports.png](..%2Fimports.png)
-
-
+![imports1.png](..%2FImages%2Fimports1.png)
 
 
 # Step 3
@@ -92,7 +90,7 @@ var visParams = {min: -0.3, max: 0.3, bands: ['A01', 'A16', 'A09']};
 var median = image1.median().clip(aoi); 
 Map.addLayer(median, visParams, '2025 embeddings'); 
 ```
-![embeddings.png](..%2Fembeddings.png)
+![embeddings.png](..%2FImages%2Fembeddings.png)
 # Step 6
 Merge reference data and select embedding bands.
 ```js
@@ -164,8 +162,7 @@ print(confusionMatrix.accuracy());
 
 var exportAccuracy = ee.Feature(null, {matrix: confusionMatrix.array()}) 
 ```
-![matrix.png](..%2Fmatrix.png)
-
+![matrix.png](..%2FImages%2Fmatrix.png)
 # Step 10
 Add layers to map with comprehensive legend.
 ```js
@@ -250,8 +247,7 @@ Map.add(legend);
 Map.addLayer(classified, {palette: landcoverPalette, min:1, max:9}, 
 'Classification: Random Forest', false); 
 ```
-![classified.png](..%2Fclassified.png)
-
+![lulc.png](..%2FImages%2Flulc.png)
 # Step 11
 Export classified image to Google Drive
 ```js
