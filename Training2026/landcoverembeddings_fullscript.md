@@ -20,8 +20,8 @@ var image1 = dataset
 
 // Visualize three axes of the embedding space as an RGB. 
 var visParams = {min: -0.3, max: 0.3, bands: ['A01', 'A16', 'A09']}; 
-Map.addLayer(image1, visParams, '2025 embeddings'); 
-var median = image1.median(); 
+var median = image1.median().clip(aoi); 
+Map.addLayer(median, visParams, '2025 embeddings'); 
 
 // Merge the training samples into a singular collection 
 var training = forest.merge(openforest).merge(developed).merge(water).merge(cashew).merge(cassava).merge(rubber).merge(paddyrice).merge(grassland); 
@@ -60,7 +60,7 @@ var classifier = ee.Classifier.smileRandomForest(500).train({  // 500 trees
 
  
 // Run the Classification on Image Collection 
-var classified = input.classify(classifier); 
+var classified = input.classify(classifier).clip(aoi); 
 
 //----------------------------------------------------------- 
 // ACCURACY ASSESSSMENT
@@ -164,7 +164,7 @@ Map.addLayer(classified, {palette: landcoverPalette, min:1, max:9},
 //----------------------------------------------------------- 
 Export.image.toDrive({ 
   image: classified, // Name of the classified image 
-  description: 'KSWS_Classification_2022_AEembeddings',  // File name, will be a GeoTiff format 
+  description: 'KSWS_Classification_2025_AEembeddings',  // File name, will be a GeoTiff format 
   scale: 10,  // Spatial resolution/pixel size 
   maxPixels: 1e13,  // Sets a limit on data size... (i.e., max number of pixels) 1e12 is max 
   crs: 'EPSG:32648', // WGS 84/UTM Zone 48N 
