@@ -1,6 +1,8 @@
 Access to the Google Earth Engine Code Editor: 
 https://code.earthengine.google.com/
 
+Based on the scripts available here: https://github.com/saraheb3/AgroforestrySuitability_GEE/blob/main/gee_script/White-Oak-Tree-Growth-Suitability
+
 # Step 1
 Import KSWS shapefile and landcover classification. 
 
