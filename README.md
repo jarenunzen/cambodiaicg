@@ -34,6 +34,8 @@ Chaya, V., Poortinga, A., Nimol, K., Sokleap, S., Sophorn, M., Chhin, P., McMaho
     https://doi.org/10.1101/2021.10.26.465837
 
 
+
+
 # **Resources for Satellite embeddings Layers**
 Brown et al. 2025 'AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data'
 - https://doi.org/10.48550/arXiv.2507.22291
