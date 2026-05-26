@@ -20,12 +20,12 @@ Import Data for this training including:
 9. Grasslands reference data
 10. Other Crop reference data
 
-*This information is located within the 'ReferenceData2025Embeddings' folder of this repository.* 
+*These data layers are located within the 'ReferenceData2025Embeddings' folder of this repository.* 
 
 For more information on **how to upload spatial data (assets) to GEE**, please visit: 
 (https://developers.google.com/earth-engine/guides/manage_assets)
 
-!<img width="1376" height="879" alt="image" src="https://github.com/user-attachments/assets/28e2a61f-9d79-4185-a94b-30ca71c41595" />
+<img width="1376" height="879" alt="image" src="https://github.com/user-attachments/assets/28e2a61f-9d79-4185-a94b-30ca71c41595" />
 
 
 
