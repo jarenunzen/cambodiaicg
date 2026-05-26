@@ -1,7 +1,6 @@
 UNH ICG Training for WCS Cambodia
 
-![Training_Flowchart.tif](https://github.com/user-attachments/files/28276159/Training_Flowchart.tif)
-
+!(Images/Training_Flowchart.tif)
 
 
 # **Resources for Google Earth Engine**
