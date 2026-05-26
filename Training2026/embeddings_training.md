@@ -7,7 +7,9 @@ This training section will be completed entirely in Google Earth Engine.
 
 
 # Step 1   
-Import Data for this training including:
+Import the data for this training into Google Earth Engine including:
+For more information on **how to upload spatial data (assets) to GEE**, please visit: 
+(https://developers.google.com/earth-engine/guides/manage_assets)
 
 - Keo Seima Updated Boundary
 1. Cashew reference data
@@ -23,16 +25,15 @@ Import Data for this training including:
 
 *These data layers are located within the 'ReferenceData2025Embeddings' folder of this repository.* 
 
-For more information on **how to upload spatial data (assets) to GEE**, please visit: 
-(https://developers.google.com/earth-engine/guides/manage_assets)
 
 <img width="1376" height="879" alt="image" src="https://github.com/user-attachments/assets/28e2a61f-9d79-4185-a94b-30ca71c41595" />
 
 
 
-
 # Step 2
 Refresh the assets tab and import each of the new layers (assets) into a blank script. Rename the layers to:
+
+
 **these variable names are case sensitive**
 
 - KSWS
