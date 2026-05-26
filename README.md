@@ -33,7 +33,14 @@ Chaya, V., Poortinga, A., Nimol, K., Sokleap, S., Sophorn, M., Chhin, P., McMaho
     https://doi.org/10.3390/rs13122237
     https://doi.org/10.1101/2021.10.26.465837
 
+Random Forest Classification
+Breiman, L. Random Forests. Machine Learning 45, 5–32 (2001). https://doi.org/10.1023/A:1010933404324 
 
+Extreme Gradient Boosting (XGBoost) Classification
+Chen and Guestrin, 2016 https://doi.org/10.48550/arXiv.1603.02754
+
+XGBoost Classiifcation Explained
+- https://medium.com/@fraidoonomarzai99/xgboost-classification-in-depth-979f11ef4bf9
 
 
 # **Resources for Satellite embeddings Layers**
