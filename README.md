@@ -27,7 +27,7 @@ Chea, M.; Fraser, B.T.; Nay, S.; Sok, L.; Strasser, H.; Tizard, R. A Survey of C
 Chaya, V., Poortinga, A., Nimol, K., Sokleap, S., Sophorn, M., Chhin, P., McMahon, A., Nicolau, A.P., Tenneson, K. and Saah, D., 2024. Is Cambodia the World's Largest Cashew Producer?. arXiv preprint arXiv:2405.16926.
 
 - Crop cover mapping Spectral Indices:
--   https://doi.org/10.1016/j.rsase.2022.100746
+    https://doi.org/10.1016/j.rsase.2022.100746
     https://doi.org/10.3390/land8090133
     https://doi.org/10.1016/j.jag.2019.101947
     https://doi.org/10.3390/rs13122237
