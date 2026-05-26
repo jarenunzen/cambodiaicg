@@ -32,12 +32,14 @@ For more information on **how to upload spatial data (assets) to GEE**, please v
 
 # Step 2
 Refresh the assets tab and import each of the new layers (assets) into a blank script. Rename the layers to:
+**these variable names are case sensitive**
 
-- ksws
+- KSWS
 - cashew
 - cassava
 - developed
 - forest
+- openforest
 - othercrop
 - paddyrice
 - rubber
@@ -48,7 +50,10 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 
 
 # Step 3
-Enter a new header (using comment syntax) for the script and save it as ‘KSWS_Embeddings_Training_2025’.
+Enter a new header (using comment syntax) for the script and save it as:
+```js
+'/* Satellite Embedding Analysis | Keo Seima Wildlife Sanctuary */'
+```
 
 
 ![](https://github.com/user-attachments/assets/6722e3cc-9413-4541-8f32-85a02e9ef2e4)
