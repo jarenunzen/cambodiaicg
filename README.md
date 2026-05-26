@@ -18,15 +18,15 @@ Google Earth Engine Image Classification
 
 # **Resources for Land Cover Mapping:**
 
-- Fatchurrachman; Rudiyanto; Soh, N.C.; Shah, R.M.; Giap, S.G.E.; Setiawan, B.I.; Minasny, B. High-Resolution Mapping of Paddy Rice Extent and Growth Stages across Peninsular Malaysia Using a Fusion of Sentinel-1 and 2 Time Series Data in Google Earth Engine. Remote Sens. 2022, 14, 1875. https://doi.org/10.3390/rs14081875
+Fatchurrachman; Rudiyanto; Soh, N.C.; Shah, R.M.; Giap, S.G.E.; Setiawan, B.I.; Minasny, B. High-Resolution Mapping of Paddy Rice Extent and Growth Stages across Peninsular Malaysia Using a Fusion of Sentinel-1 and 2 Time Series Data in Google Earth Engine. Remote Sens. 2022, 14, 1875. https://doi.org/10.3390/rs14081875
 -   https://www.mdpi.com/2072-4292/14/8/1875
 
--   Chea, M.; Fraser, B.T.; Nay, S.; Sok, L.; Strasser, H.; Tizard, R. A Survey of Changes in Grasslands within the Tonle Sap Lake Landscape from 2004 to 2023. Diversity 2024, 16, 448. https://doi.org/10.3390/d16080448
+Chea, M.; Fraser, B.T.; Nay, S.; Sok, L.; Strasser, H.; Tizard, R. A Survey of Changes in Grasslands within the Tonle Sap Lake Landscape from 2004 to 2023. Diversity 2024, 16, 448. https://doi.org/10.3390/d16080448
 -    https://www.mdpi.com/1424-2818/16/8/448
 
-- Chaya, V., Poortinga, A., Nimol, K., Sokleap, S., Sophorn, M., Chhin, P., McMahon, A., Nicolau, A.P., Tenneson, K. and Saah, D., 2024. Is Cambodia the World's Largest Cashew Producer?. arXiv preprint arXiv:2405.16926.
+Chaya, V., Poortinga, A., Nimol, K., Sokleap, S., Sophorn, M., Chhin, P., McMahon, A., Nicolau, A.P., Tenneson, K. and Saah, D., 2024. Is Cambodia the World's Largest Cashew Producer?. arXiv preprint arXiv:2405.16926.
 
-- Crop cover mapping Spectral Indices:
+Crop cover mapping Spectral Indices:
     https://doi.org/10.1016/j.rsase.2022.100746
     https://doi.org/10.3390/land8090133
     https://doi.org/10.1016/j.jag.2019.101947
