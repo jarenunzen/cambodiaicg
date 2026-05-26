@@ -38,36 +38,36 @@
 Brown et al. 2025 'AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data'
 - https://doi.org/10.48550/arXiv.2507.22291
 
-Introduction to the Satellite Embedding Dataset
+**Introduction to the Satellite Embedding Dataset**
 - https://developers.google.com/earth-engine/tutorials/community/satellite-embedding-01-introduction
 
   
-Earth Engine Data Catalog
+**Earth Engine Data Catalog**
 - https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL
 
 # **Resources for Accuracy Assessments**
-Leading Book on Thematic Accuracy
+**Leading Book on Thematic Accuracy**
 - Congalton, R.G., & Green, K. (2019). Assessing the Accuracy of Remotely Sensed Data: Principles and Practices, Third Edition (3rd ed.). CRC Press. https://doi.org/10.1201/9780429052729
 
-Fundamental Methods
+**Fundamental Methods**
 - Congalton, R.G., 1991. A review of assessing the accuracy of classifications of remotely sensed data. Remote sensing of environment, 37(1), pp.35-46.
 
-Good Practices and Confidence Intervals
+**Good Practices and Confidence Intervals**
 - Olofsson, P., Foody, G.M., Herold, M., Stehman, S.V., Woodcock, C.E. and Wulder, M.A., 2014. Good practices for estimating area and assessing accuracy of land change. Remote sensing of Environment, 148, pp.42-57.
 - Olofsson, P., Foody, G.M., Stehman, S.V. and Woodcock, C.E., 2013. Making better use of accuracy data in land change studies: Estimating accuracy and area and quantifying uncertainty using stratified estimation. Remote sensing of environment, 129, pp.122-131.
 
 
 # **Resources for Deforestation Mapping**
-Global Data
+**Global Data**
 - https://www.globalforestwatch.org/map/
 - https://forest-observatory.ec.europa.eu/forest
 
-Kernel Density
+**Kernel Density**
 - ArcGIS Pro Toolset: (https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-kernel-density-works.htm)
 - Space Time Kernel Density (https://www.esri.com/arcgis-blog/products/arcgis-pro/analytics/density-tools-in-arcgis-pro)
 
 # **Resources for Measuring Landscape Structure**
-Fragmentation
+**Fragmentation**
 - Flowers, Bryon, Kuo-Tsang Huang, and Gerardo O. Aldana. "Analysis of the habitat fragmentation of ecosystems in Belize using landscape metrics." Sustainability 12.7 (2020): 3024.
 - Ma, Jun, et al. "Global forest fragmentation change from 2000 to 2020." Nature Communications 14.1 (2023): 3752.
 Ma et al. 2023 Supplementary Information: https://www.nature.com/articles/s41467-023-39221-x#Sec23 
@@ -77,4 +77,5 @@ Ma et al. 2023 Supplementary Information: https://www.nature.com/articles/s41467
 - Laurance, William F., et al. "Effects of forest fragmentation on recruitment patterns in Amazonian tree communities." Conservation biology 12.2 (1998): 460-464.
 
 **Forest Landscape Integrity Index**
-- 
+- WCS Homepage https://www.wcs.org/our-work/forest-landscape-integrity-index
+
