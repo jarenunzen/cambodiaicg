@@ -4,16 +4,16 @@
 
 
 # **Resources for Google Earth Engine**
-- Guides directly from Google Developers
+Guides directly from Google Developers
 -   https://developers.google.com/earth-engine/
   
-- Youtube tutorial that taught me the fundamentals of GEE
+Youtube tutorial that taught me the fundamentals of GEE
 -   https://www.youtube.com/watch?v=I-wFYm4Hnhg
 
-- Before using GEE for the first time, become familiar with their catalog of spatial data
+Before using GEE for the first time, become familiar with their catalog of spatial data
 -   https://developers.google.com/earth-engine/datasets
 
-- Google Earth Engine Image Classification
+Google Earth Engine Image Classification
 -   https://developers.google.com/earth-engine/guides/classification
 
 # **Resources for Land Cover Mapping:**
