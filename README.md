@@ -1,5 +1,9 @@
 UNH ICG Training for WCS Cambodia
 
+[Training_Flowchart.tif](https://github.com/user-attachments/files/28276099/Training_Flowchart.tif)
+
+
+
 # **Resources for Google Earth Engine**
 - Guides directly from Google Developers
 -   https://developers.google.com/earth-engine/
