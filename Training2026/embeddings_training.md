@@ -50,7 +50,9 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 
 
 # Step 3
-Enter a new header (using comment syntax) for the script and save it as:
+Enter a new header (using comment syntax) for the script and save it as: 'KeoSeima_LandCoverClassification_2024'
+
+
 ```js
 '/* Satellite Embedding Analysis | Keo Seima Wildlife Sanctuary */'
 ```
