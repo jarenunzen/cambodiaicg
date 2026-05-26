@@ -1,6 +1,8 @@
 Access to the Google Earth Engine Code Editor: 
 https://code.earthengine.google.com/
 
+This training section will be completed entirely in Google Earth Engine.
+
 # Step 1   
 Import Data for this training including:
 
