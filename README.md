@@ -72,6 +72,9 @@ Fragmentation
 - Ma, Jun, et al. "Global forest fragmentation change from 2000 to 2020." Nature Communications 14.1 (2023): 3752.
 Ma et al. 2023 Supplementary Information: https://www.nature.com/articles/s41467-023-39221-x#Sec23 
 
-Core Area
+**Core Area**
 - Harper, Karen A., et al. "Edge influence on forest structure and composition in fragmented landscapes." Conservation biology 19.3 (2005): 768-782.
 - Laurance, William F., et al. "Effects of forest fragmentation on recruitment patterns in Amazonian tree communities." Conservation biology 12.2 (1998): 460-464.
+
+**Forest Landscape Integrity Index**
+- 
