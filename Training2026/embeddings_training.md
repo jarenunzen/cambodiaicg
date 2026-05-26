@@ -34,7 +34,7 @@ For more information on **how to upload spatial data (assets) to GEE**, please v
 Refresh the assets tab and import each of the new layers (assets) into a blank script. Rename the layers to:
 
 
-**these variable names are case sensitive**
+**Note: these variable names are case sensitive**
 
 - KSWS
 - cashew
@@ -52,7 +52,7 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 
 
 # Step 3
-Enter a new header (using comment syntax) for the script and save it as: 'KeoSeima_LandCoverClassification_2024'
+Enter a new header (using comment syntax below) for the script and save it as: 'KeoSeima_LandCoverClassification_2024'
 
 
 ```js
@@ -74,32 +74,36 @@ Map.addLayer(water, {color: 'blue'}, 'Water Reference Data');
 Map.addLayer(developed, {color: 'grey'}, 'Developed Reference Data'); 
 Map.addLayer(forest, {color: 'green'}, 'Forest Reference Data'); 
 Map.addLayer(openforest, {color: 'green'}, 'Open Forest Reference Data'); 
-Map.addLayer(grassland, {color: 'green'}, 'Grassland Reference Data'); 
+Map.addLayer(grassland, {color: 'green'}, 'Grassland Reference Data');
+Map.addLayer(othercrop, {color: 'black'}, 'Other Crop Reference Data'); 
 ```
 
 # Step 4
-Load image collection and clip imagery to date range and area of interest.
+Load the image collection and clip the imagery to the date range and area of interest.
+
 ```js
 //----------------------------------------------------------- 
-// IMPORT STUDY AREA AND LOAD DATA
+// 1.0 IMPORT STUDY AREA & EMBEDDINGS
 //----------------------------------------------------------- 
 
 // Study area
-var aoi = ksws 
+var aoi = KSWS 
 
 // Load collection. 
 var dataset = ee.ImageCollection('GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL'); 
 
 
-// Get embedding images for two years. 
+// Get embedding images for 2024. 
 var image1 = dataset 
       .filterDate('2024-01-01', '2025-01-01') 
-      .filterBounds(aoi); 
+      .filterBounds(aoi);
+
+var median = image1.median();
 ```
 
 # Step 5 (Optional)
-Multidimensional vectors (embeddings) are difficult to visualize but we can attempt to visualize
-three bands of the embedding space as an RGB layer.
+Multidimensional vectors (embeddings) are difficult to visualize but we can attempt to visualize three bands of the embedding space as an RGB layer.
+
 ```js
 // Visualize three axes of the embedding space as an RGB. 
 var visParams = {min: -0.3, max: 0.3, bands: ['A01', 'A16', 'A09']}; 
@@ -107,67 +111,230 @@ var median = image1.median().clip(aoi);
 Map.addLayer(median, visParams, '2025 embeddings'); 
 ```
 ![embeddings.png](..%2FImages%2Fembeddings.png)
+
+
 # Step 6
 Merge reference data and select embedding bands.
+**Note: The first 1,000 samples of the merged reference data sample set will be printed to the console. This print function can be modified to review the sample size for each class, in the event of errors in using the reference data**
+
 ```js
-// Merge the training samples into a singular collection 
-var training = forest.merge(openforest).merge(developed).merge(water).merge(cashew).merge(cassava).merge(rubber).merge(paddyrice).merge(grassland); 
+//-----------------------------------------------------------
+// 2.0 BANDS, TRAINING MERGE, & SPECTRAL PATTERN ANALYSIS
+//-----------------------------------------------------------
+// 2.1 Merge all training feature collections
+var training = cashew.merge(cassava).merge(rubber).merge(paddyrice)
+                      .merge(water).merge(developed).merge(forest)
+                      .merge(openforest).merge(grassland).merge(othercrop);
 
-// Embedding Bands
-var bands = ['A00','A01','A02','A03','A04','A05','A06','A07','A08','A09','A10','A11','A12','A13','A14','A15','A16','A17','A18','A19', 
-  'A20','A21','A22','A23','A24','A25','A26','A27','A28','A29','A30','A31','A32','A33','A34','A35','A36','A37','A38','A39','A40','A41','A42','A43','A44', 
-  'A45','A46','A47','A48','A49','A50','A51','A52','A53','A54','A55','A56','A57','A58','A59','A60','A61','A62','A63'];   
+print("Training Data Sample:", training.limit(1000));
 
-var input = median.select(bands); 
+
+// Define the 64 embedding bands
+var bands = [
+  'A00','A01','A02','A03','A04','A05','A06','A07','A08','A09','A10',
+  'A11','A12','A13','A14','A15','A16','A17','A18','A19','A20','A21',
+  'A22','A23','A24','A25','A26','A27','A28','A29','A30','A31','A32',
+  'A33','A34','A35','A36','A37','A38','A39','A40','A41','A42','A43',
+  'A44','A45','A46','A47','A48','A49','A50','A51','A52','A53','A54',
+  'A55','A56','A57','A58','A59','A60','A61','A62','A63'
+];
+
+var input = median.select(bands);
+```
+# Step 7 (Optional)
+Run a spectral pattern analysis using each of the land cover classes and all 64 of the AEF embeddings layer
+```js
+// 2.2 SPECTRAL PATTERN ANALYSIS FUNCTION (ROBUST)
+var runSpectralPatternAnalysis = function(imageInput, trainingVectors, bandNames) {
+  
+  // Sample the image across training locations to get band values associated with 'lclu'
+  var sampledFeatures = imageInput.sampleRegions({
+    collection: trainingVectors,
+    properties: ['lclu'],
+    scale: 10,
+    geometries: false
+  });
+
+  // Map class integer IDs to readable string names
+  var classMetadataList = [
+    {id: 0, name: 'Cashew'},
+    {id: 1, name: 'Cassava'},
+    {id: 2, name: 'Rubber'},
+    {id: 3, name: 'Paddy Rice'},
+    {id: 4, name: 'Water'},
+    {id: 5, name: 'Developed'},
+    {id: 6, name: 'Forest'},
+    {id: 7, name: 'Open Forest'},
+    {id: 8, name: 'Grassland'},
+    {id: 9, name: 'Other Crop'}
+  ];
+
+  // Dynamically build a combined reducer using the exact band names to guarantee correct dictionary outputs
+  var baseReducer = ee.Reducer.mean().setOutputs([bandNames[0]]);
+  var combinedReducer = ee.List(bandNames).slice(1).iterate(function(band, currentReducer) {
+    return ee.Reducer(currentReducer).combine({
+      reducer2: ee.Reducer.mean().setOutputs([band]),
+      sharedInputs: false
+    });
+  }, baseReducer);
+
+  // Loop through each class, compute the mean for all bands, and format into a FeatureCollection
+  var profileFeatures = classMetadataList.map(function(cls) {
+    // Isolate data points belonging exclusively to this specific land cover class
+    var classSubset = sampledFeatures.filter(ee.Filter.eq('lclu', cls.id));
+    
+    // Safety check: Check if the subset actually contains features to avoid empty collection crashes
+    var count = classSubset.size();
+    
+    var meanStats = ee.Dictionary(ee.Algorithms.If(
+      count.gt(0),
+      classSubset.reduceColumns({
+        reducer: combinedReducer,
+        selectors: bandNames
+      }),
+      // Fallback empty dictionary matching the structure if zero points exist
+      ee.Dictionary.fromLists(bandNames, ee.List.repeat(0, bandNames.length))
+    ));
+    
+    // Return a clean feature containing the band mean values and the class name label
+    return ee.Feature(null, meanStats).set('label', cls.name);
+  });
+  
+  // Filter out any completely empty classes that would distort the chart
+  var profileCollection = ee.FeatureCollection(profileFeatures);
+
+  // Define dynamic UI rendering properties for the chart
+  var chartOptions = {
+    title: 'Satellite Embedding Profile Pattern Analysis by Land Cover Class',
+    hAxis: {
+      title: 'Embedding Dimensions (Bands)',
+      titleTextStyle: {italic: false, bold: true}
+    },
+    vAxis: {
+      title: 'Mean Embedding Response Value',
+      titleTextStyle: {italic: false, bold: true}
+    },
+    lineWidth: 2,
+    pointSize: 0, 
+    curveType: 'function' 
+  };
+
+  // Generate the chart object using the valid FeatureCollection
+  var patternChart = ui.Chart.feature.byProperty({
+    features: profileCollection,
+    xProperties: bandNames,
+    seriesProperty: 'label'
+  }).setOptions(chartOptions);
+
+  // Print chart to the GEE console window
+  print('Spectral Pattern Analysis Chart:', patternChart);
+};
+
+// Execute the corrected pattern analysis function
+runSpectralPatternAnalysis(input, training, bands);
 ```
 
-# Step 7
+
+# Step 8
 Split the training and validation data and run the Random Forest classification algorithm. 
 ```js
-//----------------------------------------------------------- 
-// CREATE VALIDATION AND TRAINING DATA
-//----------------------------------------------------------- 
-var trainImage = median.sampleRegions({ 
-  collection: training, 
-  properties: ['lclu'], 
-  scale: 10  
-}); 
+// 3.0 Split the reference data into TRAINING and VALIDATION (70% / 30%)
+var trainImage = median.sampleRegions({
+  collection: training,
+  properties: ['lclu'],
+  scale: 10
+});
 
-// Split the reference data into training and validation 
-var trainingData = trainImage.randomColumn(); 
-var trainSet = trainingData.filter(ee.Filter.lessThan("random", 0.50)); 
-var validationSet = trainingData.filter(ee.Filter.greaterThanOrEquals("random", 0.50)); 
+var trainingData = trainImage.randomColumn();
+var trainSet = trainingData.filter(ee.Filter.lessThan("random", 0.70)); 
+var validationSet = trainingData.filter(ee.Filter.greaterThanOrEquals("random", 0.70));
+
 ```
 
-# Step 8 
-Run the Random Forest Algorithm with 500 trees.
+# Step 9 
+Run the Random Forest Algorithm for both classification and for mapping classification confidence.
+
+Google Developer Page
+(https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest)
+
+Confidence Mapping
+(https://developers.google.com/earth-engine/apidocs/ee-classifier-setoutputmode)
+
+
 ```js
-//----------------------------------------------------------- 
-// RUN THE CLASSIFICATION (RANDOM FOREST)
-//----------------------------------------------------------- 
+//-----------------------------------------------------------
+// 4.0 RANDOM FOREST CLASSIFICATION & CONFIDENCE SCORING
+//-----------------------------------------------------------
+// https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest
 
-// Classification  Model (Run Algorithm) 
-var classifier = ee.Classifier.smileRandomForest(500).train({  // 500 trees  
-  features: trainSet, //training data (# %) 
-  classProperty: 'lclu', // attribute used to distinguish the classes 
-  inputProperties: bands   
-  }); 
+var classifier_rf = ee.Classifier.smileRandomForest(500).train({
+  features: trainSet,
+  classProperty: 'lclu',
+  inputProperties: bands
+});
 
- 
-// Run the Classification on Image Collection 
-var classified = input.classify(classifier).clip(aoi); 
+var classified_rf = input.classify(classifier_rf);
+
+var probabilityClassifier_rf = ee.Classifier.smileRandomForest(500)
+  .setOutputMode('MULTIPROBABILITY') 
+  .train({
+    features: trainSet,
+    classProperty: 'lclu',
+    inputProperties: bands
+  });
+
+var probabilities_rf = input.classify(probabilityClassifier_rf);
+
+var confidence_rf = probabilities_rf.arrayReduce(ee.Reducer.max(), [0])
+                                     .arrayGet([0]); 
+
+// RF METRICS & EXPORTS
+var importance_rf = ee.Dictionary(classifier_rf.explain().get('importance'));
+var sum_rf = importance_rf.values().reduce(ee.Reducer.sum());
+var relativeImportance_rf = importance_rf.map(function(key, val) {
+  return (ee.Number(val).multiply(100)).divide(sum_rf);
+});
+
+var importanceFc_rf = ee.FeatureCollection([ee.Feature(null, relativeImportance_rf)]);
+var chart_rf = ui.Chart.feature.byProperty({ features: importanceFc_rf }).setOptions({
+  title: 'Random Forest Variable Importance',
+  vAxis: {title: 'Importance'},
+  hAxis: {title: 'Bands'}
+});
+print(chart_rf, 'RF Relative Importance');
+
+Export.image.toDrive({
+  image: classified_rf,
+  description: 'KeoSeima_RF_Classification_2024',
+  scale: 10,
+  maxPixels: 1e13,
+  crs: 'EPSG:32648',
+  region: KSWS
+});
+
+Export.image.toDrive({
+  image: confidence_rf,
+  description: 'KeoSeima_RF_Confidence_2024',
+  scale: 10,
+  maxPixels: 1e13,
+  crs: 'EPSG:32648',
+  region: KSWS
+});
+
 ```
 
-# Step 9
+# Step 10
 Create a confusion matrix and assess accuracy of the model.
 ```js
 //----------------------------------------------------------- 
 // ACCURACY ASSESSSMENT
 //----------------------------------------------------------- 
-var confusionMatrix = ee.ConfusionMatrix(validationSet.classify(classifier).errorMatrix({ 
-  actual: "lclu",                           // Use this as the real values (given by the user) 
-  predicted: 'classification'               // This is generated by the classifiers prediction 
-})); 
+var confusionMatrix_rf = ee.ConfusionMatrix(validationSet.classify(classifier_rf).errorMatrix({
+  actual: "lclu",
+  predicted: 'classification'
+}));
+print('RF Confusion Matrix:', confusionMatrix_rf);
+print('RF Overall Accuracy:', confusionMatrix_rf.accuracy());
 
 
 // Values within the matrix will be the individual pixels contained within the provided polygons 
@@ -179,103 +346,256 @@ print(confusionMatrix.accuracy());
 var exportAccuracy = ee.Feature(null, {matrix: confusionMatrix.array()}) 
 ```
 ![matrix.png](..%2FImages%2Fmatrix.png)
-# Step 10
+
+# Step 11
+Run the Extreme Gradient Boosting (XGBoost) Classification and compare the Accuracy
+```js
+//-----------------------------------------------------------
+// 5.0 XGBOOST CLASSIFICATION
+//-----------------------------------------------------------
+var classifier_xgb = ee.Classifier.smileGradientTreeBoost(100).train({
+  features: trainSet,
+  classProperty: 'lclu',
+  inputProperties: bands
+});
+
+var classified_xgb = input.classify(classifier_xgb);
+
+var importance_xgb = ee.Dictionary(classifier_xgb.explain().get('importance'));
+var sum_xgb = importance_xgb.values().reduce(ee.Reducer.sum());
+var relativeImportance_xgb = importance_xgb.map(function(key, val) {
+  return (ee.Number(val).multiply(100)).divide(sum_xgb);
+});
+
+var importanceFc_xgb = ee.FeatureCollection([ee.Feature(null, relativeImportance_xgb)]);
+var chart_xgb = ui.Chart.feature.byProperty({ features: importanceFc_xgb }).setOptions({
+  title: 'XGBoost Variable Importance',
+  vAxis: {title: 'Importance'},
+  hAxis: {title: 'Bands'}
+});
+print(chart_xgb, 'XGBoost Relative Importance');
+
+var confusionMatrix_xgb = ee.ConfusionMatrix(validationSet.classify(classifier_xgb).errorMatrix({
+  actual: "lclu",
+  predicted: 'classification'
+}));
+print('XGBoost Confusion Matrix:', confusionMatrix_xgb);
+print('XGBoost Overall Accuracy:', confusionMatrix_xgb.accuracy());
+```
+
+# Step 12 (Optional)
+Print the structure of the first decision tree to the console
+```js
+//===========================================================
+// EXTRACTION FUNCTION FOR TREE STRUCTURES (CLEAN FIX)
+//===========================================================
+var printFirstDecisionTree = function(classifier, modelName) {
+  // Call .explain() to pull underlying model metadata
+  var explanation = classifier.explain();
+  
+  // Extract the list of tree strings
+  var treeList = ee.List(explanation.get('trees'));
+  
+  // Isolate the very first tree (Index 0)
+  var firstTreeString = ee.String(treeList.get(0));
+  
+  // FIX: Let standard JavaScript handle the text label combination
+  print('=== FIRST TREE STRUCTURE: ' + modelName + ' ===', firstTreeString);
+};
+
+// Execute for Random Forest
+printFirstDecisionTree(classifier_rf, 'Random Forest');
+```
+
+# Step 13
 Add layers to map with comprehensive legend.
 ```js
+//-----------------------------------------------------------
+// 6.0 LEGEND AND MAP DISPLAY
+//-----------------------------------------------------------
+var landcoverPalette = [
+  'DBB024', // cashew (0)
+  'EFDB9A', // cassava (1)
+  'C8C1C0', // rubber (2)
+  '048A52', // paddy rice (3)
+  '2AC8FA', // water (4)
+  'DC5057', // developed (5)
+  '056322', // forest (6)
+  '77AF23', // open forest (7)
+  'BEFF5C', // grassland (8)
+  '6D7E25'  // other crop (9)
+];
 
-//----------------------------------------------------------- 
-// ADD LAYERS TO MAP
-//-----------------------------------------------------------  
-// ROI
-Map.addLayer(ksws, {color: 'black'}, 'KSWS'); 
+var landcoverNames = ['Cashew', 'Cassava', 'Rubber', 'Paddy Rice', 'Water', 'Developed', 'Forest', 'Open Forest', 'Grassland', 'Other Crop'];
 
+var legend = ui.Panel({ style: { position: 'bottom-left', padding: '8px 15px' } });
+var legendTitle = ui.Label({ value: 'Legend', style: { fontWeight: 'bold', fontSize: '16px', margin: '0 0 4px 0' } });
+legend.add(legendTitle);
 
-var landcoverPalette = [ 
-  'DAE089', // Cashew 
-  'BDA544', // Cassava 
-  '827F72', // Rubber 
-  'DE9228', // PaddyRice
-  '287DDE', // Water
-  'DE4328', // Developed
-  '225E16', // Forest
-  '28DE7D', // Openforest
-  'FFA500' //Grassland
-]
+var makeRow = function(color, name) {
+  var colorBox = ui.Label({ style: { backgroundColor: '#' + color, padding: '8px', margin: '0 0 4px 0' } });
+  var description = ui.Label({ value: name, style: { margin: '0 0 4px 6px' } });
+  return ui.Panel({ widgets: [colorBox, description], layout: ui.Panel.Layout.Flow('horizontal') });
+};
 
-// Add a legend 
-var legend = ui.Panel({  
-  style: {  
-    position: 'bottom-left',  
-    padding: '8px 15px',  
-    shown: true  
-  }  
-});  
+for (var i = 0; i < 10; i++) {
+  legend.add(makeRow(landcoverPalette[i], landcoverNames[i]));
+}
+Map.add(legend);
 
-// Create legend title 
-var legendTitle = ui.Label({  
-  value: 'Legend',  
-  style: {  
-    fontWeight: 'bold',  
-    fontSize: '16px',  
-    margin: '0 0 4px 0',  
-    padding: '0'  
-    }  
-});  
+Map.addLayer(KSWS, {color: 'white'}, 'Keo Seima Boundary');
+Map.addLayer(classified_rf.clip(KSWS), {palette: landcoverPalette, min: 0, max: 9}, 'Classification: Random Forest', false);
+Map.addLayer(classified_xgb.clip(KSWS), {palette: landcoverPalette, min: 0, max: 9}, 'Classification: XGBoost', true);
+Map.centerObject(KSWS);
 
-// Add the title to the panel 
-legend.add(legendTitle); 
-
-// Creates and styles 1 row of the legend 
-var makeRow = function(color, name) {  
-  var colorBox = ui.Label({  
-    style: {  
-      backgroundColor: '#' + color,  
-      padding: '8px',  
-      margin: '0 0 4px 0'  
-    }  
-  });  
-
-  // Create the label filled with the description text.  
-  var description = ui.Label({  
-    value: name,  
-    style: {margin: '0 0 4px 6px'},  
-  });  
-
-  // return the panel  
-  return ui.Panel({  
-    widgets: [colorBox, description],  
-    layout: ui.Panel.Layout.Flow('horizontal')  
-  });  
-};  
-
-// Name of the legend 
-var landcoverNames = ['Cashew', 'Cassava', 'Rubber', 'Paddy Rice', 'Water', 'Developed', 'Forest', 'OpenForest', 'OtherCrop', 'Grassland']; 
-
-// Adding the specific number of rows to the legend 
-for(var i = 0; i < 9; i++){ 
-  legend.add(makeRow(landcoverPalette[i], landcoverNames[i])); 
-} 
-
-// Add legend to map 
-Map.add(legend); 
-
-// Add classified layer to the map 
-Map.addLayer(classified, {palette: landcoverPalette, min:1, max:9}, 
-'Classification: Random Forest', false); 
 ```
 ![lulc.png](..%2FImages%2Flulc.png)
-# Step 11
-Export classified image to Google Drive
+
+# Step 14
+Display the land cover classes based on classification confidence (reliability threshold)
 ```js
-//----------------------------------------------------------- 
-// EXPORT TO GOOGLE DRIVE
-//----------------------------------------------------------- 
-Export.image.toDrive({ 
-  image: classified, // Name of the classified image 
-  description: 'KSWS_Classification_2025_AEembeddings',  // File name, will be a GeoTiff format 
-  scale: 10,  // Spatial resolution/pixel size 
-  maxPixels: 1e13,  // Sets a limit on data size... (i.e., max number of pixels) 1e12 is max 
-  crs: 'EPSG:32648', // WGS 84/UTM Zone 48N 
+//-----------------------------------------------------------
+// 7.0 CONFIDENCE MASKING AND DISPLAY OPTIONS
+//-----------------------------------------------------------
+var threshold = 0.70; 
+var confidenceMask = confidence_rf.gte(threshold);
+var classified_rf_masked = classified_rf.updateMask(confidenceMask);
+var classified_xgb_masked = classified_xgb.updateMask(confidenceMask);
+
+Map.addLayer(confidence_rf.clip(KSWS), {
+  min: 0.3, 
+  max: 1.0, 
+  palette: ['black', 'red', 'yellow', 'white']
+}, 'RF Continuous Confidence Score', false);
+
+Map.addLayer(confidenceMask.clip(KSWS), {
+  min: 0, 
+  max: 1, 
+  palette: ['grey', 'green']
+}, 'Confidence Mask (Green = Kept, Grey = Removed)', false);
+
+Map.addLayer(classified_rf_masked.clip(KSWS), {
+  palette: landcoverPalette, 
+  min: 0, 
+  max: 9
+}, 'RF Classification (Masked < ' + (threshold * 100) + '%)', true);
+
+//-----------------------------------------------------------
+// 8.0 INTERACTIVE UI FOR PER-CLASS CONFIDENCE MASKING (COMPLETED)
+//-----------------------------------------------------------
+
+// IDs matching array index logic safely
+var classMetadata = [
+  {id: 0, name: 'Cashew', color: 'DBB024'},
+  {id: 1, name: 'Cassava', color: 'EFDB9A'},
+  {id: 2, name: 'Rubber', color: 'C8C1C0'},
+  {id: 3, name: 'Paddy Rice', color: '048A52'},
+  {id: 4, name: 'Water', color: '2AC8FA'},
+  {id: 5, name: 'Developed', color: 'DC5057'},
+  {id: 6, name: 'Forest', color: '056322'},
+  {id: 7, name: 'Open Forest', color: '77AF23'},
+  {id: 8, name: 'Grassland', color: 'BEFF5C'},
+  {id: 9, name: 'Other Crop', color: '6D7E25'}
+];
+
+var classNamesList = classMetadata.map(function(item) { return item.name; });
+var classMap = {};
+classMetadata.forEach(function(item) { classMap[item.name] = item; });
+
+var controlPanel = ui.Panel({
+  layout: ui.Panel.Layout.flow('vertical'),
+  style: {
+    position: 'bottom-right',
+    padding: '14px',
+    width: '300px',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)'
+  }
+});
+
+var panelTitle = ui.Label({
+  value: 'Class-Specific Confidence Control',
+  style: {fontWeight: 'bold', fontSize: '16px', margin: '0 0 4px 0'}
+});
+var panelDesc = ui.Label({
+  value: 'Filter pixels based on the classification confidence of a specific land cover type.',
+  style: {fontSize: '11px', color: 'gray', margin: '0 0 12px 0'}
+});
+controlPanel.add(panelTitle).add(panelDesc);
+
+// Reactive callback function for UI controls
+var updateMapLayers = function() {
+  var selectedClassName = classSelector.getValue();
+  var thresholdPct = confidenceSlider.getValue();
+  if (!selectedClassName) return; // Guard clause if nothing is picked yet
+  
+  var decimalThreshold = thresholdPct / 100;
+  var targetClassObj = classMap[selectedClassName];
+  
+  // Extract specific class probability layer from the multiprobability array output
+  var arrayIndexPosition = targetClassObj.id; 
+  var classSpecificConfidence = probabilities_rf.arrayGet([arrayIndexPosition]);
+  
+  var isTargetClass = classified_rf.eq(targetClassObj.id);
+  var passesConfidence = classSpecificConfidence.gte(decimalThreshold);
+  var finalClassMasked = classified_rf.updateMask(isTargetClass.and(passesConfidence));
+  
+  var layers = Map.layers();
+  var probLayerName = selectedClassName + ' Raw Probability Map';
+  var maskedLayerName = selectedClassName + ' Masked (Confidence ≥ ' + thresholdPct + '%)';
+  
+  // Track and dynamically refresh layers instead of stacking duplicates
+  var probLayerExists = false;
+  layers.forEach(function(layer) {
+    if (layer.getName().indexOf('Raw Probability Map') !== -1) {
+      layer.setEeObject(classSpecificConfidence.clip(KSWS));
+      layer.setName(probLayerName);
+      probLayerExists = true;
+    }
+  });
+  if (!probLayerExists) {
+    Map.addLayer(classSpecificConfidence.clip(KSWS), {min: 0, max: 1, palette: ['black', 'blue', 'yellow', 'white']}, probLayerName, false);
+  }
+  
+  var maskedLayerExists = false;
+  layers.forEach(function(layer) {
+    if (layer.getName().indexOf('Masked (Confidence') !== -1) {
+      layer.setEeObject(finalClassMasked.clip(KSWS));
+      layer.setName(maskedLayerName);
+      maskedLayerExists = true;
+    }
+  });
+  if (!maskedLayerExists) {
+    Map.addLayer(finalClassMasked.clip(KSWS), {palette: landcoverPalette, min: 0, max: 9}, maskedLayerName, true);
+  }
+};
+
+// Construct UI components and wire up interactive triggers
+var selectorLabel = ui.Label({value: '1. Select Target Class:', style: {fontWeight: 'bold', fontSize: '12px'}});
+var classSelector = ui.Select({
+  items: classNamesList,
+  placeholder: 'Choose a class...',
+  value: 'Forest',
+  onChange: updateMapLayers
+});
+
+var sliderLabel = ui.Label({value: '2. Confidence Threshold (%):', style: {fontWeight: 'bold', fontSize: '12px', margin: '10px 0 0 0'}});
+var confidenceSlider = ui.Slider({
+  min: 0,
+  max: 100,
+  value: 70,
+  step: 5,
+  style: {stretch: 'horizontal'},
+  onChange: updateMapLayers
+});
+
+// Assembly and rendering
+controlPanel.add(selectorLabel).add(classSelector);
+controlPanel.add(sliderLabel).add(confidenceSlider);
+Map.add(controlPanel);
+
+// Initialize the visualization on script execution
+updateMapLayers();
+```
   region: ksws    
 }); 
 ```
