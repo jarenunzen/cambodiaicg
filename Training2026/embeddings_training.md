@@ -3,24 +3,29 @@ https://code.earthengine.google.com/
 
 This training section will be completed entirely in Google Earth Engine.
 
+
+
 # Step 1   
 Import Data for this training including:
 
 - Keo Seima Updated Boundary
-- Cashew reference data
-- Cassava reference data
-- Developed reference data
-- Forest reference data
-- Open Forest reference data
-- Paddy Rice reference data
-- Rubber reference data
-- Water reference data
-- Grasslands reference data
+1. Cashew reference data
+2. Cassava reference data
+3. Rubber reference data
+4. Paddy Rice reference data
+5. Water reference data
+6. Developed reference data
+7. Forest reference data
+8. Open Forest reference data
+9. Grasslands reference data
+10. Other Crop reference data
 
 *This information is located within the 'ReferenceData2025Embeddings' folder of this repository.* 
 
 For more information on **how to upload spatial data (assets) to GEE**, please visit: 
 (https://developers.google.com/earth-engine/guides/manage_assets)
+
+!<img width="1376" height="879" alt="image" src="https://github.com/user-attachments/assets/28e2a61f-9d79-4185-a94b-30ca71c41595" />
 
 
 
