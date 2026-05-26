@@ -34,6 +34,17 @@
     https://doi.org/10.1101/2021.10.26.465837
 
 
+# **Resources for Satellite embeddings Layers**
+Brown et al. 2025 'AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data'
+- https://doi.org/10.48550/arXiv.2507.22291
+
+Introduction to the Satellite Embedding Dataset
+- https://developers.google.com/earth-engine/tutorials/community/satellite-embedding-01-introduction
+
+  
+Earth Engine Data Catalog
+- https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL
+
 # **Resources for Accuracy Assessments**
 Leading Book on Thematic Accuracy
 - Congalton, R.G., & Green, K. (2019). Assessing the Accuracy of Remotely Sensed Data: Principles and Practices, Third Edition (3rd ed.). CRC Press. https://doi.org/10.1201/9780429052729
