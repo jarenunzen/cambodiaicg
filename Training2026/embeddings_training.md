@@ -250,6 +250,11 @@ runSpectralPatternAnalysis(input, training, bands);
 
 # Step 8
 Split the training and validation data and run the Random Forest classification algorithm. 
+
+> [!CAUTION]
+> Users should understand their class-specific amounts of reference data before selecting the realtive split between training and validation data. Each class must maintain a statistically valid amount of reference samples for the classification and accuracy assessment to be reliable.
+
+
 ```js
 // 3.0 Split the reference data into TRAINING and VALIDATION (70% / 30%)
 var trainImage = median.sampleRegions({
