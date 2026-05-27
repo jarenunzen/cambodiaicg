@@ -2,7 +2,7 @@ Access to the Google Earth Engine Code Editor:
 https://code.earthengine.google.com/
 
 
-This training section will be completed entirely in Google Earth Engine.
+This training section will be completed entirely in **Google Earth Engine**.
 
 
 
