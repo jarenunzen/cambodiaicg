@@ -150,6 +150,12 @@ var input = median.select(bands);
 ```
 # Step 7 (Optional)
 Run a spectral pattern analysis using each of the land cover classes and all 64 of the AEF embeddings layer.
+
+> [!TIP]
+> Spectral pattern analyses can help users decipher which bands chaaracterize the greatest and least amount of uniqueness/seperability between defined land cover categories
+> <img width="703" height="861" alt="image" src="https://github.com/user-attachments/assets/fceea64e-2951-4446-a053-3ec23987ed30" />
+
+
 ```js
 // 2.2 SPECTRAL PATTERN ANALYSIS FUNCTION (ROBUST)
 var runSpectralPatternAnalysis = function(imageInput, trainingVectors, bandNames) {
