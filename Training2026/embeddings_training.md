@@ -651,7 +651,8 @@ Map.add(controlPanel);
 
 // Initialize the visualization on script execution
 updateMapLayers();
-```
   region: ksws    
 }); 
 ```
+
+**End**
