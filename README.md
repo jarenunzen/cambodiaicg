@@ -102,5 +102,9 @@ WestVirginiaView Courses
 
 # **Resources for Reforestation Planning**
 COMING SOON
+
+
+
 # **Resources for Water Quality Monitoring**
-COMING SOON
+ARSET Training
+- (https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing)
