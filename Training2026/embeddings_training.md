@@ -344,8 +344,17 @@ Export.image.toDrive({
 
 ```
 
+
+> [!NOTE]
+> Take a second to explore the random forest feature importance graph. Using the pop-out **upper left** you can interact with or export the graphic and/or data. While this tutorial does not rely on feature reduction techniques or feature tuning, this can be a helpful method for better understanding the data and imporving the classification accuracy. **Classification is an iterative process!** 
+
 # Step 10
 Create a confusion matrix and assess accuracy of the model.
+> [!IMPORTANT]
+> The overall and class-specific accuracies should be studied carefully in respect to the projects objectives. The classified maps should only be further analyzed or used for decision making if all types of accuracy are sufficient.
+
+
+
 ```js
 //----------------------------------------------------------- 
 // ACCURACY ASSESSSMENT
@@ -366,6 +375,10 @@ print(confusionMatrix.accuracy());
 
 var exportAccuracy = ee.Feature(null, {matrix: confusionMatrix.array()}) 
 ```
+
+> [!TIP]
+> Russell G. Congalton, A review of assessing the accuracy of classifications of remotely sensed data, Remote Sensing of Environment,
+Volume 37, Issue 1, 1991, Pages 35-46, https://doi.org/10.1016/0034-4257(91)90048-B.
 ![matrix.png](..%2FImages%2Fmatrix.png)
 
 # Step 11
