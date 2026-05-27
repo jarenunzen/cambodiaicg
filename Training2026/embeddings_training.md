@@ -656,3 +656,7 @@ updateMapLayers();
 ```
 
 **End**
+
+
+Return to trainings
+(https://github.com/jarenunzen/cambodiaicg/tree/main)
