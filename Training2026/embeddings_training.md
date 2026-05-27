@@ -63,12 +63,6 @@ Enter a new header (using comment syntax below) for the script and save it as: '
 ![](https://github.com/user-attachments/assets/6722e3cc-9413-4541-8f32-85a02e9ef2e4)
 
 
-> [!TIP]
-> To learn more about the AlphaEarth Foundations (AEF) satellite embeddings dataset visit: [https://developers.google.com/earth-engine/tutorials/community/satellite-embedding-01-introduction](https://medium.com/google-earth/ai-powered-pixels-introducing-googles-satellite-embedding-dataset-31744c1f4650)
-> <img width="1232" height="541" alt="image" src="https://github.com/user-attachments/assets/59c1e8d2-ef3f-4b51-9e9d-0906e95bf79d" />
-
-
-
 
 # Optionally
 Add each of the reference data assets to the new map and visualize them as individual layers. 
@@ -119,6 +113,11 @@ var median = image1.median().clip(aoi);
 Map.addLayer(median, visParams, '2025 embeddings'); 
 ```
 ![embeddings.png](..%2FImages%2Fembeddings.png)
+
+
+> [!TIP]
+> To learn more about the AlphaEarth Foundations (AEF) satellite embeddings dataset visit: [https://developers.google.com/earth-engine/tutorials/community/satellite-embedding-01-introduction](https://medium.com/google-earth/ai-powered-pixels-introducing-googles-satellite-embedding-dataset-31744c1f4650)
+> <img width="1232" height="541" alt="image" src="https://github.com/user-attachments/assets/59c1e8d2-ef3f-4b51-9e9d-0906e95bf79d" />
 
 
 # Step 6
