@@ -120,3 +120,12 @@ Remote Sensing for Water Quality Monitoring: Review Paper
 
 Tonle Sap Lake Landscape
 - (https://storymaps.arcgis.com/stories/88e6aee597914a9eb3e1311f4d5669f9)
+
+
+# **Resources for Drone Spectral Diversity Analysis**
+Fundamentals of Structure-from-Motion
+- Westoby et al. 2012 (https://www.sciencedirect.com/science/article/pii/S0169555X12004217)
+
+**Downey et al. 2023**
+- Publication: (https://www.nature.com/articles/s43247-023-01089-6)
+- Code repo: (https://github.com/downey205/MayaSwiddenIDH-CEE)
