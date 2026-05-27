@@ -354,6 +354,8 @@ Export.image.toDrive({
 
 # Step 10
 Create a confusion matrix and assess accuracy of the model.
+
+
 > [!IMPORTANT]
 > The overall and class-specific accuracies should be studied carefully in respect to the projects objectives. The classified maps should only be further analyzed or used for decision making if all types of accuracy are sufficient.
 
@@ -381,9 +383,15 @@ var exportAccuracy = ee.Feature(null, {matrix: confusionMatrix.array()})
 ```
 
 > [!TIP]
+> For information on the use and understanding of the error matrix review the following paper:
 > Russell G. Congalton, A review of assessing the accuracy of classifications of remotely sensed data, Remote Sensing of Environment,
 Volume 37, Issue 1, 1991, Pages 35-46, https://doi.org/10.1016/0034-4257(91)90048-B.
+
+
 ![matrix.png](..%2FImages%2Fmatrix.png)
+
+
+
 
 # Step 11
 Run the Extreme Gradient Boosting (XGBoost) Classification and compare the Accuracy
@@ -423,9 +431,13 @@ print('XGBoost Overall Accuracy:', confusionMatrix_xgb.accuracy());
 
 # Step 12 (Optional)
 Print the structure of the first decision tree to the console
+
+
+> [!NOTE] GEE does not have a simmple way to generate a decision tree from these classification functions. Users are encouraged to complete these steps through the Python api for the function support of decision tree plotting. 
+
 ```js
 //===========================================================
-// EXTRACTION FUNCTION FOR TREE STRUCTURES (CLEAN FIX)
+// EXTRACTION FUNCTION FOR TREE STRUCTURES
 //===========================================================
 var printFirstDecisionTree = function(classifier, modelName) {
   // Call .explain() to pull underlying model metadata
@@ -437,11 +449,11 @@ var printFirstDecisionTree = function(classifier, modelName) {
   // Isolate the very first tree (Index 0)
   var firstTreeString = ee.String(treeList.get(0));
   
-  // FIX: Let standard JavaScript handle the text label combination
-  print('=== FIRST TREE STRUCTURE: ' + modelName + ' ===', firstTreeString);
+  // Print function
+  print('=== FIRST TREE: ' + modelName + ' ===', firstTreeString);
 };
 
-// Execute for Random Forest
+// First tree for Random Forest
 printFirstDecisionTree(classifier_rf, 'Random Forest');
 ```
 
@@ -489,8 +501,14 @@ Map.centerObject(KSWS);
 ```
 ![lulc.png](..%2FImages%2Flulc.png)
 
-# Step 14
-Display the land cover classes based on classification confidence (reliability threshold)
+# Step 14 (Optional data exploration)
+Display the land cover classes based on classification confidence (reliability threshold).
+
+>[!IMPORTANT]
+>This optional funcitonality for viewing the newly classified layers based on classification confidence can be processing intensive and slow to load. **Users are recommended to turn off the visualization of these new layers or remove this section of the script to imporve the performance of the other sections.** These layers can be seperately downloaded and visualized in ArcGIS Pro or QGIS.
+
+
+
 ```js
 //-----------------------------------------------------------
 // 7.0 CONFIDENCE MASKING AND DISPLAY OPTIONS
@@ -519,7 +537,7 @@ Map.addLayer(classified_rf_masked.clip(KSWS), {
 }, 'RF Classification (Masked < ' + (threshold * 100) + '%)', true);
 
 //-----------------------------------------------------------
-// 8.0 INTERACTIVE UI FOR PER-CLASS CONFIDENCE MASKING (COMPLETED)
+// 8.0 INTERACTIVE UI 
 //-----------------------------------------------------------
 
 // IDs matching array index logic safely
