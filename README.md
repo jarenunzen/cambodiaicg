@@ -97,7 +97,7 @@ Ma et al. 2023 Supplementary Information: https://www.nature.com/articles/s41467
 
 # **Resources for GIS Programming**
 WestVirginiaView Courses
--(https://www.wvview.org/courses.html)
+- (https://www.wvview.org/courses.html)
 
 
 # **Resources for Reforestation Planning**
@@ -108,3 +108,15 @@ COMING SOON
 # **Resources for Water Quality Monitoring**
 ARSET Training
 - (https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing)
+
+SERVIR Water Quality Monitoring in GEE
+- (https://github.com/SERVIR/water-quality-gee)
+
+ODC Water Bodies of Cambodia
+- (https://data.opendevelopmentmekong.net/dataset/water-bodies-in-cambodia)
+
+Remote Sensing for Water Quality Monitoring: Review Paper
+- (https://www.mdpi.com/2072-4292/14/8/1770)
+
+Tonle Sap Lake Landscape
+- (https://storymaps.arcgis.com/stories/88e6aee597914a9eb3e1311f4d5669f9)
