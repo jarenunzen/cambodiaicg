@@ -3,7 +3,11 @@
 <img width="1280" height="720" alt="Training_Flowchart" src="https://github.com/user-attachments/assets/eb2fb1b8-6126-4b95-aa3c-19b8444f4cf0" />
 
 
+
+
 Additional data are tools are available through: (https://www.dropbox.com/scl/fo/ibxt1o9681apd0ynxifxx/ACtx2fSn1udP2xXuW9EbJdo?rlkey=s39kizxr4d7dvzsvldys2jj8u&st=c8ull5h8&dl=0)
+
+
 # **Resources for Google Earth Engine**
 Guides directly from Google Developers
 -   https://developers.google.com/earth-engine/
