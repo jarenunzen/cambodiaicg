@@ -33,13 +33,13 @@ Chaya, V., Poortinga, A., Nimol, K., Sokleap, S., Sophorn, M., Chhin, P., McMaho
     https://doi.org/10.3390/rs13122237
     https://doi.org/10.1101/2021.10.26.465837
 
-Random Forest Classification
+**Random Forest** Classification
 Breiman, L. Random Forests. Machine Learning 45, 5–32 (2001). https://doi.org/10.1023/A:1010933404324 
 
 Extreme Gradient Boosting (XGBoost) Classification
 Chen and Guestrin, 2016 https://doi.org/10.48550/arXiv.1603.02754
 
-XGBoost Classiifcation Explained
+**XGBoost** Classiifcation Explained
 - https://medium.com/@fraidoonomarzai99/xgboost-classification-in-depth-979f11ef4bf9
 
 
@@ -83,8 +83,19 @@ Ma et al. 2023 Supplementary Information: https://www.nature.com/articles/s41467
 
 **Core Area**
 - Harper, Karen A., et al. "Edge influence on forest structure and composition in fragmented landscapes." Conservation biology 19.3 (2005): 768-782.
+
 - Laurance, William F., et al. "Effects of forest fragmentation on recruitment patterns in Amazonian tree communities." Conservation biology 12.2 (1998): 460-464.
 
 **Forest Landscape Integrity Index**
 - WCS Homepage https://www.wcs.org/our-work/forest-landscape-integrity-index
 
+
+# **Resources for GIS Programming**
+WestVirginiaView Courses
+-(https://www.wvview.org/courses.html)
+
+
+# **Resources for Reforestation Planning**
+COMING SOON
+# **Resources for Water Quality Monitoring**
+COMING SOON
