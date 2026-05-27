@@ -52,7 +52,7 @@ Refresh the assets tab and import each of the new layers (assets) into a blank s
 
 
 # Step 3
-Enter a new header (using comment syntax below) for the script and save it as: 'KeoSeima_LandCoverClassification_2024'
+Enter a new header (using comment syntax below) for the script and save it as: 'KeoSeima_LandCoverClassification_2024'.
 
 
 ```js
@@ -133,7 +133,7 @@ var training = cashew.merge(cassava).merge(rubber).merge(paddyrice)
                       .merge(water).merge(developed).merge(forest)
                       .merge(openforest).merge(grassland).merge(othercrop);
 
-print("Training Data Sample:", training.limit(1000));
+print("Training Data:", training.limit(1000));
 
 
 // Define the 64 embedding bands
@@ -149,7 +149,7 @@ var bands = [
 var input = median.select(bands);
 ```
 # Step 7 (Optional)
-Run a spectral pattern analysis using each of the land cover classes and all 64 of the AEF embeddings layer
+Run a spectral pattern analysis using each of the land cover classes and all 64 of the AEF embeddings layer.
 ```js
 // 2.2 SPECTRAL PATTERN ANALYSIS FUNCTION (ROBUST)
 var runSpectralPatternAnalysis = function(imageInput, trainingVectors, bandNames) {
