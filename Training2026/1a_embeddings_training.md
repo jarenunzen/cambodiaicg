@@ -657,6 +657,9 @@ updateMapLayers();
 
 **End**
 
+>[!NOTE]
+> This tutorial can be quickly revised to produce land cover maps for additional years (e.g., 2017). The deforestation training and subsequent sections relies on a secondary map (a sample map is provided). When adjusting the script, be sure to also review and/or update the reference data for each land cover class to match the change in date. Relying on a single set of reference data for clqssifying multiple years of imagery can lead to bias or error. 
+
 
 Return to trainings
 (https://github.com/jarenunzen/cambodiaicg/tree/main)
