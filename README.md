@@ -5,7 +5,7 @@
 
 
 
-Additional data are tools are available through: (https://www.dropbox.com/scl/fo/ibxt1o9681apd0ynxifxx/ACtx2fSn1udP2xXuW9EbJdo?rlkey=s39kizxr4d7dvzsvldys2jj8u&st=c8ull5h8&dl=0)
+/Additional data are tools are available through: (https://www.dropbox.com/scl/fo/ibxt1o9681apd0ynxifxx/ACtx2fSn1udP2xXuW9EbJdo?rlkey=s39kizxr4d7dvzsvldys2jj8u&st=c8ull5h8&dl=0)
 
 
 # **Resources for Google Earth Engine**
