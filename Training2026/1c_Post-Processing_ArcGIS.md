@@ -1,6 +1,8 @@
 ## The following is a guide for Post-Processing of the Google Earth Engine land cover products. This tutorial should be completed before conducting the Deforestation Analysis
 
-Post Processing of the land cover maps (all 9: 2016-2024) is used here to create both Raster and Vector products cklipped to the users' desired spatial extent which can be used for further analysis. A secondary goal of this guide is to include basic cleaning and review of the maps which were generated during the GEE analysis. All pixel-based classifications contribute some amount of noise to the final product. We will use some ArcGIS tools to mitigate this noise. 
+**An ArcGIS Pro Package for this (and subsequent) tutorials is available at: (https://www.dropbox.com/scl/fo/ibxt1o9681apd0ynxifxx/ACtx2fSn1udP2xXuW9EbJdo?rlkey=s39kizxr4d7dvzsvldys2jj8u&st=ceu5ru5k&dl=0)**
+
+Post Processing of the land cover maps is used here to create both Raster and Vector products cklipped to the users' desired spatial extent which can be used for further analysis. A secondary goal of this guide is to include basic cleaning and review of the maps which were generated during the GEE analysis using tools that were not easily accessible in that format. All pixel-based classifications contribute some amount of noise to the final product. We will use some ArcGIS tools to mitigate this noise. 
 
 # Step 1   
 Import Data for this training including:
