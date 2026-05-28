@@ -437,7 +437,8 @@ print('XGBoost Overall Accuracy:', confusionMatrix_xgb.accuracy());
 Print the structure of the first decision tree to the console
 
 
-> [!NOTE] GEE does not have a simmple way to generate a decision tree from these classification functions. Users are encouraged to complete these steps through the Python api for the function support of decision tree plotting. 
+>[!NOTE]
+>GEE does not have a simmple way to generate a decision tree from these classification functions. Users are encouraged to complete these steps through the Python api for the function support of decision tree plotting. 
 
 ```js
 //===========================================================
