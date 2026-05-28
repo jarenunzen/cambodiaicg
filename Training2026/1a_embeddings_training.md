@@ -660,6 +660,30 @@ updateMapLayers();
 }); 
 ```
 
+
+# Step 15 
+Use the 'Tasks' pane on the right side to export the classified map (raster layer) to Google Drive. Once the task has been started (Figure 2 below) users can close their GEE window (task will run on server side). 
+
+>[!CAUTION]
+>Classified raster layers of this size should be small enough (file size) to export and download for any Google Account (< 1GB each). For exporting multiple years of land cover maps OR **for exporting the embeddings mosaic** users will need a Google Account with greater stroage limited (> 100 GB). Such task may also take a longer time to complete (~50 minutes). 
+
+**1.**
+<img width="1181" height="479" alt="image" src="https://github.com/user-attachments/assets/a4631d0e-f201-4aee-bea9-f6d9d7a3ce4f" />
+
+
+**2.**
+<img width="1121" height="1448" alt="image" src="https://github.com/user-attachments/assets/96dcadba-b9ae-4e51-9558-0285943fe4e0" />
+
+
+<img width="1142" height="109" alt="image" src="https://github.com/user-attachments/assets/35f6958d-0a03-42f6-b7c6-1efabaf12052" />
+
+
+**3.**
+<img width="1119" height="604" alt="image" src="https://github.com/user-attachments/assets/e62729a8-568d-43c5-b491-d5563b5d98d1" />
+
+
+
+
 ## **End**
 
 >[!NOTE]
