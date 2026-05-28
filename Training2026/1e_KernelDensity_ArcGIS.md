@@ -11,19 +11,24 @@ The goal of this training is to estimate the density of change across Keo Seima 
 These three analyses will help us understand where the areas of greatest concern are, based on the density of change in a given area. Furthermore, the latter sections will help visualize temporal trends and highlight where specific land cover types are most vulnerable to change.
 
 **Guide to Kernel Density:**
+
 (https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-kernel-density-works.htm)
 
 <img width="1563" height="765" alt="image" src="https://github.com/user-attachments/assets/841c6dec-b6ad-45f3-833a-9ca9950f7094" />
 
+
+<img width="1689" height="960" alt="image" src="https://github.com/user-attachments/assets/b67cfd22-4fdb-485b-a931-18af183a173b" />
+
+
+#
 # Step 1
-Download and Open either the **ArcGIS Project Package for Kernel Density** or the **Input data** folder. 
+Download and Open the **ArcGIS Project Package** or continue your work from the previous **1d_ChangeDetection** tutorial. 
 
 # Step 2
-Provided in Part 1 group in the contents pane are a raster and shapefile containing the full 9-year change detection results. Symbolize the layers and open their attribute table to explore the data that they contain. 
+Provided in **Post-Processed Land Cover** group in the contents pane are a raster and shapefile containing the change detection results. Symbolize the layers and open their attribute table to explore the data that they contain. 
 
-Additionally, there is a shapefile provided that represents that boundary of KSWS located outside of the Part 1 group layer in the contents pane.
+<img width="2604" height="1366" alt="image" src="https://github.com/user-attachments/assets/304fc06d-88ea-431d-aac5-c7be2f500ded" />
 
-Both of these can be found within the **ArcGIS Pro Project Package**.
 
 # Step 3
 >[!Note]
@@ -32,7 +37,7 @@ Both of these can be found within the **ArcGIS Pro Project Package**.
 
 Open the **Raster to Point** tool in the geoprocessing toolbox. 
 
-Convert the raster cells to points, based on the value field. 
+Convert the raster cells to points, **based on the value field** (land cover class). 
 
 This will create a new point feature layer where every cell in the raster dataset will be assigned a point. This may take some time to process and visualize. 
 
@@ -44,13 +49,13 @@ This will create a new point feature layer where every cell in the raster datase
 In the Geoprocessing Toolbox, search for and select the **Kernel Density tool**.
 
 >[!WARNING]
->This step will take a significant amount of time to process. For the purpose of this training the output file is provided.  To see what the output looks like open the “KernelDensity_2016to2024” file. This shows the hotpots of change across the 9 years.
+>This step will take a significant amount of time to process (several minutes or more). For the purpose of this training the output file is provided.  To see what the output looks like open the “KernelDensity_AllDeforestation” file. This shows the hotpots of change across the 9 years.
 
-A)	**Input point or polyline features:** select the newly created point feature layer (i.e. Deforestation_2016to2024_Point)
+A)	**Input point or polyline features:** select the newly created point feature layer (i.e. Deforestation_2017to2024_Point)
 
 B)	**Population field:** NONE
 
-C)	**Output Raster:** provide a logical name (KernelDensity_2016to2024)
+C)	**Output Raster:** provide a logical name (KernelDensity_AllDeforestation)
 
 D)	**Output cell size:** 10
 
@@ -64,14 +69,19 @@ H)	**Method:** Planar
 
 I)	**Input barrier features:** KSWS_2023F_WGS84
 
-# Step 5
+# Step 5 (optional, if completing a multi-step analysis)
 Open the point layer created during Step 3 **(Raster to Point Output)**. Use the **Select by Attribute** tool to select the deforestation modeled between 2020 and 2024. 
 
 <img width="2059" height="1643" alt="image" src="https://github.com/user-attachments/assets/1538b68f-4398-4952-bf70-799ce465cea9" />
 
 # Step 6
 Repeat Step 4 **(Kernel Density)** using this new, more recent, output from Step 5. 
-> 
+
+# Step 7 (optional)
+Use the **Select by Attribute** tool to select each of the 'Class_from' value 8, then rerun the Kernel Density analysis from Step #4. This allows us to look at the loss of Open Forest (gridcode = 8) independnetly. This step can be rerun for 'Class_from' = 7 (Dense Forest) or 'Class_from' = 9 (Grasslands). 
+
+<img width="1531" height="1532" alt="image" src="https://github.com/user-attachments/assets/00545943-04ec-496f-888b-ac39d94169e1" />
+
 
 
 # Discussion Question
@@ -86,4 +96,10 @@ Repeat Step 4 **(Kernel Density)** using this new, more recent, output from Step
 
 <img width="1419" height="832" alt="image" src="https://github.com/user-attachments/assets/b282bc55-6ce2-4c6d-b1bf-490b0f1268c3" />
 
-#### 3) If we wanted to apply the Kernel Density to a singular crop cover type, how would we adapt the methods? 
+### 3) Image how you could more dynamicallu track types or causes of land cover conversion using the Emerging Hot Spot Analysis toolset.
+<img width="1531" height="1532" alt="image" src="https://github.com/user-attachments/assets/11040f77-7bce-4654-8725-d91c120e1b8c" />
+
+#
+Return to trainings
+(https://github.com/jarenunzen/cambodiaicg/tree/main)
+
