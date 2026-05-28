@@ -10,16 +10,15 @@ Import Data for this training including:
 - Raster land cover maps from the GEE tutorial (.tif)
 
 
-**Both are located in the Training 2026 Data folder**
+**Both files are located in the Training 2026 Data folder**
 
 <img width="1956" height="1374" alt="image" src="https://github.com/user-attachments/assets/9b75fedc-e72d-4a36-a475-e17abbd0cdb0" />
 
 
 # Step 2
 Use the **Raster to Polygon Tool** to convert each of the outputs from Google Earth Engine to polygon (vector) datasets. 
-> This step must be run on: 2016.tif, 2017.tif, 2018.tif, 2019.tif, 2020.tif, 2021.tif, 2022.tif, 2023.tif, 2024.tif
+> This step must be run on: all years (e.g., 2017.tif and 2024.tif
 
-> Procesing time per layer: ##minutes
 
 -**Input:** 2024 land cover raster output from GEE
 
@@ -30,7 +29,8 @@ Use the **Raster to Polygon Tool** to convert each of the outputs from Google Ea
 -**Simplify Polygons:** NO
 
 -**Create Multipart Feature:** NO
-
+>[!WARNING]
+>You must select **NO** for multipart features for this tutorial to work. 
 
 >[!TIP]
 >If this step takes a long time to process each layer, you can also choose to clip the data to the Keo Seima boundary before performing this conversion. Either the **Extract by Mask** or **Raster Clip** tools will work for this task, as long as you clip to the vector layer boundary.
@@ -38,14 +38,17 @@ Use the **Raster to Polygon Tool** to convert each of the outputs from Google Ea
 <img width="760" height="1514" alt="image" src="https://github.com/user-attachments/assets/bf05bdb7-2751-454b-a01c-0e86a088490e" />
 
 # Step 3
-**Clip** the new vector output from Step #2 to the Keo Seima boundary layer.
-> This step must be run on: 2016.shp, 2017.shp, 2018.shp, 2019.shp, 2020.shp, 2021.shp, 2022.shp, 2023.shp, 2024.shp
+**Clip, using the Extract by Mask tool** the new vector output from Step #2 to the Keo Seima boundary layer.
+> This step must be run on: all years (2017.tif and 2024.tif
+
+<img width="719" height="1071" alt="image" src="https://github.com/user-attachments/assets/7922d0b4-d7d7-4452-a45c-24911276902a" />
+
 
 <img width="959" height="562" alt="image" src="https://github.com/user-attachments/assets/21c5641c-85ca-4dbc-9c14-854b56c9a328" />
 
 
 # Step 4
-Create a new Field using the attribute table. Name this field **"hectares"** with a TYPE of **float**. 
+Create a new Field within this layers attribute table to store the area of each feature. Name this field **"hectares"** with a TYPE of **float**. 
 
 <img width="1704" height="650" alt="image" src="https://github.com/user-attachments/assets/5f13233b-7cba-4e86-a466-32d41fda9f3e" />
 
@@ -54,10 +57,13 @@ Create a new Field using the attribute table. Name this field **"hectares"** wit
 >Using any other number (integer) or text type will not allow you to calculate polygon-specific sizes with decimal point values. 
 
 # Step 5
-In the attribute table **Calculate the Geometry** of the new attribute (field) using the Geodesic area and **hectares** unit. 
+In the attribute table **Calculate the Geometry** of the new attribute (field) using the **Area (Geodesic)** and **hectares** unit. 
 
 >[!TIP]
 >Calculating the geoemtry of several hundred thousand polygons may take several minute or longer. This processing, which is necessary for each year, can be conducted simultaneously with Geoprocessing tools though. To save times, users are encouraged to intermix attribute-based calculations and geoprocessing tools for the remainder of this tutorial.
+
+
+<img width="941" height="811" alt="image" src="https://github.com/user-attachments/assets/e460f447-246d-436b-913d-ab9b7436ed43" />
 
 # Step 6
 Once the area of all polygons within a layer has been calculated, use the **Select By Attributes** tool to set the Expression:
