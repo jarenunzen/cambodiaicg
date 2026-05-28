@@ -9,10 +9,10 @@
 
 #
 ```js
-/* QUick Visualization of common water quality parameters */
+/* Quick Visualization of common water quality parameters */
 
 // =========================================================================
-// 1. QUERY SENTINEL 2 IMAGERY AND CLIP TO 'lake'
+// 1. QUERY SENTINEL 2 IMAGERY AND CLIP TO 'lake' (asset)
 // =========================================================================
 var s2Collection = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
   .filterBounds(lake)
