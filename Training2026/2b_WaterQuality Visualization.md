@@ -2,8 +2,8 @@
 
 **Metadata about Sentinel 2 (Harmonized) Surface Reflectance Imagery**
 
-
 (https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED#bands)
+
 
 
 
