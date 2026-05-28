@@ -8,6 +8,8 @@ Post Processing of the land cover maps is used here to create both Raster and Ve
 Import Data for this training including:
 - Boundary file for Keo Seima (.shp)
 - Raster land cover maps from the GEE tutorial (.tif)
+
+
 **Both are located in the Training 2026 Data folder**
 
 <img width="1956" height="1374" alt="image" src="https://github.com/user-attachments/assets/9b75fedc-e72d-4a36-a475-e17abbd0cdb0" />
