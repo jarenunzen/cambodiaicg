@@ -11,11 +11,11 @@ In the final steps, we will also look through a selection of summary statistics 
 
 
 # Step 1
-Begin by downloading and unpacking the ArcGIS Pro Project Package (.ppkx) for this tutorial titled **'KeoSeima_LandCover_ChangeDetection'**.
+Begin by downloading and unpacking the ArcGIS Pro Project Package (.ppkx) for this tutorial withing the **DATA folder** for the 2026 Training.
 
 ALTERNATIVELY 
 
-You can choose to download and add the **'Change Detection INput Data'** layers to a blank map in ArcGIS Pro. 
+You can choose to continue with the end results from the **Post-Processing tutorial**. 
 
 >[!NOTE]
 >Both the raster and vector layers will be needed to complete the final summary statistics for this guide. All datasets are the finalized products created during the previous **Post Processing** training. 
@@ -32,13 +32,12 @@ Symbolize the land cover raster layers. Use the **Unique Values** symbology opti
 >be used in many of the upcoming steps.
 
 # Step 3
-**Import the Symbology** to your other land cover maps. Once all 9 have been symbolized, spend a few minutes exploring and comparing the data layers to gain an appreciation for the degree of change and relative locations of change in land cover. 
+**Import the Symbology** to your other land cover maps so that each layer has appropriate colors. Once they have been symbolized, spend a few minutes exploring and comparing the data layers to gain a (qualitative) appreciation for the degree of change and relative locations of change in land cover. 
 
 <img width="1625" height="1559" alt="image" src="https://github.com/user-attachments/assets/b44c9b43-e480-4771-b637-68004a902c5f" />
 
 # Step 4
-Open the geoprocessing toolbox and use the **Compute Change Raster** tool to generate the change in land cover for each respctive annual change.
-- [ ] 2016 to 2017
+Open the geoprocessing toolbox and use the **Compute Change Raster** tool to generate the change in land cover for each respctive (annual, if available) change.
 - [ ] 2017 to 2018
 - [ ] 2018 to 2019
 - [ ] 2020 to 2021
@@ -49,23 +48,27 @@ Compute the **'Categorial Change'** for each time period based on:
 - **Changes from:** Forest, Open Forest, Grasslands
 - **To Classes:** Cashew, Cassava, Rubber, Paddy Rice
 
-<img width="427" height="1267" alt="image" src="https://github.com/user-attachments/assets/3388b8be-7b1f-4d01-9d1d-5e0671d238d6" />
+<img width="707" height="1669" alt="image" src="https://github.com/user-attachments/assets/e4048635-278e-489c-aa6d-dc4397e1940f" />
+
+
+>[!CAUTION]
+>Running the compute change detection tool on all types of change (all From and all To classes selected) will result in a complicated output layer which can be difficult to organize. It can be easier to create selective change layers as shown here. 
 
 # Step 5
 Open the attribute table for each of the new change detection layers. 
 
 Examine the various rows (features) and assess the types of 'change' attributes that are recorded. 
 
-Row 7 (Other), are all the pixels that were determined to have no change between the two years. This row must be deleted.
+The last row (7 here), are all the pixels that were determined to have no change between the two years. **This row must be deleted during this step!**
 
 Select the “Other” row and press “delete” at the top of the attribute table.
 
-Perform this for each of the 7 change detection raster.
+Perform this for each of the change detection rasters.
 
 <img width="1092" height="310" alt="image" src="https://github.com/user-attachments/assets/40eab661-f153-422d-8892-2b83ec6edb54" />
 
 # Step 6
-Use the **Raster to Polygon** tool to convrt each of the change rasters to a vector layer. 
+Use the **Raster to Polygon** tool to convert each of the change rasters to a vector layer. 
 
 Select the **Class_Name** attribute as the **Field**.
 
@@ -73,16 +76,17 @@ Uncheck **"Simplify Polygons"** but Check **'Create multipart features'**
 
 <img width="759" height="726" alt="image" src="https://github.com/user-attachments/assets/3447a1ea-4a5c-4b0c-a602-492dd80c2c59" />
 
-# Step 7
+# Step 7 (optional, only relevant if more than 1 time step is being processed)
 Add a new field of type **Long** to each new polygon layer called **'YEAR'**. Use this field to define the year of change (forest loss). 
 
 For example, if forest, open forest, or grasslands were converted to cashew in the 2017 to 2018 change layer, the change would be in 2018. 
 
 <img width="1040" height="794" alt="image" src="https://github.com/user-attachments/assets/ac23dd00-a425-4a4c-9e74-0f056766fc3b" />
 
+
 > **Discussion Point:** Is it more important from a users' perspective to analyze the land cover class first attributed to each land cover change OR the land cover class currently residing in areas of change? 
 
-# Step 8
+# Step 8 (optional, if completing step #7)
 Use the **Dissolve** or **Pairwise Dissolve** tool to represent land cover change as a singular type for each of the respective years. 
 
 Use the 'YEAR' field from Step 7 as the **'Dissolve Fields'** and Enable the 'Create multipart feature' setting. 
@@ -91,15 +95,16 @@ Use the 'YEAR' field from Step 7 as the **'Dissolve Fields'** and Enable the 'Cr
 
 <img width="764" height="927" alt="image" src="https://github.com/user-attachments/assets/cc464ff7-47a4-464f-a531-273dca00d920" />
 
-# Step 9
+# Step 9 (optional, if completing Steps #7 and #8)
 **Merge** each of the change detection into a single output file. Make sure to name this file in a logical manner. 
+
 
 # Step 10
 > * *(1) Think about where this newly combined change layer may be overestimating the amount of change to croplands throughout the study region.* 
 >
 > * *(2) Also consider where we may be able to control for overestimated (comission) in the change layer.* 
 
-Use the **Erase** or **Pairwise Erase** tool to selectively remove the the 2024 forests, open forests, and grasslands from the change layer. 
+Use the **Erase** or **Pairwise Erase** tool to selectively remove the the 2024 forests, open forests, and grasslands from the change layer. This ensures that any deforested/lost areas, as depicted in the change layers, do not overlap with areas that are most currently still forest, open forest, or grasslands. 
 
 # Step 11
 Repeat the previous steps, this time **Erasing** the 2016 crop cover types (gridcode values 1, 2, 3, and 4). 
@@ -127,6 +132,12 @@ Symbolize and explore the change detection raster from Step 13.
 > Think carefully about the symbology here. *What color gradients work best for your audience/reports?*  
 
 <img width="140" height="355" alt="image" src="https://github.com/user-attachments/assets/b308dcc4-52d0-496f-8fb0-4527078e013e" />
+
+<img width="1634" height="1434" alt="image" src="https://github.com/user-attachments/assets/b839193f-d4a0-478d-99dd-0793b7e89d46" />
+
+
+>[!NOTE]
+>Steps #15 and #16 are optional, are allow the user to contribute the deforested areas to specific land cover categories). 
 
 # Step 15
 **Intersect** the change detection polygon layer with the 2016 land cover: selected for the forest, open forest, and grassland classes. 
@@ -166,3 +177,7 @@ Return to Step 7 and to select and export **(Data -> Export Data):**
 Convert both of the layers created in Step 18 to raster using the **Polygon to Raster** tool. 
 
 Select 'YEAR' as the field and a 10m pixel spatial resolution. 
+
+#
+Return to trainings
+(https://github.com/jarenunzen/cambodiaicg/tree/main)
