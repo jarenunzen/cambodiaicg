@@ -30,6 +30,10 @@ Symbolize the land cover raster layers. Use the **Unique Values** symbology opti
 >It will likely be helpful to wite down the land cover class values (1-9) somewhere easily
 >accessible throughout the remainder of this tutorial. These interger values (gridcode/value) will
 >be used in many of the upcoming steps.
+><img width="681" height="776" alt="image" src="https://github.com/user-attachments/assets/4261a353-5f6e-4780-a011-756985322d3f" />
+
+
+
 
 # Step 3
 **Import the Symbology** to your other land cover maps so that each layer has appropriate colors. Once they have been symbolized, spend a few minutes exploring and comparing the data layers to gain a (qualitative) appreciation for the degree of change and relative locations of change in land cover. 
