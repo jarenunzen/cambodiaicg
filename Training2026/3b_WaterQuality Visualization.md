@@ -4,10 +4,10 @@
 
 (https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED#bands)
 
-
+#
 <img width="3164" height="1595" alt="image" src="https://github.com/user-attachments/assets/36f8006c-b4ea-43e4-a3fe-8c86bb715285" />
 
-
+#
 ```js
 /* QUick Visualization of common water quality parameters */
 
