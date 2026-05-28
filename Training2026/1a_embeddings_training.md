@@ -275,10 +275,14 @@ Run the Random Forest Algorithm for both classification and for mapping classifi
 > [!TIP]
 > Review either of the following links to learn moure about classification and classification confidence analyses.
 > Google Developer Page
+>
+> 
 > (https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest)
 >
 >
 > Confidence Mapping
+>
+> 
 > (https://developers.google.com/earth-engine/apidocs/ee-classifier-setoutputmode)
 
 
