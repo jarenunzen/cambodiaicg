@@ -352,7 +352,8 @@ Export.image.toDrive({
 <img width="1272" height="594" alt="AdobeExpressPhotos_6cc6029567554f4095690fc578013789_CopyEdited" src="https://github.com/user-attachments/assets/e6931abd-fe20-4de4-bcc0-3fc898e595f0" />
 
 
-> [!NOTE] Take a second to explore the **random forest feature importance graph**. Using the pop-out **upper left** you can interact with or export the graphic and/or data. While this tutorial does not rely on feature reduction techniques or feature tuning, this can be a helpful method for better understanding the data and imporving the classification accuracy. **Classification is an iterative process!**
+>[!NOTE]
+>Take a second to explore the **random forest feature importance graph**. Using the pop-out **upper left** you can interact with or export the graphic and/or data. While this tutorial does not rely on feature reduction techniques or feature tuning, this can be a helpful method for better understanding the data and imporving the classification accuracy. **Classification is an iterative process!**
 
 
 # Step 10
