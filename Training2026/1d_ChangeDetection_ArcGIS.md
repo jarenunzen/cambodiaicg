@@ -1,3 +1,7 @@
+<img width="1752" height="1055" alt="image" src="https://github.com/user-attachments/assets/0d99aebd-8fee-4263-a944-dd80a0340453" />
+**Figure 1.** Deforestation in Keo Seima based on 2017-2024 embeddings change detection. 
+
+
 Measuring change over time is a fundamental application of Land Cover and Land Use maps. In this tutorial, we will work with the land cover maps (primarily in raster format) to look at the relative changes in natural lands (forest, open forest, and grassland) and croplands (cashew and cassava) throughout Keo Seima.
 
 In the final steps, we will also look through a selection of summary statistics that can be generated using the combination of the land cover maps and change layer. 
