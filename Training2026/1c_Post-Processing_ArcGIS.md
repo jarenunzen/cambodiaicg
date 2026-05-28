@@ -107,3 +107,7 @@ As desired, provide symbology for the land cover **Polygon** and **Raster** laye
 >The **Import Symbology** OR **Import Symbolgy from Layer** menu option (found in the upper-right of the Symbology pane) can be used to apply the symbology from one raster opr vector layer to another. This can save considerable time within this menu when creating symbology for multiple years.
 
 <img width="864" height="1561" alt="image" src="https://github.com/user-attachments/assets/1232eb34-4cfa-4e5d-94d5-abe843fb9b68" />
+
+#
+Return to trainings
+(https://github.com/jarenunzen/cambodiaicg/tree/main)
