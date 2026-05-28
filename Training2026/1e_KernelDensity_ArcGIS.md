@@ -2,7 +2,7 @@
 
 The goal of this training is to estimate the density of change across Keo Seima and visualize the hotspots at which this change occurs. This will be done in **three main sections:** 
 
-#### 1) Estimating the Density of Change Across the 9-year Period: This will involve calculating the overall density of all changes that occurred across the entire 9-year period.
+#### 1) Estimating the Density of Change Across the change Period: This will involve calculating the overall density of all changes that occurred across the entire 7-year period.
 
 #### 2) Visualizing the Shifts in Hotspots: This will involve creating biannual Kernel Density maps for individual change detection maps, providing insight into how hotspots have shifted over time.
 
