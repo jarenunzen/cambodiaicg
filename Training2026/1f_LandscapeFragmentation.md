@@ -1,4 +1,4 @@
-# **Quantifying Landscape Structure – Fragmentation and Connectivity within KSWS**
+# Quantifying Landscape Structure – Fragmentation and Connectivity within KSWS
 
 **Objective:** To quantify the degree of fragmentation within Keo Seima Wildlife Sanctuary (KSWS) in the years 2017 and 2024 (based on the outputs of tutorial 1b). The focus will be on the forest, open forest, grassland, and cropland cover types. Additionally, we will explore the change in core forest area within KSWS between our focal years. This training will cover how to use previously generated landcover datasets to understand the landscape structure (composition and configuration) within each year, and how it has changed overtime, from 2017 to 2024. The training will be conducted in **ArcGIS Pro** and **Microsoft Excel**. 
 
@@ -8,11 +8,25 @@
 - Provided Microsoft Excel spreadsheet 'Landcover2024_SumStats_Excel' (Training 2026 DATA folder).
 
 ### Optional Pre-Processing:
-This section relies on a simplifed classification scheme in comparison to the raster layers used throughout the earlier tutorials. The original 10-class schema for Keo Seima must be **recoded** to: Cropland, Forest, Open Forest, Grassland, and Other. The provided ArcGIS Pro package contains both the classified rasters from the previous tutorials as well as the recoded (simplifed) classified rasters.
+This section relies on a simplifed classification scheme in comparison to the raster layers used throughout the earlier tutorials. The original 10-class schema for Keo Seima must be **recoded** to: Cropland, Developed, Forest, Open Forest, Grassland, and Water. The provided ArcGIS Pro package contains both the classified rasters from the previous tutorials as well as the recoded (simplifed) classified rasters.
 - The Cropland class contains the following classes: Cashew, Cassava, Rubber, Paddy Rice
-- The Other class contains the following classes: Developed and Water
+
 #
 # Fragmentation (Part I)
 
 ### Step 1
+Convert the simplified (6 class) land cover **rasters to polygons** (vector), then **Dissolve** by gridcode. 
+<img width="868" height="952" alt="image" src="https://github.com/user-attachments/assets/53c5e588-9d14-4b72-a7e1-d9ad2ebf8a7e" />
+
+### Step 2
+Run the **Multipart to Singlepart** tool on the vector layers from Step #1 to disconnect the multipart polygons for each land cover classes. 
+
+<img width="1030" height="712" alt="image" src="https://github.com/user-attachments/assets/9f9965ae-e5e9-4e7c-aaa5-73924a23ca16" />
+
+### Step 3
+Open the attribute tables for this new layer and **Add two new fields:**
+1. Field Name = **PatchArea_ha** and Data Type = **Dobule**
+2. Field Name = **EdgeLength_m** and Data Type = **Double**
+ - 
+
 
