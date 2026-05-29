@@ -27,6 +27,23 @@ Run the **Multipart to Singlepart** tool on the vector layers from Step #1 to di
 Open the attribute tables for this new layer and **Add two new fields:**
 1. Field Name = **PatchArea_ha** and Data Type = **Dobule**
 2. Field Name = **EdgeLength_m** and Data Type = **Double**
- - 
+
+>[!NOTE]
+> The Patch Area (PA) is the area of the shape or polygon.
+> The Edge Length (EL) is the shape or polygon perimeter.
+
+<img width="975" height="266" alt="image" src="https://github.com/user-attachments/assets/88950a5b-6440-4c66-aab3-cc2c387bf21e" />
+
+### Step 4
+Save your table edits by clicking the Save button in the top ribbon and close out of Fields View in the table. 
+<img width="975" height="263" alt="image" src="https://github.com/user-attachments/assets/4ff99aca-1628-4e31-82fd-300b65f2f70c" />
+
+### Step 5
 
 
+
+## **End**
+
+#
+Return to trainings
+(https://github.com/jarenunzen/cambodiaicg/tree/main)
