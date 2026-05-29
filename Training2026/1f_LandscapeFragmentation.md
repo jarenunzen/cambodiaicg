@@ -12,7 +12,7 @@ This section relies on a simplifed classification scheme in comparison to the ra
 - The Cropland class contains the following classes: Cashew, Cassava, Rubber, Paddy Rice
 - The Other class contains the following classes: Developed and Water
 #
+# Fragmentation (Part I)
 
-#
 # Step 1
 
