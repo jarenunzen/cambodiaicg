@@ -682,7 +682,10 @@ Use the 'Tasks' pane on the right side to export the classified map (raster laye
 <img width="1119" height="604" alt="image" src="https://github.com/user-attachments/assets/e62729a8-568d-43c5-b491-d5563b5d98d1" />
 
 
+<img width="1170" height="538" alt="image" src="https://github.com/user-attachments/assets/28a15fb7-7d3c-4572-b1d1-50c987fdc7a2" />
 
+
+<img width="2412" height="519" alt="image" src="https://github.com/user-attachments/assets/bbcfb898-cfb7-42d3-aafb-a67c3f7ba349" />
 
 ## **End**
 
