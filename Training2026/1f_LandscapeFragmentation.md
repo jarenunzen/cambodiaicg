@@ -109,10 +109,11 @@ Drag this cell downwards to fill the remaining four cells with a FI value.
 >[!NOTE]
 >) The Fragmentation Index results for each class will be comparable across classes, and comparable across years as we will keep the units consistent throughout the calculations.
 
+**The larger the FI value, the more fragmented the class type is across the landscape.**
 
 
 ### Step 3
-
+...
 
 
 #
