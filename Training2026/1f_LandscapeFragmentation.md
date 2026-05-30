@@ -53,7 +53,7 @@ Calculate the two new fields: Patch Area and Edge Length
 ### Step 6
 Calculate the class specific summary statistics. Right-click on the PatchArea_ha field and select **Summarize**. Follow the figure below to create a new summary table named **Landcover2024_SumStats**.
 
->This step allows us to calculate the intermediate variables before calculating the final fragmentation metrics in the next few steps.
+>This step allows us to calculate the intermediate variables for each land cover class before calculating the final fragmentation metrics in the next few steps.
 
 <img width="872" height="1533" alt="image" src="https://github.com/user-attachments/assets/74da66e2-caec-48cc-9acc-02631a384406" />
 
