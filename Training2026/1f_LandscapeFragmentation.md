@@ -39,7 +39,16 @@ Save your table edits by clicking the Save button in the top ribbon and close ou
 <img width="975" height="263" alt="image" src="https://github.com/user-attachments/assets/4ff99aca-1628-4e31-82fd-300b65f2f70c" />
 
 ### Step 5
+Calculate the two new fields: Patch Area and Edge Length
+- Right click on the “PatchArea_ha” Field and select the **Calculate Geometry** button.
+- Follow the settings in the figure below to calculate both the Path Area (in hectares, ha) and Edge Length (in meters, m) at the same time.
 
+<img width="478" height="710" alt="image" src="https://github.com/user-attachments/assets/c3b5f831-f73a-4325-bc5c-2e16c932a3ca" />
+
+>[!NOTE]
+>We are interested in quantifying how fragmented the landscape is in KSWS in 2024. There are many ways to quantify landscape structure, specifically the distribution of patches across the landscape. In this tutorial, we are going to use a relatively simple approach to understanding patch distribution. This approach starts with calculating the area and perimeter of each patch. 
+
+<img width="414" height="473" alt="image" src="https://github.com/user-attachments/assets/dc1a23a0-4ddc-42eb-be35-e00e30e94979" />
 
 
 ## **End**
