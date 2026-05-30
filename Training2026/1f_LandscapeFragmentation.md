@@ -97,12 +97,23 @@ Once again using the total landscape area for KSWS.
 Fragmentation is the process of continuous natural landscapes being broken up into smaller, isolated patches) can be quantified or measured in a number of ways. One way to quantify it is to use the Patch Density, Edge Density, and Mean Patch Area metrics. 
 
 ### Step 1
-Open the provided "Landcover2024_SumStats_Excel" microsoft excel file and navigate to the 'Fragmentation_2024' spreadsheet. 
-
-
+Open the provided "Landcover2024_SumStats_Excel" microsoft excel file and navigate to the 'Fragmentation_2024' spreadsheet. This spreadsheet contains a copy of the Landcover2024_SumStats attribute table from the end of Part I (above). 
 
 ### Step 2
-Calcualte thr first fragmentation index. 
+The blank column below 'FI' is used to calculate the... **Calculate the Fragmentation Index** based on the multiplication of the PatchDensity (PD) and EdgeDensity (ED) columns using the following equation:
+> = PD * ED
+
+
+Drag this cell downwards to fill the remaining four cells with a FI value. 
+
+>[!NOTE]
+>) The Fragmentation Index results for each class will be comparable across classes, and comparable across years as we will keep the units consistent throughout the calculations.
+
+
+
+### Step 3
+
+
 
 #
 # Core Area in ArcGIS Pro (Part III)
