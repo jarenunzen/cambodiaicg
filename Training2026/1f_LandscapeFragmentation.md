@@ -94,13 +94,12 @@ Once again using the total landscape area for KSWS.
 
 #
 # Fragmentation Indices in Microsoft Excel (Part II)
+Fragmentation is the process of continuous natural landscapes being broken up into smaller, isolated patches) can be quantified or measured in a number of ways. One way to quantify it is to use the Patch Density, Edge Density, and Mean Patch Area metrics. 
 
 ### Step 1
-Open the provided "Landcover2024_SumStats_Excel" microsoft excel file
+Open the provided "Landcover2024_SumStats_Excel" microsoft excel file and navigate to the 'Fragmentation_2024' spreadsheet. 
 
-**OR** 
 
-Copy your Landcover2024_SumStats ArcGIS table to a new, blank, spreadsheet.
 
 ### Step 2
 Calcualte thr first fragmentation index. 
