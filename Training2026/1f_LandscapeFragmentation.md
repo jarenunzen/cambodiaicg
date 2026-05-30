@@ -96,12 +96,16 @@ Once again using the total landscape area for KSWS.
 # Fragmentation Indices in Microsoft Excel (Part II)
 
 ### Step 1
-Open the provided "Landcover2024_SumStats_Excel" microsoft excel file\ 
+Open the provided "Landcover2024_SumStats_Excel" microsoft excel file
 
-OR 
+**OR** 
 
+copy your Landcover2024_SumStats ArcGIS table to a new, blank, spreadsheet.
 
+### Step 2
+Calcualte thr first fragmentation index. 
 
+#
 # Core Area in ArcGIS Pro (Part III)
 
 
