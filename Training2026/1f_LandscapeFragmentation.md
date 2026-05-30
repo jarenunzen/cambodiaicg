@@ -100,7 +100,7 @@ Open the provided "Landcover2024_SumStats_Excel" microsoft excel file
 
 **OR** 
 
-copy your Landcover2024_SumStats ArcGIS table to a new, blank, spreadsheet.
+Copy your Landcover2024_SumStats ArcGIS table to a new, blank, spreadsheet.
 
 ### Step 2
 Calcualte thr first fragmentation index. 
