@@ -41,7 +41,7 @@ Save your table edits by clicking the Save button in the top ribbon and close ou
 ### Step 5
 Calculate the two new fields: Patch Area and Edge Length
 - Right click on the “PatchArea_ha” Field and select the **Calculate Geometry** button.
-- Follow the settings in the figure below to calculate both the Path Area (in hectares, ha) and Edge Length (in meters, m) at the same time.
+- Follow the settings in the figure below to calculate both the Path Area (in hectares, ha) and Edge Length (in meters, m) at the same time and **click OK.**
 
 <img width="478" height="710" alt="image" src="https://github.com/user-attachments/assets/c3b5f831-f73a-4325-bc5c-2e16c932a3ca" />
 
@@ -50,6 +50,14 @@ Calculate the two new fields: Patch Area and Edge Length
 
 <img width="414" height="473" alt="image" src="https://github.com/user-attachments/assets/dc1a23a0-4ddc-42eb-be35-e00e30e94979" />
 
+### Step 6
+Calculate the class specific summary statistics. Right-click on the PatchArea_ha field and select **Summarize**. Follow the figure below to create a new summary table named **Landcover2024_SumStats**.
+
+>This step allows us to calculate the intermediate variables before calculating the final fragmentation metrics in the next few steps.
+
+<img width="872" height="1533" alt="image" src="https://github.com/user-attachments/assets/74da66e2-caec-48cc-9acc-02631a384406" />
+
+### Step 7
 
 ## **End**
 
