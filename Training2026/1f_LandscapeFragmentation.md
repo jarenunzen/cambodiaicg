@@ -110,7 +110,7 @@ Calcualte thr first fragmentation index.
 
 
 
-# 
+
 ## Conclusions
 We have now quantified landscape fragmentation of KSWS and calculated the core area of the forest patches. Both of these processes help understand the landscape structure in KSWS, specifically the configuration. Given that we already understand the composition of KSWS from our landcover classification and change detection, gaining an understanding of the distribution and configuration of habitat patches can aid in habitat management and deforestation mitigation.  
 Specifically, we looked at how the Forest, Open Forest, Grassland, and Cropland cover types are configured mostly in the year of 2024, but also in 2017. Fragmentation can occur as a result of anthropogenic activities such as agriculture expansion. However, it is important to note that fragmentation can also occur naturally on the landscape. A summary of the findings from the products we created in the tutorial can be found in the published (in press, Summer 2026) article. 
