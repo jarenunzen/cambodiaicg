@@ -58,6 +58,59 @@ Calculate the class specific summary statistics. Right-click on the PatchArea_ha
 <img width="872" height="1533" alt="image" src="https://github.com/user-attachments/assets/74da66e2-caec-48cc-9acc-02631a384406" />
 
 ### Step 7
+**Open** the "Landcover2024_SumStats" summary table at the bottom of the table of contents. Here we have the summary statistics you just calculated in the previous step. These statistics will be used to quantify how fragmented (or patchy) the landscape was in 2024. To do that, **add two new attributes (fields) to this table, both with type double, then click save**.
+
+- **PatchDensity** (PD) = number of patches / total landscape area
+- **EdgeDensity** (ED) = edge length sum or total perimeter / total landscape area
+
+  >[!NOTE]
+  >Both PD and ED are used as common measurements of fragmentation. Both metrics can be compared across years to evaluate any change in patch size, number, and shape. “MEAN_PatchArea_ha” (from this table) is a third fragmentation metric that is a measure of the mean patch size, for each class type.
+
+
+### Step 8
+Right click on the new PatchDensity column and select **Calculate Field**. Set the expression below and click ok.
+
+
+> **PatchDensity = !COUNT_PatchArea_ha! / 317,380.84**
+
+
+The denominator of the equation is the Total Landscape Area. Based on our landcover, the Total Landscape Area of KSWS = **317,380.84 ha**. 
+
+
+<img width="420" height="621" alt="image" src="https://github.com/user-attachments/assets/df5eae13-cd4f-43ee-a1d3-36e998ca4533" />
+
+
+### Step 9
+Repeat Step #8 to calculate the new **EdgeDensity** field. Set the expression equal to:
+
+
+> **EdgeDensity = !SUM_EdgeLength_m! / 317,380.84**
+
+
+Once again using the total landscape area for KSWS. 
+
+
+<img width="456" height="677" alt="image" src="https://github.com/user-attachments/assets/0bf62edf-0250-4359-882a-7a52e7922bd2" />
+
+#
+# Fragmentation Indices in Microsoft Excel (Part II)
+
+### Step 1
+Open the provided "Landcover2024_SumStats_Excel" microsoft excel file\ 
+
+OR 
+
+
+
+# Core Area in ArcGIS Pro (Part III)
+
+
+
+# 
+## Conclusions
+We have now quantified landscape fragmentation of KSWS and calculated the core area of the forest patches. Both of these processes help understand the landscape structure in KSWS, specifically the configuration. Given that we already understand the composition of KSWS from our landcover classification and change detection, gaining an understanding of the distribution and configuration of habitat patches can aid in habitat management and deforestation mitigation.  
+Specifically, we looked at how the Forest, Open Forest, Grassland, and Cropland cover types are configured mostly in the year of 2024, but also in 2017. Fragmentation can occur as a result of anthropogenic activities such as agriculture expansion. However, it is important to note that fragmentation can also occur naturally on the landscape. A summary of the findings from the products we created in the tutorial can be found in the published (in press, Summer 2026) article. 
+
 
 ## **End**
 
