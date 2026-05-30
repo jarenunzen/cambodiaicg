@@ -115,6 +115,8 @@ NASA FIRMS (Fire Information for Resource Management System)
 ARSET Training
 - (https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing)
 
+
+
 SERVIR Water Quality Monitoring in GEE
 - (https://github.com/SERVIR/water-quality-gee)
 
