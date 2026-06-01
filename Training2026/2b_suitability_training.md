@@ -97,6 +97,18 @@ Extract elevation data from NASADEM dataset.
 var elevation = ee.Image('NASA/NASADEM_HGT/001').select('elevation').clip(roi);
 ```
 
+Optional visualization parameters for SRTM elevation data
+```js
+// Set elevation visualization properties.
+var elevationVis = {
+  min: 0,
+  max: 800,
+};
+
+// Set elevation <= 0 as transparent and add to the map.
+Map.addLayer(elevation.updateMask(elevation.gt(0)), elevationVis, 'Elevation', false);
+```
+
 ## 4.3
 Calculate slope from elevation data.
 ```js
