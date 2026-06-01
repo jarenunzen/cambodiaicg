@@ -41,7 +41,7 @@ Map.centerObject(roi, 10);
 Define variables of interest necessary for suitability analysis. The variables defined
 in this training are good variables to consider, but may change depending on study interest.
 ## 4.1 
-Extract key landcover types including forest and water. Then, compute distance to each class.
+Extract key landcover types including forest and water. Then, compute distance to each class (in meters).
 > [!NOTE] 
 > For more information on fastDistanceTransform: https://developers.google.com/earth-engine/apidocs/ee-image-fastdistancetransform
 
@@ -65,6 +65,27 @@ var distanceToForest = forests.fastDistanceTransform(30).sqrt()
 var clippedDistanceToWater = distanceToWater.clip(roi).rename('WaterDistance');
 var clippedDistanceToForest = distanceToForest.clip(roi).rename('ForestDistance');
 ```
+
+## Optionally, add the Distance to Water and Distance to Forest Layers to the Map
+```js
+var visParams = {
+  min: 0,
+  max: 10000,
+  palette: ['0000FF', '00FF00', 'FFFF00', 'FF0000'] // Blue, Green, Yellow, Red
+};
+
+Map.addLayer(clippedDistanceToWater, visParams, 'Distance to Water', false);
+
+var visParams = {
+  min: 0,
+  max: 500,
+  palette: ['0000FF', '00FF00', 'FFFF00', 'FF0000'] // Blue, Green, Yellow, Red
+};
+Map.addLayer(clippedDistanceToForest, visParams, 'Distance to Forest', false);
+```
+
+<img width="1085" height="693" alt="image" src="https://github.com/user-attachments/assets/96fa2ec3-4ea8-42e0-b775-d93e1393a1a0" />
+
 
 ## 4.2
 Extract elevation data from NASADEM dataset.
