@@ -66,7 +66,7 @@ var clippedDistanceToWater = distanceToWater.clip(roi).rename('WaterDistance');
 var clippedDistanceToForest = distanceToForest.clip(roi).rename('ForestDistance');
 ```
 
-## Optionally, add the Distance to Water and Distance to Forest Layers to the Map
+**Optionally, add the Distance to Water and Distance to Forest Layers to the Map**
 ```js
 var visParams = {
   min: 0,
@@ -97,7 +97,7 @@ Extract elevation data from NASADEM dataset.
 var elevation = ee.Image('NASA/NASADEM_HGT/001').select('elevation').clip(roi);
 ```
 
-Optional visualization parameters for SRTM elevation data
+**Optional visualization parameters for SRTM elevation data**
 ```js
 // Set elevation visualization properties.
 var elevationVis = {
@@ -108,17 +108,37 @@ var elevationVis = {
 // Set elevation <= 0 as transparent and add to the map.
 Map.addLayer(elevation.updateMask(elevation.gt(0)), elevationVis, 'Elevation', false);
 ```
+<img width="1047" height="634" alt="image" src="https://github.com/user-attachments/assets/290f51b1-9cb1-40bc-9d25-7c615e71b94d" />
+
 
 ## 4.3
-Calculate slope from elevation data.
+Calculate slope from the SRTM elevation data.
 ```js
 var slope = ee.Terrain.slope(elevation).reproject({crs: 'EPSG:4326', scale: 10});
 ```
 > [!NOTE]
 > Slope calculation reference: https://github.com/macleidivarnier/Landslide-susceptibility-mapping-GEE/blob/main/LSM_code_GEE
 
+**Optional visualization parameters for slope**
+```js
+// Set slope visualization properties.
+var slopeVis = {
+  min: 0,
+  max: 70,
+};
+Map.addLayer(slope, slopeVis, 'Slope', false);
+```
+
+<img width="1064" height="632" alt="image" src="https://github.com/user-attachments/assets/849044bc-b184-47e2-beed-76b60e87d26a" />
+
 ## 4.4
 Extract precipitation data from CHIRPS.
+> **Source:** Funk, Chris, Pete Peterson, Martin Landsfeld, Diego Pedreros, James Verdin, Shraddhanand Shukla, Gregory Husak, James Rowland, Laura Harrison, Andrew Hoell & Joel Michaelsen. "The climate hazards infrared precipitation with stations-a new environmental record for monitoring extremes". Scientific Data 2, 150066. doi:10.1038/sdata.2015.66 2015.
+> (https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY)
+> 5566m resolution
+> <img width="1560" height="541" alt="image" src="https://github.com/user-attachments/assets/392e003a-a519-483c-ac6d-08385ce534e7" />
+
+
 ```js
 // Precipitation (CHIRPS - mean annual in mm/year)
 var chirps = ee.ImageCollection('UCSB-CHG/CHIRPS/DAILY')
@@ -129,8 +149,29 @@ var meanAnnualPrecip = chirps.select('precipitation')
   .clip(roi).rename('MeanAnnualPrecip');
 ```
 
+**Visualization parameters**
+>[!NOTE]
+>Visualizing this layer can take 30-60 seconds or longer.
+
+
+```js
+// Set slope visualization properties.
+var precipVis = {
+  min: 1800,
+  max: 2500,
+  palette: ['001137', '0aab1e', 'e7eb05', 'ff4a2d', 'e90000'],
+};
+Map.addLayer(meanAnnualPrecip, precipVis, 'Annual Precipitation', false)
+```
+<img width="1091" height="626" alt="image" src="https://github.com/user-attachments/assets/dbeb0601-67d7-4e4e-9f35-d7378d841700" />
+
+
 ## 4.5
 Extract soil pH from OpenLandMap.
+<img width="1517" height="684" alt="image" src="https://github.com/user-attachments/assets/1bef97f9-ab13-4173-8a4d-50a8d35e3cba" />
+> **Source:** Tomislav Hengl. (2018). Soil pH in H2O at 6 standard depths (0, 10, 30, 60, 100 and 200 cm) at 250 m resolution (Version v02) [Data set]. Zenodo. 10.5281/zenodo.1475459
+
+
 ```js
 // Soil pH (OpenLandMap - scaled x10, so pH 5.5 = 55)
 var soilPH = ee.Image('OpenLandMap/SOL/SOL_PH-H2O_USDA-4C1A2A_M/v02')
@@ -138,8 +179,34 @@ var soilPH = ee.Image('OpenLandMap/SOL/SOL_PH-H2O_USDA-4C1A2A_M/v02')
   .clip(roi).rename('SoilPH');
 ```
 
+**Optional Visualization Parameters**
+```js
+var visualization = {
+  min: 42,
+  max: 110,
+  palette: [
+    'ff0000', 'ff1c00', 'ff3900', 'ff5500', 'ff7100', 'ff8e00',
+    'ffaa00', 'ffc600', 'ffe200', 'ffff00', 'e3ff00', 'c7ff00',
+    'aaff00', '8eff00', '72ff00', '55ff00', '39ff00', '1dff00',
+    '01ff00', '00ff1c', '00ff38', '00ff54', '00ff71', '00ff8d',
+    '00ffa9', '00ffc6', '00ffe2', '00fffe', '00e3ff', '00c7ff',
+    '00abff', '008fff', '0072ff', '0056ff', '003aff', '001dff',
+    '0001ff', '1b00ff', '3800ff', '5400ff',
+  ]
+};
+
+Map.addLayer(soilPH, visualization, 'OpenLandMap Soil PH', false);
+```
+<img width="1015" height="671" alt="image" src="https://github.com/user-attachments/assets/1a29182b-5bfe-4048-a024-c28a1226d283" />
+
+
 ## 4.6
-Extract fir frequency data from NASA FIRMS.
+Extract fire frequency data from NASA FIRMS.
+<img width="525" height="70" alt="image" src="https://github.com/user-attachments/assets/1cd1ba23-4078-4e44-a09e-efbe01c72b2f" />
+
+>**Source:** MODIS Collection 6 NRT Hotspot / Active Fire Detections MCD14DL. Available on-line https://earthdata.nasa.gov/firms. doi:10.5067/FIRMS/MODIS/MCD14DL.NRT.006
+>(https://developers.google.com/earth-engine/datasets/catalog/FIRMS#description)
+
 ```js
 // Fire Frequency (FIRMS MODIS)
 var firms = ee.ImageCollection('FIRMS')
