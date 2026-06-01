@@ -3,6 +3,9 @@ https://code.earthengine.google.com/
 
 **Based on the scripts available here:** https://github.com/saraheb3/AgroforestrySuitability_GEE/blob/main/gee_script/White-Oak-Tree-Growth-Suitability
 
+
+<img width="648" height="684" alt="image" src="https://github.com/user-attachments/assets/bf2deb81-9ea6-4a08-bdb7-6c53db9dabc4" />
+
 # Step 1
 Import KSWS shapefile and landcover classification. 
 
