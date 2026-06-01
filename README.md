@@ -8,7 +8,7 @@
 **Additional data are tools are available through:** (https://www.dropbox.com/scl/fo/ibxt1o9681apd0ynxifxx/ACtx2fSn1udP2xXuW9EbJdo?rlkey=s39kizxr4d7dvzsvldys2jj8u&st=c8ull5h8&dl=0)
 
 
-These tutorials rely on a combination of Google Earth Engine, ArcGIS Pro (v3.6 or v3.7), Microsoft Excel and R Studion (v4.4.1, 2026)
+These tutorials rely on a combination of Google Earth Engine, ArcGIS Pro (v3.6 or v3.7), Microsoft Excel and R Studio (v4.4.1, 2026)
 
 
 # **Resources for Google Earth Engine**
