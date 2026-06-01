@@ -133,6 +133,8 @@ Map.addLayer(slope, slopeVis, 'Slope', false);
 
 ## 4.4
 Extract precipitation data from CHIRPS.
+
+
 > **Source:** Funk, Chris, Pete Peterson, Martin Landsfeld, Diego Pedreros, James Verdin, Shraddhanand Shukla, Gregory Husak, James Rowland, Laura Harrison, Andrew Hoell & Joel Michaelsen. "The climate hazards infrared precipitation with stations-a new environmental record for monitoring extremes". Scientific Data 2, 150066. doi:10.1038/sdata.2015.66 2015.
 > (https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY)
 > 5566m resolution
@@ -150,7 +152,7 @@ var meanAnnualPrecip = chirps.select('precipitation')
   .clip(roi).rename('MeanAnnualPrecip');
 ```
 
-**Visualization parameters**
+**Visualization parameters for annual precipitation**
 >[!NOTE]
 >Visualizing this layer can take 30-60 seconds or longer.
 
@@ -203,6 +205,8 @@ Map.addLayer(soilPH, visualization, 'OpenLandMap Soil PH', false);
 
 ## 4.6
 Extract fire frequency data from NASA FIRMS.
+
+
 <img width="525" height="70" alt="image" src="https://github.com/user-attachments/assets/1cd1ba23-4078-4e44-a09e-efbe01c72b2f" />
 
 >**Source:** MODIS Collection 6 NRT Hotspot / Active Fire Detections MCD14DL. Available on-line https://earthdata.nasa.gov/firms. doi:10.5067/FIRMS/MODIS/MCD14DL.NRT.006
@@ -219,8 +223,50 @@ var fireFrequency = firms.select('T21')
   .clip(roi).rename('FireFrequency');
 ```
 
+**Visualize the Fire Frequency Layer**
+```js
+// Number of fires within each 1km picture during the last 10 years
+var firesVis = {
+  min: 1,
+  max: 10,
+  palette: ['red', 'orange', 'yellow'],
+};
+
+Map.addLayer(fireFrequency, firesVis, 'Fires (2016-2026)', false);
+```
+
+
+<img width="1047" height="687" alt="image" src="https://github.com/user-attachments/assets/e14eeac8-501d-4ac7-9b57-425410a41ad5" />
+
+
+
+**Open and Visualize the Confidence for detecting fires within each pixel**
+```js
+// Map over the collection to get the confidence band, masking out non-fire pixels
+var fireConfidence = firms.map(function(img) {
+  var fireMask = img.select('T21').gt(0);
+  // 'confidence' is the band name for the MODIS confidence percentage
+  return img.select('confidence')
+            .updateMask(fireMask) // Only look at confidence where a fire actually happened
+            .rename('avgConfidence');
+}).mean() // Take the average confidence over the 10-year period
+  .clip(roi);
+
+// Visualization parameters for 0% to 100% confidence
+var confidenceVis = {
+  min: 30, // FIRMS usually considers <30% to be low confidence
+  max: 100,
+  palette: ['blue', 'purple', 'cyan'], // Distinct colors to separate it from the frequency layer
+};
+
+// Add the Confidence Layer (set to false so it doesn't overlap immediately)
+Map.addLayer(fireConfidence, confidenceVis, 'Average Fire Confidence (%)', false);
+```
+
+
+
 # Step 5
-Define suitable ranges for each variable. These will change depending on the importance of each variable and tree species. 
+Define suitable ranges for each variable. **These will change depending on the importance of each variable and tree species.** 
 For example, if soil pH is extremely important for a particular tree species tha we want to replant, we will define an exact number
 to restrict the suitable range to. Otherwise, a more broad range is acceptable.
 
@@ -256,10 +302,17 @@ var firemax = 5;
 
 # Step 6
 Clip each variable to the defined suitable ranges.
+**These layers may still take a few minutes to render.**
+
+
+>[!NOTE]
+> Step #6 and Step #7 will only show the suitable areas based on the defined values above. Users should support these thresholds (definitions of suitability) based on local knowledge or scientific literature. Spend some time comparing the 'suitable' layers (below) with the more complete range of values for each variable above. 
+
 ```js
 //----------------------------------------------------------- 
 // CLIP RANGES
 //----------------------------------------------------------- 
+// BLACK = MOST SUITABLE
 
 // Elevation
 var elevrange = (elevation.gte(elevmin)).and(elevation.lte(elevmax));
@@ -290,12 +343,21 @@ Visualize each suitability variable by adding each as a layer on the map.
 Map.addLayer(elevrange,   {}, 'Suitable Elevation', false);
 Map.addLayer(sloperange,  {}, 'Suitable Slope', false);
 Map.addLayer(preciprange, {}, 'Suitable Precipitation', false);
+Map.addLayer(waterrange,   {}, 'Suitable Distance to Water', false);
+Map.addLayer(forestrange,   {}, 'Suitable Distance to Forest', false);
 Map.addLayer(phrange,     {}, 'Suitable Soil pH', false);
 Map.addLayer(firerange,   {}, 'Low Fire Risk', false);
 ```
 
+<img width="1892" height="559" alt="image" src="https://github.com/user-attachments/assets/132a6cb1-e4f0-4032-9f63-399543481fac" />
+**Distance to Forest** 
+
 # Step 8
 Score and visualize suitability based on intersection between variables.
+
+>[!IMPORTANT]
+> Because the layers have been filtered already, unsuitable regions of the map (red) are likely not being visualized.
+
 ```js
 //----------------------------------------------------------- 
 // SUITABILITY SCORE AND MAP
@@ -320,4 +382,131 @@ Map.addLayer(requirementScore, {
 ```
 ![suitability.png](..%2FImages%2Fsuitability.png)
 > [!WARNING]
-> This is a computationally expensive task and may take significant time to process.
+> This is a computationally demadning task and may take significant time to process.
+
+
+# Step 9
+Export the suitability layer. 
+
+```js
+print(requirementScore, 'Forest Planting Suitability Score');
+
+// Export the classified map to Google Drive
+Export.image.toDrive({
+  image: requirementScore, // Name of the final layer
+  description: 'KeoSeima_ReforestationSuitability',  // File name, will be a GeoTiff format
+  scale: 10,  // Spatial resolution/pixel size
+  maxPixels: 1e13,  
+  crs: 'EPSG:32648', // WGS 84/UTM Zone 48N
+  region: ksws  
+});
+```
+# Step 10 (optional, adjustmet to a weighted overlay function)
+If you wish to adjust the input layers based on a function of layer importance, add the following after Step #9:
+
+```js
+// Example implementation of a weighted ranking scheme 
+var weightedScore = (elevrange.multiply(0.15))
+  .add(sloperange.multiply(0.10))
+  .add(waterrange.multiply(0.20))
+  .add(forestrange.multiply(0.10))
+  .add(preciprange.multiply(0.15))
+  .add(phrange.multiply(0.20))
+  .add(firerange.multiply(0.10)); // Total weights sum up to 1.0
+
+Map.addLayer(weightedScore, {
+  min: 0,
+  max: totalRequirements,
+  palette: ['red', 'orange', 'yellow', 'lightgreen', 'green']
+}, 'Weigthed Reforestation Suitability', true);
+```
+
+# Step 10 (optional) 
+Add the land ownership and roads layers to the map as additional context for the landscape. These files are available in the **Training2026 DATA folder.**
+> **Source for Roads:** OpenDevelopment Cambodia, and National Committee for Sub
+> https://data.opendevelopmentcambodia.net/en/dataset/map-road-railway-network-market-density
+>
+> **Source for Land Ownership:**
+> TBD
+
+<img width="780" height="1166" alt="image" src="https://github.com/user-attachments/assets/eca9a809-313e-47b5-bc35-9ec7f8f19e21" />
+
+
+# Step 11 (optional)
+Add a legend to the map based on the suitability score.
+```js
+//----------------------------------------------------------- 
+// ADD MAP LEGEND
+//----------------------------------------------------------- 
+
+// 1. Set up the main panel container for the legend
+var legend = ui.Panel({
+  style: {
+    position: 'bottom-left',
+    padding: '8px 15px',
+    backgroundColor: 'white'
+  }
+});
+
+// 2. Create and style the legend title
+var legendTitle = ui.Label({
+  value: 'Suitability Score',
+  style: {
+    fontWeight: 'bold',
+    fontSize: '16px',
+    margin: '0 0 4px 0',
+    padding: '0'
+  }
+});
+legend.add(legendTitle);
+
+// 3. Define the categories, descriptions, and corresponding hex colors
+// Matches the palette: ['red', 'orange', 'yellow', 'lightgreen', 'green']
+var palette = ['#FF0000', '#FFA500', '#FFFF00', '#90EE90', '#008000'];
+var names = [
+  '0-1: Completely Unsuitable', 
+  '2-3: Low Suitability', 
+  '4: Moderate Suitability', 
+  '5-6: High Suitability', 
+  '7: Optimal (All Criteria Met)'
+];
+
+// 4. Helper function to construct a styled row for each category
+var makeRow = function(color, name) {
+  // Create the colored box indicator
+  var colorBox = ui.Label({
+    style: {
+      backgroundColor: color,
+      padding: '8px', // Size of the square colored box
+      margin: '0 8px 4px 0'
+    }
+  });
+
+  // Create the descriptive label
+  var description = ui.Label({
+    value: name,
+    style: {margin: '0 0 4px 0'}
+  });
+
+  // Return a horizontal panel containing both the box and the description
+  return ui.Panel({
+    widgets: [colorBox, description],
+    layout: ui.Panel.Layout.Flow('horizontal')
+  });
+};
+
+// 5. Add all the rows to the legend panel
+for (var i = 0; i < 5; i++) {
+  legend.add(makeRow(palette[i], names[i]));
+}
+
+// 6. Print/add the legend panel to the map canvas UI
+Map.add(legend);
+```
+
+# Conclusions
+Consider what other layers might impact the suitability of a site for forest planting. This could include layers on biodiversity hot spots, species home ranges, historic deforestation (forest loss), population density, settlements, etc. 
+
+#
+Return to trainings
+(https://github.com/jarenunzen/cambodiaicg/tree/main)
