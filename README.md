@@ -106,6 +106,9 @@ WestVirginiaView Courses
 # **Resources for Reforestation Planning**
 COMING SOON
 
+Agroforestry Suitability Tutorial
+- (https://github.com/saraheb3/AgroforestrySuitability_GEE/blob/main/gee_script/White-Oak-Tree-Growth-Suitability) 
+
 
 NASA FIRMS (Fire Information for Resource Management System)
 - (https://firms.modaps.eosdis.nasa.gov/)
