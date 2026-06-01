@@ -562,6 +562,8 @@ var calculateOptimalArea = function(scoreImage, geometry, scale) {
 # Conclusions
 Consider what other layers might impact the suitability of a site for forest planting. This could include layers on biodiversity hot spots, species home ranges, historic deforestation (forest loss), population density, settlements, etc. 
 
+**If any new layers are added, or if the suitability thresholds for any of the layers need to be added, return to Step #4 above.**
+
 #
 Return to trainings
 (https://github.com/jarenunzen/cambodiaicg/tree/main)
