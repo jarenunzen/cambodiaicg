@@ -8,7 +8,7 @@ Import KSWS shapefile and landcover classification.
 
 *Landcover is located under 'data/2025_classified_landcover'. The shsapefile is located within the 'data/KSWS_Shapefile' folder.* 
 
->[!NOTE] These shapefiles were also used or created during Section 1 of this training.
+> [!NOTE] These shapefiles were also used or created during Section 1 of this training.
 
 # Step 2
 Refresh the assets tab and import each of the new layers (assets) into a blank script. Rename the layers to:
