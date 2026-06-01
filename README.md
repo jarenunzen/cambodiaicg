@@ -114,6 +114,11 @@ NASA FIRMS (Fire Information for Resource Management System)
 - (https://firms.modaps.eosdis.nasa.gov/)
 
 
+Relevant literature on overlay (suitability) analyses
+Sperduto and Congalton, 1996
+- (https://www.researchgate.net/publication/279902588_Predicting_Rare_Orchid_Small_Whorled_Pogonia_Habitat_Using_GIs)
+
+  
 # **Resources for Water Quality Monitoring**
 ARSET Training
 - (https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing)
