@@ -136,6 +136,7 @@ Extract precipitation data from CHIRPS.
 > **Source:** Funk, Chris, Pete Peterson, Martin Landsfeld, Diego Pedreros, James Verdin, Shraddhanand Shukla, Gregory Husak, James Rowland, Laura Harrison, Andrew Hoell & Joel Michaelsen. "The climate hazards infrared precipitation with stations-a new environmental record for monitoring extremes". Scientific Data 2, 150066. doi:10.1038/sdata.2015.66 2015.
 > (https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY)
 > 5566m resolution
+>
 > <img width="1560" height="541" alt="image" src="https://github.com/user-attachments/assets/392e003a-a519-483c-ac6d-08385ce534e7" />
 
 
