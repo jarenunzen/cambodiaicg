@@ -96,7 +96,7 @@ Use the **Select by Attribute** tool to select each of the 'Class_from' value 8,
 
 <img width="1419" height="832" alt="image" src="https://github.com/user-attachments/assets/b282bc55-6ce2-4c6d-b1bf-490b0f1268c3" />
 
-### 3) Image how you could more dynamicallu track types or causes of land cover conversion using the Emerging Hot Spot Analysis toolset.
+### 3) Image how you could more dynamically track the types or causes of land cover conversion using the Emerging Hot Spot Analysis toolset.
 <img width="1531" height="1532" alt="image" src="https://github.com/user-attachments/assets/11040f77-7bce-4654-8725-d91c120e1b8c" />
 
 #
