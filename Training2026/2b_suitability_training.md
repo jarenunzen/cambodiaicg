@@ -401,6 +401,11 @@ Export.image.toDrive({
   region: ksws  
 });
 ```
+
+<img width="708" height="42" alt="image" src="https://github.com/user-attachments/assets/99251562-54a5-4943-a98f-37bc916f7b9b" />
+
+
+
 # Step 10 (optional, adjustmet to a weighted overlay function)
 If you wish to adjust the input layers based on a function of layer importance, add the following after Step #9:
 
@@ -418,10 +423,10 @@ Map.addLayer(weightedScore, {
   min: 0,
   max: totalRequirements,
   palette: ['red', 'orange', 'yellow', 'lightgreen', 'green']
-}, 'Weigthed Reforestation Suitability', true);
+}, 'Weighted Reforestation Suitability', false);
 ```
 
-# Step 10 (optional) 
+# Step 11 (optional) 
 Add the land ownership and roads layers to the map as additional context for the landscape. These files are available in the **Training2026 DATA folder.**
 > **Source for Roads:** OpenDevelopment Cambodia, and National Committee for Sub
 > https://data.opendevelopmentcambodia.net/en/dataset/map-road-railway-network-market-density
@@ -431,8 +436,11 @@ Add the land ownership and roads layers to the map as additional context for the
 
 <img width="780" height="1166" alt="image" src="https://github.com/user-attachments/assets/eca9a809-313e-47b5-bc35-9ec7f8f19e21" />
 
+```js
 
-# Step 11 (optional)
+```
+
+# Step 12
 Add a legend to the map based on the suitability score.
 ```js
 //----------------------------------------------------------- 
@@ -502,6 +510,49 @@ for (var i = 0; i < 5; i++) {
 
 // 6. Print/add the legend panel to the map canvas UI
 Map.add(legend);
+```
+
+# Step 13
+Calculate the amount of area which corresponds to the highest suitability class (suitability = 7)
+
+>[!CAUTION]
+>Processing times for this step can take a long time at this scale and often cause the computation to time out, it is recommended to only include this step for projects focusing on smaller areas. Alternatively, you can export this layer to ArcGIS Pro / QGIS and calculate the class specific area using that software.
+
+
+```js
+//----------------------------------------------------------- 
+// FUNCTION: CALCULATE OPTIMAL SUITABILITY AREA (HECTARES)
+//----------------------------------------------------------- 
+
+/**
+ * Calculates the area of optimal pixels within a region of interest.
+ * @param {ee.Image} scoreImage - The final suitability score image (0-7).
+ * @param {ee.FeatureCollection} geometry - The region boundary (e.g., ksws/roi).
+ * @param {number} scale - The spatial resolution for reduction (meters).
+ * @return {ee.Number} Area in hectares.
+ */
+var calculateOptimalArea = function(scoreImage, geometry, scale) {
+  // 1. Isolate pixels that meet ALL 7 criteria (Optimal Category)
+  var optimalMask = scoreImage.eq(7);
+  
+  // 2. Multiply the binary mask (1 for optimal, 0 for other) by the actual pixel area in square meters
+  var areaImage = optimalMask.multiply(ee.Image.pixelArea());
+  
+  // 3. Sum all the pixel area values within your study boundary
+  var areaSum = areaImage.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: geometry,
+    scale: scale,          // Matches your export scale (10m)
+    maxPixels: 1e13,       // Prevents memory limits on large regions
+    tileScale: 4           // Optimizes parallel processing to avoid timeouts
+  });
+  
+  // 4. Extract the area in square meters and convert it to Hectares (1 Hectare = 10,000 m²)
+  var areaMeters = ee.Number(areaSum.get('Suitability Score'));
+  var areaHectares = areaMeters.divide(10000);
+  
+  return areaHectares;
+};
 ```
 
 # Conclusions
