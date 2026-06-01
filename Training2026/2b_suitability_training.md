@@ -89,6 +89,9 @@ Map.addLayer(clippedDistanceToForest, visParams, 'Distance to Forest', false);
 
 ## 4.2
 Extract elevation data from NASADEM dataset.
+
+> **Source:** https://developers.google.com/earth-engine/datasets/catalog/NASA_NASADEM_HGT_001
+> NASA JPL (2020). NASADEM Merged DEM Global 1 arc second V001 [Data set]. NASA EOSDIS Land Processes DAAC. Accessed 2020-12-30 from doi:10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001
 ```js
 // Elevation from NASADEM 
 var elevation = ee.Image('NASA/NASADEM_HGT/001').select('elevation').clip(roi);
