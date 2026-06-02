@@ -129,8 +129,9 @@ We can now calculate another fragmentation metric that takes into account the me
 <img width="2401" height="342" alt="image" src="https://github.com/user-attachments/assets/cb064569-3801-409d-9f3c-a97f1da7579b" />
 
 >[!TIP]
-> Interpretation:
-> 	Fragmentation increases as PD and ED increase.
+> **Interpretation:**
+>
+> Fragmentation increases as PD and ED increase.
 > 	a.	High PD = more, smaller patches
 > 	b.	High ED = more patch perimeter relative to area, smaller patches
 >
