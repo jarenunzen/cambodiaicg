@@ -182,8 +182,11 @@ Use a One-Way ANOVA to test if the number of patches across classes (Forest, Ope
     -
   - Choose **Grouped by: Columns**
   - Output to a **New Worksheet Ply** or a specified output range
-  - Click **OK**. 
+  - Click **OK**.
+
+
 <img width="170" height="135" alt="image" src="https://github.com/user-attachments/assets/a314a6a0-ec93-45a7-8930-a9c0f406751d" />
+
 
 <img width="542" height="357" alt="image" src="https://github.com/user-attachments/assets/f5b303ab-74ce-42ff-a200-420eb8edef59" />
 
@@ -193,7 +196,7 @@ Use a One-Way ANOVA to test if the number of patches across classes (Forest, Ope
 > -	Each column (year) is a group, and contains 5 observations (NUMP values for 5 landcover classes). We are comparing the means across these 2 groups (years).
 > -	P-value < 0.05 = statistically significant difference between years. This would mean that the number of patches per class changed significantly between groups (years).
 >
-> -	_ _What did we find?_ _ A p-value of greater than 0.05 would suggest that on average, the number of patches across landcover classes did not significantly change over time.  
+> -	_What did we find?_ A p-value of greater than 0.05 would suggest that on average, the number of patches across landcover classes did not significantly change over time.  
 
 
 ### Step 6
@@ -208,7 +211,7 @@ Here we see some plots that we have created for this training in advance. These 
   
 - Fragmentation Index with Size (FIS): Fragmentation (FIS) Across Time and Cover Type
 
--	_ _What are some of the trends we are seeing?_ _
+-	_What are some of the trends we are seeing?_
 
 **Optionally:**
 Go back into the ArcGIS project file and visualize the different landcover layers by year to note any noticeable areas of change. Layers can also be symbolized corresponding to the FI or FIS findings if that is of interest (e.g., more fragmented cover types in red and less fragmented in green, using a red/yellow/green color scheme). Additionally, you could symbolize cover types by NUMP ranges. 
