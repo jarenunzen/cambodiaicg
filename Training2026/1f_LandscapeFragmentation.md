@@ -220,7 +220,15 @@ Go back into the ArcGIS project file and visualize the different landcover layer
 #
 # Core Area in ArcGIS Pro (Part III)
 
+### Step 1
+Navigate back to the ArcGIS Project file that we were previously working within (Part 1). 
 
+
+Locate the “Core Area (Part 3)” layer group in your contents pane. Turn off all other layers in your contents pane other than “KSWS Boundary”. Turn on the Core Area (Part 3) layer group. 
+
+Turn on the “Forest2024_Patches” feature class in the Core Area group layer in your contents pane. Explore this layer in the map. 
+
+- This vector layer contains the 5 largest forest patches derived from the 2024 landcover map. There are also vector layers for the OpenForest, Grassland, and Cropland classes we have been focusing on during this tutorial, each containing the largest 5 patches within that class.  
 
 
 # Conclusions
