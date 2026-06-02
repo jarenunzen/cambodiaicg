@@ -192,7 +192,7 @@ Use a One-Way ANOVA to test if the number of patches across classes (Forest, Ope
 
 > [!NOTE]
 > **Interpret the Results:**
-> -	This model asked: _ _Is the mean number of patches per landcover class different between 2017 and 2024?_ _
+> -	This model asked: _Is the mean number of patches per landcover class different between 2017 and 2024?_
 > -	Each column (year) is a group, and contains 5 observations (NUMP values for 5 landcover classes). We are comparing the means across these 2 groups (years).
 > -	P-value < 0.05 = statistically significant difference between years. This would mean that the number of patches per class changed significantly between groups (years).
 >
