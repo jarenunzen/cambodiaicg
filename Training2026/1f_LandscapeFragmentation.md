@@ -137,14 +137,15 @@ We can now calculate another fragmentation metric that takes into account the me
 >
 > 	b.	High ED = more patch perimeter relative to area, smaller patches
 >
->  -	Fragmentation increases as 1/MPA increases.
->  -	a.	High 1/MPA = smaller average patch size
->  -	
->  -	b.	This is why we use (1/MPA) in the equation, because MPA alone increases as fragmentation decreases. So,
+> Fragmentation increases as 1/MPA increases.
+>
+> a.	High 1/MPA = smaller average patch size
+>
+> b.	This is why we use (1/MPA) in the equation, because MPA alone increases as fragmentation decreases. So,
 >   	inverting MPA ensures that this metric follows the same directional trend as PD and ED (increasing with
 >   	fragmentation).
 >  
->  -	The larger the FIS value, the more fragmented the class type is across the landscape. 
+>  The larger the FIS value, the more fragmented the class type is across the landscape. 
 
 
 #
