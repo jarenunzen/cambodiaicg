@@ -118,25 +118,29 @@ We can now calculate another fragmentation metric that takes into account the me
 
 **Calculate the FIS column values** for each class in the corresponding column using the equation below. Select the PatchDensity, EdgeDensity, and MEAN_PatchArea_ha values in the first row to calculate the first FIS value and then drag the cell downward to fill the remaining four cells with a FIS value. 
 
->Fragmentation Index with Size (FIS) = (PD * ED) + (1/MPA)
+> = (PD * ED) + (1/MPA)
 >
->In this equation: 
-PD = Patch Density (patches per hectare)
-ED = Edge Density (meters per hectare)
-MPA = mean patch area (in hectares)
+>In this equation:
+> PD = Patch Density (patches per hectare)
+> ED = Edge Density (meters per hectare)
+> MPA = mean patch area (in hectares)
 
 
 <img width="2401" height="342" alt="image" src="https://github.com/user-attachments/assets/cb064569-3801-409d-9f3c-a97f1da7579b" />
 
 >[!TIP]
 > Interpretation:
--	Fragmentation increases as PD and ED increase. 
-a.	High PD = more, smaller patches
-b.	High ED = more patch perimeter relative to area, smaller patches
--	Fragmentation increases as 1/MPA increases.
-a.	High 1/MPA = smaller average patch size
-b.	This is why we use (1/MPA) in the equation, because MPA alone increases as fragmentation decreases. So, inverting MPA ensures that this metric follows the same directional trend as PD and ED (increasing with fragmentation). 
-The larger the FIS value, the more fragmented the class type is across the landscape. 
+> 	Fragmentation increases as PD and ED increase.
+> 	a.	High PD = more, smaller patches
+> 	b.	High ED = more patch perimeter relative to area, smaller patches
+>
+>  -	Fragmentation increases as 1/MPA increases.
+>  -	a.	High 1/MPA = smaller average patch size
+>  -	b.	This is why we use (1/MPA) in the equation, because MPA alone increases as fragmentation decreases. So,
+>   	inverting MPA ensures that this metric follows the same directional trend as PD and ED (increasing with
+>   	fragmentation).
+>  
+>  -	The larger the FIS value, the more fragmented the class type is across the landscape. 
 
 
 #
