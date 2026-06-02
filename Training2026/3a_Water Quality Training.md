@@ -7,7 +7,7 @@ Several other trainings are also available for water quality monitoring using re
 https://data.opendevelopmentmekong.net/dataset/water-bodies-in-cambodia
 
 NASA AREST Training
-- (https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing)
+- https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing
 
 
 # Step 1
