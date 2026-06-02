@@ -224,12 +224,77 @@ Go back into the ArcGIS project file and visualize the different landcover layer
 Navigate back to the ArcGIS Project file that we were previously working within (Part 1). 
 
 
-Locate the “Core Area (Part 3)” layer group in your contents pane. Turn off all other layers in your contents pane other than “KSWS Boundary”. Turn on the Core Area (Part 3) layer group. 
+Locate the **Core Area (Part 3) layer group** in your contents pane. Turn off all other layers in your contents pane other than “KSWS Boundary”. Turn on the Core Area (Part 3) layer group. 
 
-Turn on the “Forest2024_Patches” feature class in the Core Area group layer in your contents pane. Explore this layer in the map. 
+Turn on the **Forest2024_Patches feature class** in the Core Area group layer in your contents pane. Explore this layer in the map. 
 
-- This vector layer contains the 5 largest forest patches derived from the 2024 landcover map. There are also vector layers for the OpenForest, Grassland, and Cropland classes we have been focusing on during this tutorial, each containing the largest 5 patches within that class.  
+- This vector layer contains the 10 largest forest patches derived from the 2024 landcover map. There are also vector layers for the OpenForest, Grassland, and Cropland classes we have been focusing on during this tutorial, each containing the largest 10 patches within that class.  
 
+
+### Step 2
+Create the Core Area (Negative Buffer) 
+
+Open the **Buffer Tool** and input the following settings and click Run:
+
+>[!NOTE]
+>This tool might take a few minutes to run, depending on your computer.
+
+<img width="581" height="541" alt="image" src="https://github.com/user-attachments/assets/8281a5f7-da9e-49de-8edb-722170e6c10d" />
+
+We want to gather the core area of our forest patches to then compare to previous years. To do this, we are going to use the Buffer tool with a negative distance that allows us to remove the edge of our forest polygons. The buffer distance can be set to any negative value to achieve a core area polygon. In this case, we are going to use a buffer of **-100m.**
+
+>[!IMPORTANT]
+>The buffer zone of 100m is a conservative threshold determined by modeled influences of edge effects in tropical forests, specifically where forests have abrupt or drastic edges often created by agricultural practices, similar to those in Cambodia. A buffer zone of 100m delineates our core forest areas. This distance is chosen based on previous studies that found tree recruitment, tree mortality, and canopy dynamics are significantly altered within this forest edge/buffer zone of 100m (Harper et al. 2005, Laurance et al. 1998b). Note: buffer zones can always be adjusted depending on your question of interest or if you have a wildlife species of interest you are modeling core habitat for. 
+
+
+### STEP 3
+Explore the Buffer Tool output in the map. You can see that there are still 10 rows in the attribute table, however the core area of the five patches are not contiguous anymore. There are several smaller patches of forest that are considered the core habitat of the 2024 forest patches. We might predict that the connectivity of the core area/habitat patches is lower than the overall forest patches as the core area patches are much more disjunct.
+
+> If you were interested in analyzing the new core area “patches” (disconnected forest core area patches), you can run the Multipart to Singlepart Tool to break up the patches.
+
+
+### STEP 4
+Add a field to your new “Forest2024_CoreArea” feature class. 
+
+Name the field “**Core_ha**” and set the Data Type to “**Double**”.
+
+Click **Save**. Close out of Fields View.
+
+### STEP 5
+Right-click the “Core_ha” field and click “**Calculate Geometry**” to measure the area of the new core area in hectares. Input the following settings and click ok:
+
+
+<img width="519" height="524" alt="image" src="https://github.com/user-attachments/assets/1e80b332-f054-4e5d-b444-b6a367679a32" />
+
+
+### STEP 6
+Explore the other core area layers.
+
+Open the attribute tables of these additional layers and look to see how the core area values differ from what you calculated for 2024. 
+
+Turn on each layer and explore how the core area patches differ across years in shape, size, and distribution. 
+
+_What do you see? How do the forest patches compare to each other across the study period?_
+
+<img width="532" height="556" alt="image" src="https://github.com/user-attachments/assets/0149a4f5-38b3-4035-b3b7-6fb15049b9c7" />
+
+
+### STEP 7
+Summarize the Forest Core Area in Each Year
+
+Open the attribute table of “Forest2024_CoreArea”. Right click the “Core_ha” column and click Summarize. 
+
+Input the following settings into the Summary Statistics Tool. Click Ok.
+
+<img width="428" height="361" alt="image" src="https://github.com/user-attachments/assets/36ff314d-5a2b-42a1-adce-6bfde4b94be5" />
+
+### STEP 8
+Repeat Step #7 for the 2017  forest core area layers (or other years). Make sure to edit the Output Table name to match the year you are summarizing. 
+
+Open each summary statistics table and look at how the total core area sizes differ across years. You can further this visualization through joining these tables and making a bar plot comparing the areas across years. We will not cover that in this tutorial however table join and chart instructions can be found online. 
+
+>[!NOTE]
+>These steps can be repeated across landcover classes to understand the core area changes overtime in non-forest classes. Furthermore, it would be interesting to see if the core area of croplands is expanding overtime, as we might expect with greater agricultural expansion. 
 
 # Conclusions
 We have now quantified landscape fragmentation of KSWS and calculated the core area of the forest patches. Both of these processes help understand the landscape structure in KSWS, specifically the configuration. Given that we already understand the composition of KSWS from our landcover classification and change detection, gaining an understanding of the distribution and configuration of habitat patches can aid in habitat management and deforestation mitigation.  
