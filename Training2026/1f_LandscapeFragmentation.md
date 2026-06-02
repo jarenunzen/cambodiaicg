@@ -63,8 +63,8 @@ Calculate the class specific summary statistics. Right-click on the PatchArea_ha
 - **PatchDensity** (PD) = number of patches / total landscape area
 - **EdgeDensity** (ED) = edge length sum or total perimeter / total landscape area
 
-  >[!NOTE]
-  >Both PD and ED are used as common measurements of fragmentation. Both metrics can be compared across years to evaluate any change in patch size, number, and shape. “MEAN_PatchArea_ha” (from this table) is a third fragmentation metric that is a measure of the mean patch size, for each class type.
+>[!NOTE]
+> Both PD and ED are used as common measurements of fragmentation. Both metrics can be compared across years to evaluate any change in patch size, number, and shape. “MEAN_PatchArea_ha” (from this table) is a third fragmentation metric that is a measure of the mean patch size, for each class type.
 
 
 ### Step 8
