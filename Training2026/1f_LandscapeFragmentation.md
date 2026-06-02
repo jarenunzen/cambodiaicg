@@ -165,19 +165,53 @@ Use a One-Way ANOVA to test if the number of patches across classes (Forest, Ope
 
 -	Each column is a year and each row is a landcover class. 
 -	Enable the Data Analysis Toolpak in Excel if it is not already enabled:
-a.	Go to File > Options > Add-ins,
-b.	At the bottom, next to “Manage Excel Add-ins” Click Go, 
-c.	Check “Analysis Toolpak” and click Ok. 
+  -	Go to File > Options > Add-ins,
+  -	At the bottom, next to “Manage Excel Add-ins” Click Go,
+  -	Check **“Analysis Toolpak”** and click **Ok**.
+
+<img width="373" height="505" alt="image" src="https://github.com/user-attachments/assets/face195d-9c75-4745-a770-e5ce22528819" />
+
+    
 -	Run the ANOVA
-a.	Go to the Data tab
-b.	Click Data Analysis (far right)
-c.	Choose ANOVA: Single Factor, click OK
-d.	For Input Range:
-	Select your full table of values 
-	Check Labels in First Row if you included year names in row 1
-e.	Choose Grouped by: Columns
-f.	Output to a New Worksheet Ply or a specified output range
-g.	Click OK
+  -	Go to the **Data tab**
+  -	Click **Data Analysis** (far right)
+  -	Choose **ANOVA: Single Factor**, click OK
+  -	For Input Range:
+    -	Select your full table of values
+    -	Check Labels in First Row if you included year names in row 1
+    -
+  - Choose **Grouped by: Columns**
+  - Output to a **New Worksheet Ply** or a specified output range
+  - Click **OK**. 
+<img width="170" height="135" alt="image" src="https://github.com/user-attachments/assets/a314a6a0-ec93-45a7-8930-a9c0f406751d" />
+
+<img width="542" height="357" alt="image" src="https://github.com/user-attachments/assets/f5b303ab-74ce-42ff-a200-420eb8edef59" />
+
+> [!NOTE]
+> **Interpret the Results:**
+> -	This model asked: _ _Is the mean number of patches per landcover class different between 2017 and 2024?_ _
+> -	Each column (year) is a group, and contains 5 observations (NUMP values for 5 landcover classes). We are comparing the means across these 2 groups (years).
+> -	P-value < 0.05 = statistically significant difference between years. This would mean that the number of patches per class changed significantly between groups (years).
+>
+> -	_ _What did we find?_ _ A p-value of greater than 0.05 would suggest that on average, the number of patches across landcover classes did not significantly change over time.  
+
+
+### Step 6
+Let’s look at the fragmentation results across our three years using the NUMP values. **Click on the “Plots” sheet at the bottom of your Excel window.**
+
+
+Here we see some plots that we have created for this training in advance. These plots were created by selecting the data and inserting a recommended chart in Excel within the Insert tab. 
+
+- NUMP: Number of Patches Across Time and Cover Type
+
+- Fragmentation Index (FI): Fragmentation (FI) Across Time and Cover Type
+  
+- Fragmentation Index with Size (FIS): Fragmentation (FIS) Across Time and Cover Type
+
+-	_ _What are some of the trends we are seeing?_ _
+
+**Optionally:**
+Go back into the ArcGIS project file and visualize the different landcover layers by year to note any noticeable areas of change. Layers can also be symbolized corresponding to the FI or FIS findings if that is of interest (e.g., more fragmented cover types in red and less fragmented in green, using a red/yellow/green color scheme). Additionally, you could symbolize cover types by NUMP ranges. 
 
 
 #
