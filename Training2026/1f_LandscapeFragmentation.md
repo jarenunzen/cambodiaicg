@@ -147,6 +147,38 @@ We can now calculate another fragmentation metric that takes into account the me
 >  
 >  The larger the FIS value, the more fragmented the class type is across the landscape. 
 
+### Step 4
+We are going to look at one more metric, which is a straightforward metric of habitat fragmentation: Number of Patches (NUMP). 
+
+>[!NOTE]
+>NUMP has been found to be one of the most important metrics when quantifying fragmentation. An increase or decrease in NUMP indicates an increase or decrease in fragmentation, respectively (Flowers et al. 2020). 
+
+We have the NUMP already calculated for each class in our 2024 summary statistics table. In Excel, this data is in both the “Frequency” and “COUNT-PatchArea” columns. 
+
+**Click the “NUMP” sheet at the bottom of your Excel window.**
+
+In the first (upper) table, you will see the number of patches for each class for our focal years. 
+<img width="1072" height="464" alt="image" src="https://github.com/user-attachments/assets/09520aca-2f9d-47ec-9312-3527185765f2" />
+
+### Step 5
+Use a One-Way ANOVA to test if the number of patches across classes (Forest, Open Forest, Grassland, Cropland) changed significantly between 2017 and 2024. 
+
+-	Each column is a year and each row is a landcover class. 
+-	Enable the Data Analysis Toolpak in Excel if it is not already enabled:
+a.	Go to File > Options > Add-ins,
+b.	At the bottom, next to “Manage Excel Add-ins” Click Go, 
+c.	Check “Analysis Toolpak” and click Ok. 
+-	Run the ANOVA
+a.	Go to the Data tab
+b.	Click Data Analysis (far right)
+c.	Choose ANOVA: Single Factor, click OK
+d.	For Input Range:
+	Select your full table of values 
+	Check Labels in First Row if you included year names in row 1
+e.	Choose Grouped by: Columns
+f.	Output to a New Worksheet Ply or a specified output range
+g.	Click OK
+
 
 #
 # Core Area in ArcGIS Pro (Part III)
