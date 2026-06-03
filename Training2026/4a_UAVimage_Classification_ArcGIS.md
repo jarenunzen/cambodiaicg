@@ -56,6 +56,13 @@ Navigate to the 'Imagery' tab, open 'Raster Functions' > 'Math' > 'Raster Calcul
 
 
 ### Step 4
+Select the NIR band and enter the **Raster Variable** 'n'. Select the red band and enter the **Raster Variable** 'r'.
+
+Specify the **Expression** for the Normalized Difference Vegetation Index (NDVI) and click **Create new layer** at the bottom of the pane.
+
+> (n - r) / (n + r)
+
+<img width="581" height="1158" alt="image" src="https://github.com/user-attachments/assets/db9a390b-df1e-4bfa-9b7b-c9be915b4556" />
 
 
 ## Part II: Supervised Classification
