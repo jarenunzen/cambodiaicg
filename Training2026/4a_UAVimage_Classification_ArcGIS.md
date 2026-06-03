@@ -51,6 +51,7 @@ Navigate to the 'Imagery' tab, open 'Raster Functions' > 'Math' > 'Raster Calcul
 
 >[!TIP]
 >If you are working with a single, multi-band, raster image, then the Band Arithmetic tool can be used instead to specify discrete bands and custom equations.
+>
 ><img width="131" height="120" alt="image" src="https://github.com/user-attachments/assets/ce842ec4-4cf7-4aff-b4f7-d503eec64f44" />
 
 
