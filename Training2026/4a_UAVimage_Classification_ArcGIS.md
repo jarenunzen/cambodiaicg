@@ -1,8 +1,6 @@
 # Header
 
-**Objective:** Perform a supervised classification of UAV orthoimagery in ArcGIS Pro based on the 'forest', 'fallow', and 'cropland' classes. 
-
-Additional information can be found in the supplemental Dropbox folder / UAV Resources
+**Objective:** Perform a supervised classification of UAV orthoimagery in ArcGIS Pro based on the 'forest', 'fallow', and 'cropland' classes. Additional information can be found in the supplemental Dropbox folder / UAV Resources
 
 **Required Data:**
 - UAV multispectral raster image (on Dropbox)
