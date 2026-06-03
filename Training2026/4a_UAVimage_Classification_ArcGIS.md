@@ -112,6 +112,7 @@ Repeat Step #7 to create new layers based on the following Statistics Types.
 
 <img width="250" height="174" alt="image" src="https://github.com/user-attachments/assets/c0099976-de75-4fc3-a4b1-14608d9c5527" />
 
+
 >[!NOTE]
 >In this tutorial, a standard 5x5 rectangular window is used to create texture metrics. This is not univerally the best option. Users may wish to adjust the window sizes based on the type of imagery (spatial resolution) or based on literature specific to their image type or features of interest (for example tree crowns vs croplands).
 
@@ -123,7 +124,7 @@ Search for the **Principal Compnents** tool in the Geoprocessing toolbox.
 Select the original UAV sensor bands (G, R, RE, NIR).
 
 
-Enter **3** as the Number of prinicpal components and click **Run**
+Enter **3** as the Number of prinicpal components and click **Run**. This step may take 6-10 minutes to process. 
 
 
 <img width="579" height="484" alt="image" src="https://github.com/user-attachments/assets/c1db1e7d-dc7c-4bc8-bb25-f7966ffafbfa" />
@@ -135,9 +136,13 @@ Enter **3** as the Number of prinicpal components and click **Run**
 ### Step 10
 Search for the **Composite Bands** tool within the Geoprocessing toolbox. 
 
-Add each of the extracted bands, band indices, texture bands, and the PCA bands as the input raster layers. There should be 
+Add each of the extracted bands, band indices, texture bands, and the PCA bands as the input raster layers. There should be 16 total bands (including the 3 from PCA). 
 
 Ensure that the output raster name is descriptive and distinguishable. 
+
+
+<img width="572" height="701" alt="image" src="https://github.com/user-attachments/assets/ad4e86a2-d4ea-485b-a26f-195038ece207" />
+
 
 ## Part II: Supervised Classification
 
