@@ -234,7 +234,7 @@ Review this new table, including special attention to the class-specific and ove
 [picture]
 
 >[!Tip]
->You can rerun just the accuracy assessment step by modifying the output table name and clicking Run again. Because the validation points are randomized, this may result in (slightly) different accuracies for each class. Running the accuracy assessment at least 2-3 times can be a good way to more fully understand the error / confusion in the classification as well as ensure that the number or placement of the validation points is not biasing the accuracy assessment. **If you notice substantial changes in the accuracy for any specific class, you should further review the classified map and validation samples (iterate the process). 
+>You can rerun just the accuracy assessment step by modifying the output table name and clicking Run again. Because the validation points are randomized, this may result in (slightly) different accuracies for each class. Running the accuracy assessment at least 2-3 times can be a good way to more fully understand the error / confusion in the classification as well as ensure that the number or placement of the validation points is not biasing the accuracy assessment. **If you notice substantial changes in the accuracy for any specific class, you should further review the classified map and validation samples (iterate the process)**. 
 
 ### Step 10 (optional)
 Copy and paste the full table to excel, then reformat the matrix into a more user-freindly visual. 
