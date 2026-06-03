@@ -64,7 +64,7 @@ Brown et al. 2025 'AlphaEarth Foundations: An embedding field model for accurate
 
 # **Resources for Accuracy Assessments**
 **Leading Book on Thematic Accuracy**
-- Congalton, R.G., & Green, K. (2019). Assessing the Accuracy of Remotely Sensed Data: Principles and Practices, Third Edition (3rd ed.). CRC Press. https://doi.org/10.1201/9780429052729
+- Congalton, R.G., & Green, K. (2019). Assessing the Accuracy of Remotely Sensed Data: Principles and Practices, Third Edition (3rd ed.). CRC Press. https://doi.org/10.1201/9780429052729 
 
 **Fundamental Methods**
 - Congalton, R.G., 1991. A review of assessing the accuracy of classifications of remotely sensed data. Remote sensing of environment, 37(1), pp.35-46.
@@ -80,8 +80,8 @@ Brown et al. 2025 'AlphaEarth Foundations: An embedding field model for accurate
 - https://forest-observatory.ec.europa.eu/forest
 
 **Kernel Density**
-- ArcGIS Pro Toolset: (https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-kernel-density-works.htm)
-- Space Time Kernel Density (https://www.esri.com/arcgis-blog/products/arcgis-pro/analytics/density-tools-in-arcgis-pro)
+- ArcGIS Pro Toolset: https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-kernel-density-works.htm
+- Space Time Kernel Density https://www.esri.com/arcgis-blog/products/arcgis-pro/analytics/density-tools-in-arcgis-pro
 
 # **Resources for Measuring Landscape Structure**
 **Fragmentation**
@@ -100,51 +100,62 @@ Ma et al. 2023 Supplementary Information: https://www.nature.com/articles/s41467
 
 # **Resources for GIS Programming**
 WestVirginiaView Courses
-- (https://www.wvview.org/courses.html)
+- https://www.wvview.org/courses.html
 
 
 # **Resources for Reforestation Planning**
-COMING SOON
-
 Agroforestry Suitability Tutorial
 - (https://github.com/saraheb3/AgroforestrySuitability_GEE/blob/main/gee_script/White-Oak-Tree-Growth-Suitability) 
 
 
 NASA FIRMS (Fire Information for Resource Management System)
-- (https://firms.modaps.eosdis.nasa.gov/)
+- https://firms.modaps.eosdis.nasa.gov/
 
 
 Relevant literature on overlay (suitability) analyses
 Sperduto and Congalton, 1996
-- (https://www.researchgate.net/publication/279902588_Predicting_Rare_Orchid_Small_Whorled_Pogonia_Habitat_Using_GIs)
+- https://www.researchgate.net/publication/279902588_Predicting_Rare_Orchid_Small_Whorled_Pogonia_Habitat_Using_GIs
 
   
 # **Resources for Water Quality Monitoring**
 ARSET Training
-- (https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing)
-
+- https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing
 
 
 SERVIR Water Quality Monitoring in GEE
 - (https://github.com/SERVIR/water-quality-gee)
 
+
 ODC Water Bodies of Cambodia
 - (https://data.opendevelopmentmekong.net/dataset/water-bodies-in-cambodia)
+
 
 Remote Sensing for Water Quality Monitoring: Review Paper
 - (https://www.mdpi.com/2072-4292/14/8/1770)
 
+
 Random Forest Regression (machine learning regression)
 - (https://developers.google.com/earth-engine/tutorials/community/satellite-embedding-04-regression)
+
 
 Tonle Sap Lake Landscape
 - (https://storymaps.arcgis.com/stories/88e6aee597914a9eb3e1311f4d5669f9)
 
 
 # **Resources for Drone Spectral Diversity Analysis**
-Fundamentals of Structure-from-Motion
-- Westoby et al. 2012 (https://www.sciencedirect.com/science/article/pii/S0169555X12004217)
+1. Fundamentals of Structure-from-Motion
+   - Westoby et al. 2012 https://www.sciencedirect.com/science/article/pii/S0169555X12004217
+
+Agisoft MetaShape 
+- https://www.agisoftmetashape.com/?gad_source=1&gad_campaignid=22874630825&gbraid=0AAAAADwoiSEevSinlDTk9hQYG2g7AzFIu&gclid=Cj0KCQjwof_QBhCgARIsADaMzOdfMBOUtKvHaxcqVTm7Koqs7AeNnCkF82K9LG81OiGDhnpxVdc_mGMaAiBFEALw_wcB
+
+WebODM 
+- https://webodm.org/
+
+  
+Pix4D Mapper
+- https://www.pix4d.com/discover-pix4dmatic/?utm_term=drone%20image%20processing%20software&utm_campaign=PIX4Dmatic&utm_source=adwords&utm_medium=ppc&hsa_acc=5624998817&hsa_cam=21063843263&hsa_grp=162377358151&hsa_ad=692309523289&hsa_src=g&hsa_tgt=kwd-323877525340&hsa_kw=drone%20image%20processing%20software&hsa_mt=p&hsa_net=adwords&hsa_ver=3&gad_source=1&gad_campaignid=21063843263&gbraid=0AAAAAC80FZOMLC1onkkBwDTK-CDwkEpFh&gclid=Cj0KCQjwof_QBhCgARIsADaMzOfgj9vmQpJoofXT3Zm9bxB24H1xUkmDbrAwk4Gnl-uD1sBD6zFA0vwaAvNoEALw_wcB 
 
 **Downey et al. 2023**
-- Publication: (https://www.nature.com/articles/s43247-023-01089-6)
-- Code repo: (https://github.com/downey205/MayaSwiddenIDH-CEE)
+- Publication: https://www.nature.com/articles/s43247-023-01089-6
+- Code repo: https://github.com/downey205/MayaSwiddenIDH-CEE
