@@ -143,11 +143,12 @@ Tonle Sap Lake Landscape
 
 
 # **Resources for Drone Spectral Diversity Analysis**
-1. Fundamentals of Structure-from-Motion
-   - Westoby et al. 2012 https://www.sciencedirect.com/science/article/pii/S0169555X12004217
+Fundamentals of Structure-from-Motion
+- Westoby et al. 2012 https://www.sciencedirect.com/science/article/pii/S0169555X12004217
 
 Agisoft MetaShape 
 - https://www.agisoftmetashape.com/?gad_source=1&gad_campaignid=22874630825&gbraid=0AAAAADwoiSEevSinlDTk9hQYG2g7AzFIu&gclid=Cj0KCQjwof_QBhCgARIsADaMzOdfMBOUtKvHaxcqVTm7Koqs7AeNnCkF82K9LG81OiGDhnpxVdc_mGMaAiBFEALw_wcB
+
 
 WebODM 
 - https://webodm.org/
@@ -156,6 +157,11 @@ WebODM
 Pix4D Mapper
 - https://www.pix4d.com/discover-pix4dmatic/?utm_term=drone%20image%20processing%20software&utm_campaign=PIX4Dmatic&utm_source=adwords&utm_medium=ppc&hsa_acc=5624998817&hsa_cam=21063843263&hsa_grp=162377358151&hsa_ad=692309523289&hsa_src=g&hsa_tgt=kwd-323877525340&hsa_kw=drone%20image%20processing%20software&hsa_mt=p&hsa_net=adwords&hsa_ver=3&gad_source=1&gad_campaignid=21063843263&gbraid=0AAAAAC80FZOMLC1onkkBwDTK-CDwkEpFh&gclid=Cj0KCQjwof_QBhCgARIsADaMzOfgj9vmQpJoofXT3Zm9bxB24H1xUkmDbrAwk4Gnl-uD1sBD6zFA0vwaAvNoEALw_wcB 
 
+
+ArcGIS Pro Deep Learning Classifications
+- https://doc.esri.com/en/arcgis-pro/latest/tool-reference/geoai/train-using-automl.html?tabs=dialog
+
+  
 **Downey et al. 2023**
 - Publication: https://www.nature.com/articles/s43247-023-01089-6
 - Code repo: https://github.com/downey205/MayaSwiddenIDH-CEE
