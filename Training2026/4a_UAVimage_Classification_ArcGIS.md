@@ -191,25 +191,57 @@ Select the **Random Trees** classifier and edit the number of trees to **500**. 
 <img width="575" height="380" alt="image" src="https://github.com/user-attachments/assets/49dd908b-bfa4-4dc2-b880-2a0748ff2023" />
 
 >[!CAUTION]
-> The number of samp
+> The number of samples per class parameter in this step will randomly generate points within each provided training data polygon. If the number of samples per class exceeds the number of training data polygons, more than one point per polygon will be generated, thus biasing the classification (spatial autocorrelation). Typically, the number of randomly generated samples here should be equal to or less than the number of training data polygons available in the smallest class. 
 
 ### Step 5
 Before clicking Next, expand the classifier metadata at the bottom and review the **train accuracy** and **variable importance** statistics. 
 
 >[!CAUTION]
-> This information can be used to understand the relative importance of the input variables as well as an initial understadning of the classification performance. This is the only place to retrieve this information, and it is lost after the classification wizard is completed and/or closed out. 
+> This information can be used to understand the relative importance of the input variables as well as an initial understadning of the classification performance. This is the only place to retrieve this information, and it is lost after the classification wizard is completed and/or closed out. To save this information for future use, copy and paste it to an excel file. 
 
 
 <img width="583" height="426" alt="image" src="https://github.com/user-attachments/assets/7555598a-5977-4abb-9d18-fa1d16c691ae" />
 
 
+You can create a feature importance graphic in excel or another statistics software by cross-referencing this output with the band names and order (Image composite metadata / properties). 
+
 ### Step 6
 Continue to the next step and Run the classifier. **Optionally** enter a name for an output classification definition file (.ecd). This is a unique file for ArcGIS Pro that can be used to classify (predict) other imagery of the same type through the standalone **Classify** tool. 
 
+
 ### Step 7
+Review the classified map for qualtative (visual) approval. 
+
+[picture]
+
+### Step 8
+continue to the accuracy assessment step
 
 
-## Part III: 
+Set the number of validation ('reference') points to **150** and the Sampling Strategy to **Equalized Stratified Random**. 
 
 
+This will ensure that the total number of validation points are equally distributed among the land cover classes (3 here, with 50 each now). 
 
+[picture]
+
+### Step 9
+After you hit **Run** the error matrix will be added as a standalone table to the bottom of the Table of Contents as well as to the default geodatabase. 
+
+
+Review this new table, including special attention to the class-specific and overall accuracies. 
+
+[picture]
+
+>[!Tip]
+>You can rerun just the accuracy assessment step by modifying the output table name and clicking Run again. Because the validation points are randomized, this may result in (slightly) different accuracies for each class. Running the accuracy assessment at least 2-3 times can be a good way to more fully understand the error / confusion in the classification as well as ensure that the number or placement of the validation points is not biasing the accuracy assessment. **If you notice substantial changes in the accuracy for any specific class, you should further review the classified map and validation samples (iterate the process). 
+
+### Step 10 (optional)
+Copy and paste the full table to excel, then reformat the matrix into a more user-freindly visual. 
+
+
+[picture]
+
+#
+Return to trainings
+(https://github.com/jarenunzen/cambodiaicg/tree/main)
