@@ -185,12 +185,13 @@ Enter the classification configuration parameters for a supervised, pixel-based 
 Click next until you reach the **Train** step. 
 
 
-Select the **Random Trees** classifier and edit the number of trees to **500**. When the processing is finished, 
+Select the **Random Trees** classifier and edit the number of trees to **500**. When the processing is finished, expand the window at the bottom of the Image Classification Wizard Pane for Step #5. 
 
 
 <img width="575" height="380" alt="image" src="https://github.com/user-attachments/assets/49dd908b-bfa4-4dc2-b880-2a0748ff2023" />
 
-
+>[!CAUTION]
+> The number of samp
 
 ### Step 5
 Before clicking Next, expand the classifier metadata at the bottom and review the **train accuracy** and **variable importance** statistics. 
