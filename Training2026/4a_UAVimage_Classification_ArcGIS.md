@@ -141,11 +141,71 @@ Add each of the extracted bands, band indices, texture bands, and the PCA bands 
 
 Ensure that the output raster name is descriptive and distinguishable. 
 
+>[!WARNING]
+>This step takes approximately 60 minutes to finish processing and will create an image file >100GB in size.
 
 <img width="572" height="701" alt="image" src="https://github.com/user-attachments/assets/ad4e86a2-d4ea-485b-a26f-195038ece207" />
 
 
 ## Part II: Supervised Classification
+This tutorial will proceed through using the ArcGIS Pro classification wizard, using a supervised pixel-based random forest classfication. 
+
+
+The Read Me file associated with this training repository includes additional details on classifying UAV imagery using either the ArcGIS Pro Deep Learning Package or R Studio. Both may achieve comparable or better results. 
+
+>[CAUTION]
+>The classificaiton and accuracy assessment performed during this training are for **training demsontrations only**, users should rely on a more statistically valid amount of training and validation (reference) data during standalone projects. This means, at a minimum there should be 50 samples per class for training and 50 smaples per class for validaiton. Point-based samples should not be used and are not allowed within the ArcGIS Pro classification wizard. 
+
+
+### Step 1
+Review the reference data shapefiles. Ensure that there are seperate training and validation files available for this section. The training and validation data have already been seperated in the provided package. If you do not have reference data yet, you can create these files using the **ArcGIS Pro Training Data Manager**.
+
+**Each file must have the classname and classvalue fields**.
+
+>[!TIP]
+> For more information on classification in ArcGIS Pro visit:
+> https://pro.arcgis.com/en/pro-app/3.4/help/analysis/image-analyst/the-image-classification-wizard.htm
+
+### Step 2
+Select the UAV composite created at the end of Part 1 in the Table of Contents.
+
+Navigate to the Imagery Table and Open the **Classiication Wizard**. 
+
+
+<img width="1045" height="251" alt="image" src="https://github.com/user-attachments/assets/f17dfad1-67e8-4603-908a-1b4711e7a7ec" />
+
+
+### Step 3
+Enter the classification configuration parameters for a supervised, pixel-based classifcation and click **Next >**. The Classification Schema can be imported from the training data shapefile (Default .gdb). 
+
+<img width="585" height="1165" alt="image" src="https://github.com/user-attachments/assets/82555545-b70f-4be9-8dd2-b46c95773d22" />
+
+
+### Step 4
+Click next until you reach the **Train** step. 
+
+
+Select the **Random Trees** classifier and edit the number of trees to **500**. When the processing is finished, 
+
+
+<img width="575" height="380" alt="image" src="https://github.com/user-attachments/assets/49dd908b-bfa4-4dc2-b880-2a0748ff2023" />
+
+
+
+### Step 5
+Before clicking Next, expand the classifier metadata at the bottom and review the **train accuracy** and **variable importance** statistics. 
+
+>[!CAUTION]
+> This information can be used to understand the relative importance of the input variables as well as an initial understadning of the classification performance. This is the only place to retrieve this information, and it is lost after the classification wizard is completed and/or closed out. 
+
+
+<img width="583" height="426" alt="image" src="https://github.com/user-attachments/assets/7555598a-5977-4abb-9d18-fa1d16c691ae" />
+
+
+### Step 6
+Continue to the next step and Run the classifier. **Optionally** enter a name for an output classification definition file (.ecd). This is a unique file for ArcGIS Pro that can be used to classify (predict) other imagery of the same type through the standalone **Classify** tool. 
+
+### Step 7
 
 
 ## Part III: 
