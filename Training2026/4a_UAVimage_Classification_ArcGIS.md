@@ -16,6 +16,7 @@ OR
 
 https://www.gcbc.org.uk/project/recognising-and-rewarding-the-contribution-of-indigenous-knowledge-for-the-sustainable-management-of-biodiversity/
 
+
 ## Part I: Preparing the data
 ### Step 1
 Open the properties for the multispectral UAV raster image and explore the primary attributes such as the spatial resolition, radiometric resolution, number of bands, and band metadata.
