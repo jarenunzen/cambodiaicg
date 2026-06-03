@@ -242,6 +242,7 @@ Copy and paste the full table to excel, then reformat the matrix into a more use
 
 [picture]
 
+## END
 #
 Return to trainings
 (https://github.com/jarenunzen/cambodiaicg/tree/main)
