@@ -65,6 +65,80 @@ Specify the **Expression** for the Normalized Difference Vegetation Index (NDVI)
 <img width="581" height="1158" alt="image" src="https://github.com/user-attachments/assets/db9a390b-df1e-4bfa-9b7b-c9be915b4556" />
 
 
+>[!CAUTION]
+> This new (temporary) layer is created almost instantly. This layer and subsequent layers will only be temporarily saved within the project. If you close the project and re-open it, even if you save the project, this layer may be lost. To avoid losing this progress, we will ensure that the final composite of all of the layers are saved. **If you wish to save these intermediate indices as distinct layers, select Save as instead of Create new layer**.
+
+
+### Step 5
+Rename this new layer in the Table of Contents to **NDVI**. 
+
+### Step 6
+Repeat steps 3-5 for the Green-Red Vegetation Index (GRVI), Red-Green ration (RGI), and Anthocyanin Reflectance Index (ARI).
+
+> GRVI = (g - r) / (g + r)
+>
+> RGI = (r/g)
+>
+> ARI = (1/g) - (1/re)
+
+<img width="583" height="1163" alt="image" src="https://github.com/user-attachments/assets/57107962-b0b2-4e0c-ba8e-0042af6c18bd" />
+
+
+### Step 7
+Now we will calculate several texture metrics based on Haralick et al. 1973 (GLCM). 
+
+
+Select the **NIR** band i nthe Table of Contents. 
+
+
+Navigate to the Imagery tab > Raster Functions > Statistical > **Focal Statistics**. 
+
+
+Select NIR as the Raster, in the neighborhood settings set both the Width and Height to 5, and choose **Mean** as the Statistics Type. 
+
+
+Create a new layer. 
+
+<img width="919" height="768" alt="image" src="https://github.com/user-attachments/assets/ab3ddd82-3408-471b-8c77-8dbf15429888" />
+
+
+### Step 8
+Repeat Step #7 to create new layers based on the following Statistics Types. 
+- Median
+- Standard Deviation
+- Range
+- 90th Percentile
+
+
+<img width="250" height="174" alt="image" src="https://github.com/user-attachments/assets/c0099976-de75-4fc3-a4b1-14608d9c5527" />
+
+>[!NOTE]
+>In this tutorial, a standard 5x5 rectangular window is used to create texture metrics. This is not univerally the best option. Users may wish to adjust the window sizes based on the type of imagery (spatial resolution) or based on literature specific to their image type or features of interest (for example tree crowns vs croplands).
+
+
+### Step 9
+Search for the **Principal Compnents** tool in the Geoprocessing toolbox. 
+
+
+Select the original UAV sensor bands (G, R, RE, NIR).
+
+
+Enter **3** as the Number of prinicpal components and click **Run**
+
+
+<img width="579" height="484" alt="image" src="https://github.com/user-attachments/assets/c1db1e7d-dc7c-4bc8-bb25-f7966ffafbfa" />
+
+
+>[!NOTE]
+> Learn more about PCA from ESRI at: https://pro.arcgis.com/en/pro-app/3.4/tool-reference/spatial-analyst/how-principal-components-works.htm
+
+### Step 10
+Search for the **Composite Bands** tool within the Geoprocessing toolbox. 
+
+Add each of the extracted bands, band indices, texture bands, and the PCA bands as the input raster layers. There should be 
+
+Ensure that the output raster name is descriptive and distinguishable. 
+
 ## Part II: Supervised Classification
 
 
