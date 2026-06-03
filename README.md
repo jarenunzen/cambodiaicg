@@ -105,7 +105,7 @@ WestVirginiaView Courses
 
 # **Resources for Reforestation Planning**
 Agroforestry Suitability Tutorial
-- (https://github.com/saraheb3/AgroforestrySuitability_GEE/blob/main/gee_script/White-Oak-Tree-Growth-Suitability) 
+- https://github.com/saraheb3/AgroforestrySuitability_GEE/blob/main/gee_script/White-Oak-Tree-Growth-Suitability 
 
 
 NASA FIRMS (Fire Information for Resource Management System)
@@ -123,7 +123,7 @@ ARSET Training
 
 
 SERVIR Water Quality Monitoring in GEE
-- (https://github.com/SERVIR/water-quality-gee)
+- https://github.com/SERVIR/water-quality-gee
 
 
 ODC Water Bodies of Cambodia
@@ -131,15 +131,15 @@ ODC Water Bodies of Cambodia
 
 
 Remote Sensing for Water Quality Monitoring: Review Paper
-- (https://www.mdpi.com/2072-4292/14/8/1770)
+- https://www.mdpi.com/2072-4292/14/8/1770
 
 
 Random Forest Regression (machine learning regression)
-- (https://developers.google.com/earth-engine/tutorials/community/satellite-embedding-04-regression)
+- https://developers.google.com/earth-engine/tutorials/community/satellite-embedding-04-regression
 
 
 Tonle Sap Lake Landscape
-- (https://storymaps.arcgis.com/stories/88e6aee597914a9eb3e1311f4d5669f9)
+- https://storymaps.arcgis.com/stories/88e6aee597914a9eb3e1311f4d5669f9
 
 
 # **Resources for Drone Spectral Diversity Analysis**
