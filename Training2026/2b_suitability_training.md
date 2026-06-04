@@ -9,7 +9,7 @@ https://code.earthengine.google.com/
 # Step 1
 Import KSWS shapefile and landcover classification. 
 
-*Landcover is located under 'data/2025_classified_landcover'. The shsapefile is located within the 'data/KSWS_Shapefile' folder.* 
+*Landcover is located under 'data/landcover_maps'. The shapefile is located within the 'data/KSWS_Shapefile' folder.* 
 
 > [!NOTE]
 > These shapefiles were also used or created during Section 1 of this training.
