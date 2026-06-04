@@ -205,17 +205,21 @@ Before clicking Next, expand the classifier metadata at the bottom and review th
 
 You can create a feature importance graphic in excel or another statistics software by cross-referencing this output with the band names and order (Image composite metadata / properties). 
 
+
 ### Step 6
 Continue to the next step and Run the classifier. **Optionally** enter a name for an output classification definition file (.ecd). This is a unique file for ArcGIS Pro that can be used to classify (predict) other imagery of the same type through the standalone **Classify** tool. 
+
+> Processing for this step may vary but typically takes longer than 1 hour. Processing will fail if you computer does not have sufficient resources (RAM or CPU). One workaround for this issue would be to use the standalone 'Classify' tool found within the **Imagery** > **Image Classification** toolkit. 
 
 
 ### Step 7
 Review the classified map for qualtative (visual) approval. 
 
-[picture]
+<img width="847" height="708" alt="image" src="https://github.com/user-attachments/assets/bc3cb016-3018-4b3e-aae1-2c1e10a1d040" />
+
 
 ### Step 8
-continue to the accuracy assessment step
+Continue to the accuracy assessment step
 
 
 Set the number of validation ('reference') points to **150** and the Sampling Strategy to **Equalized Stratified Random**. 
@@ -223,7 +227,8 @@ Set the number of validation ('reference') points to **150** and the Sampling St
 
 This will ensure that the total number of validation points are equally distributed among the land cover classes (3 here, with 50 each now). 
 
-[picture]
+<img width="460" height="276" alt="image" src="https://github.com/user-attachments/assets/c335c59e-6d28-49d8-b704-0d368e20200c" />
+
 
 ### Step 9
 After you hit **Run** the error matrix will be added as a standalone table to the bottom of the Table of Contents as well as to the default geodatabase. 
@@ -231,16 +236,20 @@ After you hit **Run** the error matrix will be added as a standalone table to th
 
 Review this new table, including special attention to the class-specific and overall accuracies. 
 
-[picture]
+
+<img width="528" height="261" alt="image" src="https://github.com/user-attachments/assets/d77d8e09-b887-4ee2-8386-1fc8eb200268" />
+
 
 >[!Tip]
->You can rerun just the accuracy assessment step by modifying the output table name and clicking Run again. Because the validation points are randomized, this may result in (slightly) different accuracies for each class. Running the accuracy assessment at least 2-3 times can be a good way to more fully understand the error / confusion in the classification as well as ensure that the number or placement of the validation points is not biasing the accuracy assessment. **If you notice substantial changes in the accuracy for any specific class, you should further review the classified map and validation samples (iterate the process)**. 
+>You can rerun just the accuracy assessment step by modifying the output table name and clicking Run again. Because the validation points are randomized, this may result in (slightly) different accuracies for each class. Running the accuracy assessment at least 2-3 times can be a good way to more fully understand the error / confusion in the classification as well as ensure that the number or placement of the validation points is not biasing the accuracy assessment. **If you notice substantial changes in the accuracy for any specific class, you should further review the classified map and validation samples (iterate the process)**.
+>
+> Addiitonally, the validation points made for each specific assessment will be written to the default geodatabase as a shapefile. 
 
 ### Step 10 (optional)
 Copy and paste the full table to excel, then reformat the matrix into a more user-freindly visual. 
 
 
-[picture]
+<img width="563" height="360" alt="image" src="https://github.com/user-attachments/assets/e8f5f03e-013b-490f-8d76-3e8a33f690b2" />
 
 ## END
 #
