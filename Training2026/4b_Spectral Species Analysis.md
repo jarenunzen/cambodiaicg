@@ -76,11 +76,8 @@ We will focus on the SPCA and the Spectral Indices. Principal component analysis
 
 
 ## Flowchart
-Flowchart of Phases 1-3 from Feret’s Tutorial
- 
+<img width="901" height="525" alt="image" src="https://github.com/user-attachments/assets/d46bcb9c-7cb0-4e07-a216-43732c78fcaa" />
 
-Additional Step 
-(not explicitly included in Feret’s biodivmapR tutorial):
 
 
 ## Phase 4: Linking Spectral Diversity and Vegetation Plot Diversity
