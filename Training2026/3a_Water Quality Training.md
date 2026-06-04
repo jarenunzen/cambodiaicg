@@ -92,7 +92,7 @@ var pH = median.expression(
 
 var pH_adjusted = pH.add(3.7);
 ```
-> [!NOTE] The +3.7 adjustment is a sensor correction: the original equation was developed for Landsat, so a bias correction is needed when applying it to Sentinel-2 data. If using Landsat imagery, remove this adjustment.
+> **Note:** The +3.7 adjustment is a sensor correction: the original equation was developed for Landsat, so a bias correction is needed when applying it to Sentinel-2 data. If using Landsat imagery, remove this adjustment.
 
 # Step 6
 Display the pH Map.
