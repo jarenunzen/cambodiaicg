@@ -104,16 +104,16 @@ Downey, Sean S., et al. "An intermediate level of disturbance with customary agr
 
 
 <img width="957" height="811" alt="image" src="https://github.com/user-attachments/assets/0fd4bdea-e359-454f-ad08-5c355d564324" />
-
+**Figure from Downey et al. 2023, Supplemental Info.**
 
 <img width="1013" height="804" alt="image" src="https://github.com/user-attachments/assets/8d4ca316-ddf6-432c-b32f-376beeb9be89" />
-
+**Figure from Downey et al. 2023, example of spectral species raster (composition).**
 
 <img width="1013" height="1037" alt="image" src="https://github.com/user-attachments/assets/d90872fa-6984-41f1-85fd-755806d753b1" />
-
+**Downey et al. 2023 of the spectral species map (raster).**
 
 <img width="1013" height="1126" alt="image" src="https://github.com/user-attachments/assets/663b114a-1685-4906-8b9a-8484dadc8aaf" />
-
+**Downey et al. 2023, showing spectral species raster and vegetation plots.**
 
 Tsai, F., E‐K. Lin, and Kunihiko Yoshino. "Spectrally segmented principal component analysis of hyperspectral imagery for mapping invasive plant species." International Journal of Remote Sensing 28.5 (2007): 1023-1039.
 
