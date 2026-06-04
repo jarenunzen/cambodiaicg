@@ -47,7 +47,11 @@ Converting the image into spectral features can be done in multiple ways. The tu
 
 
   a.	Spectral Transformation – Standardized PCA (SPCA)
+
+
   b.	Spectral Indices 
+
+  
   c.	Biophysical Properties
 
 
