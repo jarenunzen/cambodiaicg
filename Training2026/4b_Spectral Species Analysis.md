@@ -136,7 +136,18 @@ https://rstudio-education.github.io/hopr/starting.html
 #
 ## Part I: The biodivMap R package
 ### Step 1
+Add the header to your script
 
+
+```
+# WCS/GCBC Spectral Species Diversity Tutorial	
+# June 2026 Training
+
+## GitHub BiodivMapR Package tutorial ## 
+# https://jbferet.github.io/biodivMapR/articles/biodivMapR_01.html
+# https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html
+# https://github.com/jbferet/biodivMapR/tree/master/R
+```
 
 ### Step 2
 
