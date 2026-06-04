@@ -1,4 +1,5 @@
-# Header (change this to a graphical abstract and description)
+<img width="1471" height="558" alt="image" src="https://github.com/user-attachments/assets/08ed0571-31db-40e9-b8aa-3828e79b16ad" />
+
 
 **Objective:** Perform a supervised classification of UAV orthoimagery in ArcGIS Pro (v3.6 or v3.7) based on the 'forest', 'fallow', and 'cropland' classes. Additional information can be found in the supplemental Dropbox folder / UAV Resources
 
