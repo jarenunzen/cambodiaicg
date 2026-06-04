@@ -136,10 +136,10 @@ https://rstudio-education.github.io/hopr/starting.html
 #
 ## Part I: The biodivMap R package
 ### Step 1
-Add the header to your script
+Add the header to your script.
 
 
-```
+```R
 # WCS/GCBC Spectral Species Diversity Tutorial	
 # June 2026 Training
 
