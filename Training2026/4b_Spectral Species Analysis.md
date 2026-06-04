@@ -103,6 +103,18 @@ https://www.gcbc.org.uk/project/recognising-and-rewarding-the-contribution-of-in
 Downey, Sean S., et al. "An intermediate level of disturbance with customary agricultural practices increases species diversity in Maya community forests in Belize." Communications Earth & Environment 4.1 (2023): 428.
 
 
+<img width="957" height="811" alt="image" src="https://github.com/user-attachments/assets/0fd4bdea-e359-454f-ad08-5c355d564324" />
+
+
+<img width="1013" height="804" alt="image" src="https://github.com/user-attachments/assets/8d4ca316-ddf6-432c-b32f-376beeb9be89" />
+
+
+<img width="1013" height="1037" alt="image" src="https://github.com/user-attachments/assets/d90872fa-6984-41f1-85fd-755806d753b1" />
+
+
+<img width="1013" height="1126" alt="image" src="https://github.com/user-attachments/assets/663b114a-1685-4906-8b9a-8484dadc8aaf" />
+
+
 Tsai, F., E‐K. Lin, and Kunihiko Yoshino. "Spectrally segmented principal component analysis of hyperspectral imagery for mapping invasive plant species." International Journal of Remote Sensing 28.5 (2007): 1023-1039.
 
 
