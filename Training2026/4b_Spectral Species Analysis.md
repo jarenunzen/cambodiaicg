@@ -89,7 +89,7 @@ Assuming you have collected ground vegetation plot data and calculated vegetatio
 3.	Statistically compare the spectral and vegetation plot diversities. This can be done at the plot level using various models (e.g., generalized linear models). Community diversity relationships can be modeled (beta diversity). The goal may be to quantify how well the spectral diversity predicts or compares to the real vegetation diversity. 
 
   
-
+#
 **Site:** The three communities of Andong Kralong, Sre Lvi, and Pu Kong, located in Mondulkiri province. WCS x GCBC Project Site
 <img width="1280" height="612" alt="image002" src="https://github.com/user-attachments/assets/12769687-6584-4f68-a26e-160d546e8201" />
 
@@ -98,6 +98,24 @@ Assuming you have collected ground vegetation plot data and calculated vegetatio
 https://www.gcbc.org.uk/project/recognising-and-rewarding-the-contribution-of-indigenous-knowledge-for-the-sustainable-management-of-biodiversity/
 
 
+#
+## References
+Downey, Sean S., et al. "An intermediate level of disturbance with customary agricultural practices increases species diversity in Maya community forests in Belize." Communications Earth & Environment 4.1 (2023): 428.
+
+
+Tsai, F., E‐K. Lin, and Kunihiko Yoshino. "Spectrally segmented principal component analysis of hyperspectral imagery for mapping invasive plant species." International Journal of Remote Sensing 28.5 (2007): 1023-1039.
+
+
+https://github.com/jbferet/biodivMapR/blob/master/vignettes/biodivMapR.Rmd
+
+
+https://gjkoplik.github.io/spectral_clustering/#k-means_clustering 
+
+
+https://rstudio-education.github.io/hopr/starting.html 
+
+
+#
 ## Part I: The biodivMap R package
 ### Step 1
 
