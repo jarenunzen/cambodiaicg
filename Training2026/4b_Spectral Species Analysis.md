@@ -81,8 +81,12 @@ Flowchart of Phases 1-3 from Feret’s Tutorial
 
 Additional Step 
 (not explicitly included in Feret’s biodivmapR tutorial):
-Phase 4: Linking Spectral Diversity and Vegetation Plot Diversity
+
+
+## Phase 4: Linking Spectral Diversity and Vegetation Plot Diversity
 Assuming you have collected ground vegetation plot data and calculated vegetation diversity metrics, you can then link the spectral species to the vegetation species diversity. 
+
+
 1.	Define spectral diversity metrics at the plot scale (same scale as the vegetation plot data).
 2.	Compute spectral diversity metrics at the plot scale.
 3.	Statistically compare the spectral and vegetation plot diversities. This can be done at the plot level using various models (e.g., generalized linear models). Community diversity relationships can be modeled (beta diversity). The goal may be to quantify how well the spectral diversity predicts or compares to the real vegetation diversity. 
