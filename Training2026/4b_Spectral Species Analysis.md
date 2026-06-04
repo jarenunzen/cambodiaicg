@@ -29,7 +29,7 @@ You can also review the **Downey et al. 2023 paper and code from the REAM ME fil
   o	The spectral properties can be used to understand vegetation diversity.
 
 #
-# **Flow Chart / Table of Contents**
+# **Table of Contents**
 ## Phase 1 Gathering Remotely Sensed Imagery and Preparing it 
 1.	Define area of interest (AOI)
 2.	Download Sentinel-2 image
