@@ -1,4 +1,5 @@
-# WCS/GCBC Spectral Species Diversity Tutorial				6/1/26, Maeve Kelley
+# WCS/GCBC Spectral Species Diversity Tutorial				
+**6/1/26, Maeve Kelley**
 
 <img width="881" height="690" alt="image" src="https://github.com/user-attachments/assets/1149703c-d66f-4a70-9d5b-98c42a177544" />
 
