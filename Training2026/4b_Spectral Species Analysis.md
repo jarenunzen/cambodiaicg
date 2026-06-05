@@ -235,6 +235,10 @@ spatio-temporal query.
 - `options`: options including maximum cloud cover and higher level processing
 
 
+>[!WARNING]
+>Installing the 'jbferet' and 'preproS2' repo here may take some time due to the number of dependencies.
+
+
 ```
 ### download Sentinel-2 acquisition from online STAC resource
 # 1.5- download  S2 acquisition
@@ -308,17 +312,53 @@ readRDS('./01_DATA/amazon/raster_data/sentinel-2/collections/plot_001.rds')
 
 
 - `raster_samples` includes:
-  
-─ `amazon_001_2024-08-23.tiff`: L2A (surface reflectance) Sentinel-2 data
-─ `amazon_001_2024-08-23_BIN.tiff`: binary mask derived from 
-`amazon_001_2024-08-23_SCL.tiff` and focusing on vegetation class.  
-─ `amazon_001_2024-08-23_BIN_v2.tiff`: binary mask produced from alternative 
-
-radiometric criteria, including NDVI mask to remove non vegetated pixels, 
-Blue mask to remove hazy/cloudy pixels, and NIR mask to remove shaded pixels.
+  ─ `amazon_001_2024-08-23.tiff`: L2A (surface reflectance) Sentinel-2 data
+  ─ `amazon_001_2024-08-23_BIN.tiff`: binary mask derived from
+  `amazon_001_2024-08-23_SCL.tiff` and focusing on vegetation class.
+  ─ `amazon_001_2024-08-23_BIN_v2.tiff`: binary mask produced from alternative
+  radiometric criteria, including NDVI mask to remove non vegetated pixels,
+  Blue mask to remove hazy/cloudy pixels, and NIR mask to remove shaded pixels.
 
 
+### Step 5
+You can adjust threshold for cloudMask (B02), shadeMask (B08), and NDVIMask.
+See [here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html#spectral-transformation) for additional information on how these masks work.
+           ─ `amazon_001_2024-08-23_SCL.tiff`: scene classification provided by sen2cor 
+           atmospheric correction.
+        
+           - `s2_tiles_amazon.rds` contains the Sentinel-2 tile ID for the scene
+           
+           - `s2_footprint_amazon.gpkg` contains the footprint of the Sentinel-2 tile ID
+           
+           The animated gif shows the Sentinel-2 acquisition. 
+           The pixels masked by the binary mask `amazon_001_2024-08-23_BIN_v2.tiff` are 
+           greyed.
+           The surface reflectance in sentinel-2 L2A products is rescaled from 0-1 to 
+           0-10000 and the data are stored in INT16 to save space. This allows 50% space 
+           saved compared to FLOAT32.
+           
+           The following animation displays the sentinel-2 acquisition along with the 
+           vegetation mask and with the following color dynamic: 
+             
+             - Red band: Band 04 (0 - 1000).
+           
+           - Green band: Band 03 (0 - 1000).
+           
+           - Blue band: Band 02 (0 - 1000).
 
+           <!-- <p> -->
+             <!-- <img src="../man/figures/01_amazon.gif" width="100%" height="100%" class="center"> -->
+             
+             <!-- </p> -->
+             <center>
+             Fig. 1. sentinel-2 acquisition of Brazilian Amazon forest downloaded with 
+           `preprocS2`
+           </center> 
+             <p>&nbsp;</p>
+             
+             [Next step here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html){target="_blank"}.
+
+### Step 6
 
 # END
 
