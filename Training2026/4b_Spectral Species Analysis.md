@@ -20,7 +20,8 @@ You can also review the **Downey et al. 2023 paper and code from the REAM ME fil
 
 
 **Required Data:**
-- start...
+- Multispectral UAV Orthomosaic (Grid 1 used here)
+- Classified Raster layers generated from UAV Orthomosaic
 
 **Overview**
 -	We will turn multispectral imagery into maps of vegetation diversity, using spectral species. 
