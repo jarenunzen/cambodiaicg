@@ -237,6 +237,7 @@ spatio-temporal query.
 
 >[!WARNING]
 >Installing the 'jbferet' and 'preproS2' repo here may take some time due to the number of dependencies.
+>This process might also take several installs. **Follow the prompts in the R Studio Console**. 
 
 
 ```
@@ -346,19 +347,10 @@ See [here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html#spec
            
            - Blue band: Band 02 (0 - 1000).
 
-           <!-- <p> -->
-             <!-- <img src="../man/figures/01_amazon.gif" width="100%" height="100%" class="center"> -->
-             
-             <!-- </p> -->
-             <center>
-             Fig. 1. sentinel-2 acquisition of Brazilian Amazon forest downloaded with 
-           `preprocS2`
-           </center> 
-             <p>&nbsp;</p>
-             
-             [Next step here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html){target="_blank"}.
+
 
 ### Step 6
+
 
 # END
 
