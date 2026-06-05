@@ -142,7 +142,7 @@ https://rstudio-education.github.io/hopr/starting.html
 Add the header to your script.
 
 
-```r
+```
 # WCS/GCBC Spectral Species Diversity Tutorial	
 # June 2026 Training
 
@@ -153,7 +153,25 @@ Add the header to your script.
 ```
 
 ### Step 2
+First, load required packages and prepare input and output directories.
 
+
+```{r prepare download s2}
+# clean workspace
+rm(list = ls(all=TRUE)); gc()
+if (rstudioapi::isAvailable()) 
+  setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+library(preprocS2)  # install instructions: https://github.com/jbferet/preprocS2
+library(biodivMapR) # install instructions: https://github.com/jbferet/biodivMapR
+library(spinR)      # install instructions: https://github.com/jbferet/spinR
+library(terra)
+library(sf)
+# 1.1- define input & output directories
+input_dir_vect <- './01_DATA/amazon/vector_data'
+input_dir_rast <- './01_DATA/amazon/raster_data/sentinel-2'
+dir.create(path = input_dir_rast, showWarnings = F, recursive = T)
+dir.create(path = input_dir_vect, showWarnings = F, recursive = T)
+```
 
 
 
