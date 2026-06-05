@@ -272,18 +272,51 @@ mask_path <- list_files$vegetation_mask         # S2 binary mask identifying veg
 >[!NOTE]
 >The information resulting from the spatiotemporal query are saved in the 
 directory defined with the variable `input_dir_rast`. 
-It follows this file/folder structure: 
-  ```
-├── collections
-├── plot_001.rds
-├── raster_samples
-├── amazon_001_2024-08-23.tiff
-├── amazon_001_2024-08-23_BIN.tiff
-├── amazon_001_2024-08-23_BIN_v2.tiff
-└── amazon_001_2024-08-23_SCL.tiff
-├── s2_tiles_amazon.rds
-└── s2_footprint_amazon.gpkg
+It follows this file/folder structure:
+>```
+>├── collections
+>├── plot_001.rds
+>├── raster_samples
+>├── amazon_001_2024-08-23.tiff
+>├── amazon_001_2024-08-23_BIN.tiff
+>├── amazon_001_2024-08-23_BIN_v2.tiff
+>└── amazon_001_2024-08-23_SCL.tiff
+>├── s2_tiles_amazon.rds
+>└── s2_footprint_amazon.gpkg
+>```
+>
+
+### Step 4
+`collections/plot_001.rds` corresponds to the item collection resulting from 
+the spatiotemporal query. 
+
+
+Use the R function `readRDS` to access the content of the file.
+
 ```
+readRDS('./01_DATA/amazon/raster_data/sentinel-2/collections/plot_001.rds')
+
+# ###Items
+# - features (1 item(s)):
+#   - S2A_MSIL2A_20240823T144731_R139_T19MHT_20240823T215907
+# - assets: 
+# AOT, B01, B02, B03, B04, B05, B06, B07, B08, B09, B11, B12, B8A, datastrip-metadata, granule-metadata, inspire-metadata, product-metadata, rendered_preview, safe-manifest, SCL, tilejson, visual, WVP
+# - item's fields: 
+# assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type
+```
+
+
+
+- `raster_samples` includes:
+  
+─ `amazon_001_2024-08-23.tiff`: L2A (surface reflectance) Sentinel-2 data
+─ `amazon_001_2024-08-23_BIN.tiff`: binary mask derived from 
+`amazon_001_2024-08-23_SCL.tiff` and focusing on vegetation class.  
+─ `amazon_001_2024-08-23_BIN_v2.tiff`: binary mask produced from alternative 
+
+radiometric criteria, including NDVI mask to remove non vegetated pixels, 
+Blue mask to remove hazy/cloudy pixels, and NIR mask to remove shaded pixels.
+
 
 
 
