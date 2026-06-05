@@ -41,7 +41,7 @@ a.	Specify dates
 
 
 >[!NOTE]
-> This can be completed using multispectral drone imagery, the tutorial just uses Sentinel-2 imagery.
+> This can be completed using multispectral drone imagery such as the image above, for simplicity this tutorial just uses Sentinel-2 imagery.
 
 
 
