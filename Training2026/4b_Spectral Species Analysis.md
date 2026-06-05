@@ -115,6 +115,8 @@ Downey, Sean S., et al. "An intermediate level of disturbance with customary agr
 **Figure from Downey et al. 2023, example of spectral species raster (composition).**
 
 <img width="1013" height="1037" alt="image" src="https://github.com/user-attachments/assets/d90872fa-6984-41f1-85fd-755806d753b1" />
+
+
 **Downey et al. 2023 of the spectral species map (raster).**
 
 <img width="1013" height="1126" alt="image" src="https://github.com/user-attachments/assets/663b114a-1685-4906-8b9a-8484dadc8aaf" />
@@ -140,7 +142,7 @@ https://rstudio-education.github.io/hopr/starting.html
 Add the header to your script.
 
 
-```R
+```r
 # WCS/GCBC Spectral Species Diversity Tutorial	
 # June 2026 Training
 
