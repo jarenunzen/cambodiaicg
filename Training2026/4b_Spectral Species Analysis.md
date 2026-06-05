@@ -315,9 +315,14 @@ readRDS('./01_DATA/amazon/raster_data/sentinel-2/collections/plot_001.rds')
 
 
 - `raster_samples` includes:
+
+
   ─ `amazon_001_2024-08-23.tiff`: L2A (surface reflectance) Sentinel-2 data
+  
   ─ `amazon_001_2024-08-23_BIN.tiff`: binary mask derived from
   `amazon_001_2024-08-23_SCL.tiff` and focusing on vegetation class.
+
+
   ─ `amazon_001_2024-08-23_BIN_v2.tiff`: binary mask produced from alternative
   radiometric criteria, including NDVI mask to remove non vegetated pixels,
   Blue mask to remove hazy/cloudy pixels, and NIR mask to remove shaded pixels.
@@ -343,7 +348,7 @@ See [here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html#spec
            The following animation displays the sentinel-2 acquisition along with the 
            vegetation mask and with the following color dynamic: 
              
-             - Red band: Band 04 (0 - 1000).
+           - Red band: Band 04 (0 - 1000).
            
            - Green band: Band 03 (0 - 1000).
            
