@@ -153,7 +153,23 @@ Add the header to your script.
 ```
 
 ### Step 2
-First, load required packages and prepare input and output directories.
+Install the required packages.
+
+```
+install.packages('rstudioapi')
+install.packages('preprocS2')
+install.packages('biodivMapR')
+install.packages('spinR')
+install.packages('terra')
+install.packages('sf')
+install.packages("sfheaders")
+install.packages("maptiles")
+```
+
+
+
+### Step 3
+Load required packages and prepare input and output directories.
 
 
 ```{r prepare download s2}
@@ -161,11 +177,9 @@ First, load required packages and prepare input and output directories.
 rm(list = ls(all=TRUE)); gc()
 if (rstudioapi::isAvailable()) 
   setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-library(preprocS2)  # install instructions: https://github.com/jbferet/preprocS2
-library(biodivMapR) # install instructions: https://github.com/jbferet/biodivMapR
-library(spinR)      # install instructions: https://github.com/jbferet/spinR
-library(terra)
-library(sf)
+
+
+
 # 1.1- define input & output directories
 input_dir_vect <- './01_DATA/amazon/vector_data'
 input_dir_rast <- './01_DATA/amazon/raster_data/sentinel-2'
@@ -173,6 +187,103 @@ dir.create(path = input_dir_rast, showWarnings = F, recursive = T)
 dir.create(path = input_dir_vect, showWarnings = F, recursive = T)
 ```
 
+### Step 4
+The spatial extent of the area of interest (aoi) needs to be defined as a vector 
+file. 
+
+Such aoi can be defined with `QGIS`, `Google Earth`, or your favorite tool. 
+
+
+Here an aoi located in Brazilian Amazon forest is defined. 
+The site is located next to **Guedes, Japurá - State of Amazonas, Brazil**. 
+
+```{r, eval=FALSE}
+# 1.2- define area of interest
+bbox <- st_bbox(c(xmin = -122.4, ymin = 37.7, xmax = -122.3, ymax = 37.8), 
+                crs = st_crs(4326))
+
+# 1.3. Convert the bbox directly to a spatial polygon object
+poly_obj <- st_as_sf(st_as_sfc(bbox))
+
+# 1.4. Write it to your GeoPackage
+write_sf(obj = poly_obj, dsn = aoi_path, overwrite = TRUE)
+```
+
+
+### Step 3
+A Sentinel-2 acquisition with minimal cloud cover needs to be identified. 
+The [Copernicus Browser](https://browser.dataspace.copernicus.eu) is a useful 
+service to explore the availability of Sentinel-2 acquisitions. 
+In addition to spatio-temporal filters, it includes filters such as the maximum 
+cloud cover.
+
+
+Images with a maximum cloud cover  < 5%, are identified for August 2024. 
+An acquisition from 23 August 2024 shows good conditions of acquisition. 
+
+`preprocS2` allows downloading from multiple providers. 
+Microsoft Planetary computer is currently the default option. 
+
+The function `get_s2_raster` downloads Sentinel-2 data corresponding to the
+spatio-temporal query. 
+
+- `aoi_path`: path for vector layer. Must include a **unique polygon** 
+- `datetime`: date of acquisition, provided as a _Date_ object.
+- `stac_info`: list including provider identifier (default = `mpc`)
+- `output_dir`: output directory where to store data
+- `site_name`: this will allow identifying rasters later
+- `options`: options including maximum cloud cover and higher level processing
+
+
+```
+### download Sentinel-2 acquisition from online STAC resource
+# 1.5- download  S2 acquisition
+datetime <- as.Date('2024-08-23')
+stac_info <- list('provider' = 'mpc')
+site_name = 'amazon'
+
+########
+#Install 'remotes' if you don't have it already
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+
+#Install preprocS2 from the official GitHub repository
+remotes::install_github("jbferet/preprocS2")
+#######
+
+
+options <- set_options_preprocS2(fun = 'get_s2_raster')
+options$overwrite <- FALSE
+
+
+
+list_files <- get_s2_raster(aoi_path = aoi_path, 
+                            datetime = datetime, 
+                            stac_info = stac_info, 
+                            output_dir = input_dir_rast, 
+                            site_name = site_name, 
+                            options = options)
+
+rast_path <- list_files$Refl_L2A                # S2 L2A reflectance
+mask_path <- list_files$vegetation_mask         # S2 binary mask identifying vegetation, discarding clouds & shadows
+```
+
+>[!NOTE]
+>The information resulting from the spatiotemporal query are saved in the 
+directory defined with the variable `input_dir_rast`. 
+It follows this file/folder structure: 
+  ```
+├── collections
+├── plot_001.rds
+├── raster_samples
+├── amazon_001_2024-08-23.tiff
+├── amazon_001_2024-08-23_BIN.tiff
+├── amazon_001_2024-08-23_BIN_v2.tiff
+└── amazon_001_2024-08-23_SCL.tiff
+├── s2_tiles_amazon.rds
+└── s2_footprint_amazon.gpkg
+```
 
 
 
