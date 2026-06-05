@@ -4,7 +4,6 @@
 
 
 **Objective:**
-
 We would like to use drone imagery of the AK village(s) in KSWS to assess differences in spectral diversity within and between land use classes, correlation between spectral diversity and plant species diversity, as well as the association of spectral diversity with key wildlife data. In order to begin to answer some of these questions, we must conduct a spectral species diversity analysis. **This analysis can be completed using R coding software**, multispectral imagery of the study area, ground vegetation plot data.
 
 
