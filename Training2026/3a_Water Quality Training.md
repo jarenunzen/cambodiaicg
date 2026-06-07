@@ -167,6 +167,11 @@ var stats = pH_clipped.reduceRegion({
 print('Mean Lake pH:', stats);
 ```
 
+
+<img width="335" height="185" alt="image" src="https://github.com/user-attachments/assets/bdb34877-5df9-4a7c-973b-fec15329c7be" />
+
+
+
 # Step 9
 Estimate Dissolved Oxygen (DO).
 ```js
