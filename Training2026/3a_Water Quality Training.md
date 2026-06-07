@@ -384,6 +384,11 @@ Map.add(turbLegend);
 # Step 13
 Estimate Chlorophyll-a
 
+
+>[!TIP]
+> For more information on Chlorophyll-a visit: https://www.epa.gov/national-aquatic-resource-surveys/indicators-chlorophyll
+
+
 ```js
 // Select bands 
 var BLUE = median.select('B2'); 
