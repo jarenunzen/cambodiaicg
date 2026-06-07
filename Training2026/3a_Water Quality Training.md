@@ -780,6 +780,7 @@ for (var i = 0; i < palette.length; i++) {
 } 
 Map.add(legend); 
 ```
+![wqi.png](..%2FImages%2Fwqi.png)
 ## Summary: Water Quality Parameters
 
 | Parameter | Index / Method | Key Bands | Output Range |

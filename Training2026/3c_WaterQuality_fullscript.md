@@ -484,4 +484,135 @@ vegLegend.add(makeRow('darkgreen', 'Dense'));
 vegLegend.add(makeRow('brown', 'Very Dense')); 
 
 Map.add(vegLegend); 
+
+//We need to normalize all the parameters since they have different units  
+//Normalize DO using a higher DO is better "score" 
+var DO_score = DO.subtract(2) 
+                 .divide(8) 
+                 .multiply(100) 
+                 .clamp(0,100); 
+                  
+// Normalize pH with ideal pH of 7.5 
+var pH_score = ee.Image(100) 
+  .subtract( 
+    pH.subtract(7.5) 
+      .abs() 
+      .multiply(40) 
+  ) 
+  .clamp(0,100); 
+   
+//Normalize turbidity with lower turbidity being better 
+var turb_score = ee.Image(100) 
+  .subtract( 
+    turbidity.divide(70) 
+             .multiply(100) 
+  ) 
+  .clamp(0,100); 
+   
+//Normalize conductivity  
+var EC_score = ee.Image(100) 
+  .subtract( 
+    conductivity.divide(0.2) 
+      .multiply(100) 
+  ) 
+  .clamp(0,100); 
+   
+// Normalize aquatic vegetation  
+var veg_score = ee.Image(100) 
+  .subtract( 
+    ndre.subtract(0.3) 
+      .abs() 
+      .multiply(250) 
+  ) 
+  .clamp(0,100); 
+
+// Normalize chlorphyll a 
+var chl_score = ee.Image(100) 
+  .subtract( 
+    chlorophyll.subtract(-0.8) 
+      .divide(1.13 - (-0.8)) 
+      .multiply(100) 
+  ) 
+  .clamp(0,100); 
+
+// Add the scores into a water quality index (WQI) with weighted parameters, you can change the weight to emphasize certain parameters 
+var WQI = DO_score.multiply(0.30) 
+  .add(turb_score.multiply(0.20)) 
+  .add(pH_score.multiply(0.30)) 
+  .add(EC_score.multiply(0.5)) 
+  .add(veg_score.multiply(0.5)) 
+  .add(chl_score.multiply(0.10)) 
+  .rename('WQI'); 
+  
+//Display WQI 
+Map.addLayer(WQI.clip(lake), { 
+  min: 0, 
+  max: 100, 
+  palette: [ 
+    'red', 
+    'orange', 
+    'yellow', 
+    'lightgreen', 
+    'green' 
+  ] 
+}, 'Water Quality Index'); 
+
+//Add legend 
+var legend = ui.Panel({ 
+  style: { 
+    position: 'bottom-left',   
+    padding: '8px 15px' 
+  } 
+}); 
+
+var palette = [ 
+  'red', 
+  'orange', 
+  'yellow', 
+  'lightgreen', 
+  'green' 
+]; 
+ 
+var labels = [ 
+  '0-20 Very Poor', 
+  '20-40 Poor', 
+  '40-60 Fair', 
+  '60-80 Good', 
+  '80-100 Excellent' 
+]; 
+ 
+var legend = ui.Panel({ 
+  style: { 
+    position: 'bottom-right', 
+    padding: '8px 15px' 
+  } 
+}); 
+
+// Create title 
+var legendTitle = ui.Label({ 
+  value: 'Water Quality Index', 
+  style: { 
+    fontWeight: 'bold', 
+    fontSize: '16px', 
+    margin: '0 0 8px 0' 
+  } 
+}); 
+
+// Add title  
+legend.add(legendTitle); 
+
+// Add the color boxes 
+for (var i = 0; i < palette.length; i++) { 
+  legend.add( 
+    ui.Panel([ 
+      ui.Label('', { 
+        backgroundColor: palette[i], 
+        padding: '8px', 
+        margin: '0 4px 4px 0' 
+      }), 
+      ui.Label(labels[i]) 
+    ], ui.Panel.Layout.Flow('horizontal')) 
+  ); 
+} 
+Map.add(legend); 
 ```
