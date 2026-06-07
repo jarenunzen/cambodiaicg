@@ -54,6 +54,21 @@ var collection = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
 var median = collection.median();
 ```
 
+
+**Optional** 
+Add the Sentinel-2 median pixel composite to the map as a natural color composite. 
+```js
+var visualization = {
+  bands: ['B4', 'B3', 'B2'],
+  min: 0.02879999950528145,
+  max: 0.263949990272522,
+};
+
+
+//Display the median composite on the map. 
+Map.addLayer(median, visualization, 'Median Pixel Composite', false);
+```
+
 ## Step 4
 CALCULATE WATER INDICES (NDWI and AWEInsh (Automated water extraction index) for pH analysis).
 ```js
