@@ -10,7 +10,7 @@ NASA AREST Training
 - https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing
 
 # Step 0
-Import water body shapefile.
+Import water body shapefile. Rename the shapefile to WaterBodies.
 ![importwq.png](..%2FImages%2Fimportwq.png)
 
 # Step 1
@@ -249,45 +249,90 @@ Map.add(doLegend);
 # Step 11
 Estimate Turbidity, estimated in NTU (Nephelometric Turbidity Unit. It is the standard unit of measurement used to quantify turbidity).
 ```js
+// Select bands 
+var RED = median.select('B4'); 
+var GREEN = median.select('B3'); 
+
 // Calculate turbidity index 
-var turbidity = median.expression(
-  '(RED - GREEN) / (RED + GREEN)',
-  {
-    'RED': median.select('B4'),
-    'GREEN': median.select('B3')
-  }
-).rename('Turbidity');
+var turbidity = median.expression( 
+  '43.466850 - (60.177839 * B2) + (28.437788 * B3) + (22.675374 * B4) - (35.594486 * B8) + (91.815632 * B11) - (84.077381 * B12)', 
+  { 
+    'B2': median.select('B2'), 
+    'B3': median.select('B3'), 
+    'B4': median.select('B4'), 
+    'B8': median.select('B8'), 
+    'B11': median.select('B11'), 
+    'B12': median.select('B12') 
+  } 
+).rename('Turbidity'); 
 
 // Clip to shapefile 
-var Turbidity_clipped = turbidity.clip(lake);
+var Turbidity_clipped = turbidity.clip(lake); 
 
-Map.addLayer(Turbidity_clipped, { min: -1, max: 1, palette: ['blue', 'cyan', 'yellow', 'orange', 'red'] }, 'Estimated Turbidity');
+// Display turbidity layer  
+var turbidity_clean = Turbidity_clipped.max(0); 
 
-var turbidityStats = Turbidity_clipped.reduceRegion({
-  reducer: ee.Reducer.mean(),
-  geometry: lake.geometry(),
-  scale: 10,
-  maxPixels: 1e13
-});
+Map.addLayer( 
+  turbidity_clean, 
+  { 
+    min: 0, 
+    max: 70, 
+    palette: ['blue', 'cyan', 'green', 'yellow', 'orange', 'red'] 
+  }, 
+  'Turbidity (NTU)' 
+); 
 
-print('Mean Turbidity:', turbidityStats);
+// Turbidity stats  
+var turbidityStats = turbidity_clean.reduceRegion({ 
+  reducer: ee.Reducer.mean(), 
+  geometry: lake.geometry(), 
+  scale: 10, 
+  maxPixels: 1e13 
+}); 
+print('Mean Turbidity:', turbidityStats); 
 ```
 
 # Step 12
 Add a Turbidity Legend. Unlike the pH and DO legends which use numeric thresholds, this legend uses qualitative categories since the turbidity index is a relative (unitless) measure rather than a calibrated physical quantity.
 
 ```js
-var turbLegend = ui.Panel({ style: { position: 'top-right', padding: '8px 15px' } });
-var turbTitle = ui.Label({ value: 'Turbidity', style: { fontWeight: 'bold', fontSize: '16px' } });
-turbLegend.add(turbTitle);
+//Turbidity Legend  
+var turbLegend = ui.Panel({ 
+  style: { 
+    position: 'top-right', 
+    padding: '8px' 
+  } 
+});  
 
-turbLegend.add(makeRow('blue', 'Low'));
-turbLegend.add(makeRow('cyan', 'Moderate'));
-turbLegend.add(makeRow('yellow', 'Elevated'));
-turbLegend.add(makeRow('orange', 'High'));
-turbLegend.add(makeRow('red', 'Very High'));
+turbLegend.add(ui.Label({ 
+  value: 'Turbidity (NTU)', 
+  style: {fontWeight: 'bold'} 
+})); 
 
-Map.add(turbLegend);
+var turbPalette = ['blue', 'cyan', 'green', 'yellow', 'orange', 'red']; 
+
+var turbLabels = [ 
+  '0 - 10', 
+  '10 - 20', 
+  '20 - 35', 
+  '35 - 50', 
+  '50 - 60', 
+  '> 60' 
+]; 
+
+for (var i = 0; i < turbPalette.length; i++) { 
+  turbLegend.add( 
+    ui.Panel([ 
+      ui.Label('', { 
+        backgroundColor: turbPalette[i], 
+        padding: '8px', 
+        margin: '0 4px 0 0' 
+      }), 
+      ui.Label(turbLabels[i]) 
+    ], ui.Panel.Layout.Flow('horizontal')) 
+  ); 
+} 
+Map.add(turbLegend); 
 ```
 ![turbidity.png](..%2FImages%2Fturbidity.png)
 > **Tip:** To display the layer better, go into layer settings (the gear icon next to the layer name), go to the range section, click the drop down labeled custom, and select stretch 98%. 
@@ -295,128 +340,242 @@ Map.add(turbLegend);
 Estimate Chlorophyll-a
 
 ```js
-var chlorophyll = median.expression(
-  '(BLUE - RED) / GREEN',
-  {
-    'BLUE': median.select('B2'),
-    'GREEN': median.select('B3'),
-    'RED': median.select('B4')
-  }
-).rename('Chlorophyll_a');
+// Select bands 
+var BLUE = median.select('B2'); 
+var GREEN = median.select('B3'); 
+var RED = median.select('B4'); 
 
-var chlorophyll_clipped = chlorophyll.clip(lake);
+// Calculate chlorophyll-a index 
+var chlorophyll = median.expression( 
+  '(BLUE - RED) / GREEN', 
+  { 
+    'BLUE': BLUE, 
+    'GREEN': GREEN, 
+    'RED': RED 
+  } 
+).rename('Chlorophyll_a'); 
 
-Map.addLayer(chlorophyll_clipped, { min: -1, max: 1, palette: ['blue', 'cyan', 'green', 'yellow', 'red'] }, 'Estimated Chlorophyll-a');
+// Clip to shapefile 
+var chlorophyll_clipped = chlorophyll.clip(lake); 
 
-var chlStats = chlorophyll_clipped.reduceRegion({
-  reducer: ee.Reducer.mean(),
-  geometry: lake,
-  scale: 10,
-  maxPixels: 1e13
-});
+// Add Chlorophyll Layer  
+var chlVis = { 
+  min: -1, 
+  max: 1, 
+  palette: [ 
+    'blue', 
+    'cyan', 
+    'green', 
+    'yellow', 
+    'red' 
+  ] 
+}; 
 
-print('Mean Chlorophyll-a:', chlStats);
+Map.addLayer( 
+  chlorophyll_clipped, 
+  chlVis, 
+  'Estimated Chlorophyll-a' 
+); 
+
+// Add stats  
+var chlStats = chlorophyll_clipped.reduceRegion({ 
+  reducer: ee.Reducer.mean(), 
+  geometry: lake, 
+  scale: 10, 
+  maxPixels: 1e13 
+}); 
+
+print('Mean Chlorophyll-a:', chlStats); 
 ```
 
 # Step 14
 Add a Chlorophyll-a Legend.
 
 ```js
-var chlLegend = ui.Panel({ style: { position: 'top-left', padding: '8px 15px' } });
-var chlTitle = ui.Label({ value: 'Chlorophyll-a', style: { fontWeight: 'bold', fontSize: '16px' } });
-chlLegend.add(chlTitle);
+var chlLegend = ui.Panel({ 
+  style: { 
+    position: 'top-left', 
+    padding: '8px 15px' 
+  } 
+}); 
 
-chlLegend.add(makeRow('blue', 'Low'));
-chlLegend.add(makeRow('cyan', 'Moderate'));
-chlLegend.add(makeRow('green', 'Elevated'));
-chlLegend.add(makeRow('yellow', 'High'));
-chlLegend.add(makeRow('red', 'Very High'));
+var chlTitle = ui.Label({ 
+  value: 'Chlorophyll-a', 
+  style: { 
+    fontWeight: 'bold', 
+    fontSize: '16px' 
+  } 
+}); 
 
-Map.add(chlLegend);
+chlLegend.add(chlTitle); 
+chlLegend.add(makeRow('blue', 'Low')); 
+chlLegend.add(makeRow('cyan', 'Moderate')); 
+chlLegend.add(makeRow('green', 'Elevated')); 
+chlLegend.add(makeRow('yellow', 'High')); 
+chlLegend.add(makeRow('red', 'Very High')); 
+
+Map.add(chlLegend);  
 ```
 ![ca.png](..%2FImages%2Fca.png)
 # Step 15
 Estimate Electrical Conductivity (EC).
 ```js
-var conductivity = median.expression(
-  '(BLUE * RED) / GREEN',
-  {
-    'BLUE': median.select('B2'),
-    'GREEN': median.select('B3'),
-    'RED': median.select('B4')
-  }
-).rename('Electrical_Conductivity');
+/ Select bands 
+var BLUE = median.select('B2') 
+var GREEN = median.select('B3') 
+var RED = median.select('B4') 
 
-var conductivity_clipped = conductivity.clip(lake);
+// Calculate EC index 
+var conductivity = median.expression( 
+  '(BLUE * RED) / GREEN', 
+  { 
+    'BLUE': BLUE, 
+    'GREEN': GREEN, 
+    'RED': RED 
+  } 
+).rename('Electrical_Conductivity'); 
 
-Map.addLayer(conductivity_clipped, { min: 0, max: 1.5, palette: ['blue', 'cyan', 'green', 'yellow', 'orange', 'red'] }, 'Electrical Conductivity');
+// Clip to shapefile 
+var conductivity_clipped = conductivity.clip(lake); 
 
-var ecStats = conductivity_clipped.reduceRegion({
-  reducer: ee.Reducer.mean(),
-  geometry: lake.geometry(),
-  scale: 10,
-  maxPixels: 1e13
-});
+// Display conductivity Layer  
+var ecVis = { 
+  min: 0, 
+  max: 1.5, 
 
-print('Mean Electrical Conductivity:', ecStats);
+  palette: [ 
+    'blue', 
+    'cyan', 
+    'green', 
+    'yellow', 
+    'orange', 
+    'red' 
+  ] 
+}; 
+
+Map.addLayer( 
+  conductivity_clipped, 
+  ecVis, 
+  'Electrical Conductivity' 
+); 
+
+// Add conductivity stats  
+var ecStats = conductivity_clipped.reduceRegion({ 
+  reducer: ee.Reducer.mean(), 
+  geometry: lake.geometry(), 
+  scale: 10, 
+  maxPixels: 1e13 
+}); 
+
+print('Mean Electrical Conductivity:', ecStats); 
 ```
 
 # Step 16
 Add an EC Legend.
 
 ```js
-var ecLegend = ui.Panel({ style: { position: 'bottom-center', padding: '8px 15px' } });
-var ecTitle = ui.Label({ value: 'Electrical Conductivity', style: { fontWeight: 'bold', fontSize: '16px' } });
-ecLegend.add(ecTitle);
+var ecLegend = ui.Panel({ 
+  style: { 
+    position: 'bottom-center', 
+    padding: '8px 15px' 
+  } 
+}); 
+ 
+var ecTitle = ui.Label({ 
+  value: 'Electrical Conductivity', 
+  style: { 
+    fontWeight: 'bold', 
+    fontSize: '16px' 
+  } 
+}); 
 
-ecLegend.add(makeRow('blue', 'Very Low'));
-ecLegend.add(makeRow('cyan', 'Low'));
-ecLegend.add(makeRow('green', 'Moderate'));
-ecLegend.add(makeRow('yellow', 'Elevated'));
-ecLegend.add(makeRow('orange', 'High'));
-ecLegend.add(makeRow('red', 'Very High'));
+ecLegend.add(ecTitle); 
+ecLegend.add(makeRow('blue', 'Very Low')); 
+ecLegend.add(makeRow('cyan', 'Low')); 
+ecLegend.add(makeRow('green', 'Moderate')); 
+ecLegend.add(makeRow('yellow', 'Elevated')); 
+ecLegend.add(makeRow('orange', 'High')); 
+ecLegend.add(makeRow('red', 'Very High')); 
 
-Map.add(ecLegend);
+Map.add(ecLegend); 
 ```
 ![ec.png](..%2FImages%2Fec.png)
 # Step 17
 Map Aquatic Vegetation (NDRE: Normalized Difference Red Edge), use NDRE over NDVI because it better visualizes chlorophyll content in plants.
 ```js
-var ndre = median.expression(
-  '(NIR - REDEDGE) / (NIR + REDEDGE)',
-  {
-    'NIR': median.select('B8'),
-    'REDEDGE': median.select('B5')
-  }
-).rename('NDRE')
-  .clip(lake);
+// Select bands 
+var NIR = median.select('B8'); 
+var RED = median.select('B4'); 
+ 
+// Calculate NDRE 
+var ndre = median.expression( 
+  '(NIR - REDEDGE) / (NIR + REDEDGE)', 
+  { 
+    'NIR': median.select('B8'), 
+    'REDEDGE': median.select('B5') 
+  } 
+).rename('NDRE') 
+  .clip(lake); 
 
-Map.addLayer(ndre, { min: -1, max: 1, palette: ['cyan', 'yellow', 'green', 'darkgreen', 'brown'] }, 'Aquatic Vegetation');
+// Clip to shapefile 
+var vegetation_clipped = ndre.clip(lake); 
+ 
+// Display  
+var vegVis = { 
+  min: -1, 
+  max: 1, 
+  palette: [ 
+   'cyan', 
+    'yellow', 
+    'green', 
+    'darkgreen', 
+    'brown', 
+  ] 
+}; 
+ 
+Map.addLayer( 
+  ndre, 
+  vegVis, 
+  'Aquatic Vegetation' 
+); 
 
-var vegStats = ndre.reduceRegion({
-  reducer: ee.Reducer.mean(),
-  geometry: lake.geometry(),
-  scale: 10,
-  maxPixels: 1e13
-});
-
-print('Mean Aquatic Vegetation (NDRE):', vegStats);
+//Add stats  
+var vegStats = ndre.reduceRegion({ 
+  reducer: ee.Reducer.mean(), 
+  geometry: lake.geometry(), 
+  scale: 10, 
+  maxPixels: 1e13 
+}); 
+ 
+print('Mean Aquatic Vegetation (NDRE):', vegStats); 
 ```
 
 # Step 18
 Add an Aquatic Vegetation Legend.
 
 ```js
-var vegLegend = ui.Panel({ style: { position: 'top-center', padding: '8px 15px' } });
-var vegTitle = ui.Label({ value: 'Aquatic Vegetation (NDRE)', style: { fontWeight: 'bold', fontSize: '16px' } });
-vegLegend.add(vegTitle);
+var vegLegend = ui.Panel({ 
+  style: { 
+    position: 'top-center', 
+    padding: '8px 15px' 
+  } 
+}); 
 
-vegLegend.add(makeRow('yellow', 'Sparse'));
-vegLegend.add(makeRow('green', 'Moderate'));
-vegLegend.add(makeRow('darkgreen', 'Dense'));
-vegLegend.add(makeRow('brown', 'Very Dense'));
+var vegTitle = ui.Label({ 
+  value: 'Aquatic Vegetation (NDRE)', 
+  style: { 
+    fontWeight: 'bold', 
+    fontSize: '16px' 
+  } 
+}); 
+ 
+vegLegend.add(vegTitle); 
+vegLegend.add(makeRow('yellow', 'Sparse')); 
+vegLegend.add(makeRow('green', 'Moderate')); 
+vegLegend.add(makeRow('darkgreen', 'Dense')); 
+vegLegend.add(makeRow('brown', 'Very Dense')); 
 
-Map.add(vegLegend);
+Map.add(vegLegend); 
 ```
 ![av.png](..%2FImages%2Fav.png)
 
