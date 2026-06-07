@@ -92,6 +92,13 @@ var aweinsh = median.expression(
 
 # Step 5
  Estimate water body pH.
+
+>[!TIP]
+> To learn more about water chemisty and pH, visit:
+>https://www.epa.gov/caddis/ph
+>**OR**
+>https://www.usgs.gov/water-science-school/science/ph-and-water
+ 
 ```js
 var a = 1.36338;
 var b = 0.00110;
