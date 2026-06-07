@@ -286,6 +286,13 @@ Map.add(doLegend);
 ![do.png](..%2FImages%2Fdo.png)
 # Step 11
 Estimate Turbidity, estimated in NTU (Nephelometric Turbidity Unit. It is the standard unit of measurement used to quantify turbidity).
+
+
+>[!TIP]
+> Turbidity and Water: https://www.usgs.gov/water-science-school/science/turbidity-and-water
+
+
+
 ```js
 // Select bands 
 var RED = median.select('B4'); 
