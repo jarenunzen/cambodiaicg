@@ -643,7 +643,9 @@ Map.add(vegLegend);
 ![av.png](..%2FImages%2Fav.png)
 
 # Step 19
-Calculate water quality index.
+Calculate the standardized water quality index.
+
+
 ```js
 //We need to normalize all the parameters since they have different units  
 //Normalize DO using a higher DO is better "score" 
