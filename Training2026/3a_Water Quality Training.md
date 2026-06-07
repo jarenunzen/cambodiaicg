@@ -181,6 +181,17 @@ print('Mean Lake pH:', stats);
 
 # Step 9
 Estimate Dissolved Oxygen (DO).
+
+
+>[!TIP]
+> For more information on water quality and Dissolve Oxygen (DO) visit:
+>
+> https://www.usgs.gov/water-science-school/science/dissolved-oxygen-and-water
+>
+>**OR**
+>
+>https://www.epa.gov/national-aquatic-resource-surveys/indicators-dissolved-oxygen
+
 ```js
 //Define bands   
 var RED = median.select('B4'); 
