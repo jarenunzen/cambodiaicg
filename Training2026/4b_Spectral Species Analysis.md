@@ -18,7 +18,7 @@ This type of analysis should be adjusted based on the users’ questions and goa
 Here, we will walk through the processes and broad methods that can be used in this type of analysis. 
 
 
-You can also review the **Downey et al. 2023 paper and code from the REAM ME file** of this repo for more context on the use and objectives of this analysis. 
+You can also review the **Downey et al. 2023 paper and code from the READ ME file** of this repo for more context on the use and objectives of this analysis. 
 
 
 **Required Data:**
