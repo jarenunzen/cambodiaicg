@@ -1,7 +1,7 @@
 ## The following is based on a guide from NASA Applied Remote Sensing Training Program (ARSET) and data provided by WCS Cambodia. 
 Several other trainings are also available for water quality monitoring using remote sensing through NASA ARSET. 
 
-**Objective:** This training focuses on emote sensing observations from  Sentinel-2 for assessing water quality parameters including: pH, dissolved oxygen, chlorophyll-a concentration, electrical conductivity, turbidity, and the presence of aquatic vegetation within inland water bodies. 
+**Objective:** This training focuses on emote sensing observations from  Sentinel-2 for assessing water quality parameters including: pH, dissolved oxygen, chlorophyll-a concentration, electrical conductivity, turbidity, and the presence of aquatic vegetation within inland water bodies. **This training does not specifically rely on a regression analysis using _in situ_ measurements**. For such methods, we suggest adding on either a simple linear or machine learning regression to the end of this script. 
 
 **Study Site:** Tonle Sap Lake, a shapefile for this boundary is provided via OpenDevelopment Cambodia
 https://data.opendevelopmentmekong.net/dataset/water-bodies-in-cambodia
