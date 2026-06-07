@@ -9,32 +9,36 @@ https://data.opendevelopmentmekong.net/dataset/water-bodies-in-cambodia
 NASA AREST Training
 - https://www.earthdata.nasa.gov/learn/trainings/monitoring-water-quality-inland-lakes-using-remote-sensing
 
+# Step 0
+Import water body shapefile.
+![importwq.png](..%2FImages%2Fimportwq.png)
 
 # Step 1
 Define the study area for assessing water quality. Center the map to the study site.
 ```js
-var lake = ee.FeatureCollection(WaterBodies)
- 
-Map.centerObject(lake, 11);
+// Import the shapefile of Cambodia water bodies and set the lake geometry to the shapefile  
+
+var lake = ee.FeatureCollection(WaterBodies) 
+
+Map.centerObject(lake, 11); 
 ```
 
 # Step 2
 Define a Cloud Mask Function. Creates a reusable function that cleans each Sentinel-2 image before analysis. It uses the Scene Classification Layer (SCL) band to identify and remove pixels affected by cloud shadows, clouds, cirrus, and snow. 
 ```js
-function maskS2(image) {
-  var scl = image.select('SCL');
- 
-  var mask = scl.neq(3)   // cloud shadow
-    .and(scl.neq(8))      // cloud medium probability
-    .and(scl.neq(9))      // cloud high probability
-    .and(scl.neq(10))     // cirrus
-    .and(scl.neq(11));    // snow
- 
-return image
-    .updateMask(mask)
-    .divide(10000) // Scales the data down 
-    .copyProperties(image, ['system:time_start']);
-}
+function maskS2(image) { 
+  var scl = image.select('SCL'); 
+  var mask = scl.neq(3)   // cloud shadow 
+    .and(scl.neq(8))      // cloud medium probability 
+    .and(scl.neq(9))      // cloud high probability 
+    .and(scl.neq(10))     // cirrus 
+    .and(scl.neq(11));    // snow 
+
+return image 
+    .updateMask(mask) 
+    .divide(10000) //Scales the data down  
+    .copyProperties(image, ['system:time_start']); 
+} 
 ```
 
 # Step 3
@@ -46,11 +50,12 @@ var collection = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
   .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20))
   .map(maskS2);
 
+// Create median composite, median allows us to analyze typcal spectral conditions over the seclected date range 
 var median = collection.median();
 ```
 
 ## Step 4
-Calculate Water Indices (NDWI and AWEInsh)
+CALCULATE WATER INDICES (NDWI and AWEInsh (Automated water extraction index) for pH analysis).
 ```js
 // NDWI
 var ndwi = median.normalizedDifference(['B3', 'B8'])
@@ -79,6 +84,7 @@ var c = 0.00818;
 var d = 0.00392;
 var e = 0.00120;
 
+// Estimate pH
 var pH = median.expression(
   'a - b*AWEI + c*B2 - d*B4 + e*NDWI',
   {
@@ -95,7 +101,7 @@ var pH_adjusted = pH.add(3.7);
 > **Note:** The +3.7 adjustment is a sensor correction: the original equation was developed for Landsat, so a bias correction is needed when applying it to Sentinel-2 data. If using Landsat imagery, remove this adjustment.
 
 # Step 6
-Display the pH Map.
+Display the pH Map and clip to shapefile.
 ```js
 var phVis = {
   min: 5,
@@ -106,6 +112,7 @@ var phVis = {
 var pH_clipped = pH_adjusted.clip(lake);
 Map.addLayer(pH_clipped, phVis, 'pH');
 ```
+![pH.png](..%2FImages%2FpH.png)
 
 # Step 7 Add a pH Legend
  Add a pH Legend corresponding color to pH level.
@@ -115,12 +122,14 @@ var legend = ui.Panel({ style: { position: 'bottom-left', padding: '8px 15px' } 
 var legendTitle = ui.Label({ value: 'Lake pH', style: { fontWeight: 'bold', fontSize: '16px' } });
 legend.add(legendTitle);
 
+// Function to create legend row 
 var makeRow = function(color, label) {
   var colorBox = ui.Label({ style: { backgroundColor: color, padding: '8px', margin: '0 0 4px 0' } });
   var description = ui.Label({ value: label, style: { margin: '0 0 4px 6px' } });
   return ui.Panel({ widgets: [colorBox, description], layout: ui.Panel.Layout.Flow('horizontal') });
 };
 
+// Assign colors to pH values 
 legend.add(makeRow('red', 'pH 5'));
 legend.add(makeRow('orange', 'pH 6'));
 legend.add(makeRow('yellow', 'pH 7'));
@@ -146,6 +155,11 @@ print('Mean Lake pH:', stats);
 # Step 9
 Estimate Dissolved Oxygen (DO).
 ```js
+//Define bands   
+var RED = median.select('B4'); 
+var BLUE = median.select('B2'); 
+
+// Restrict the analysis to clean water pixels, mask analysis to NDWI to eliminate the influence of any land/shoreline pixels   
 var waterOnly = collection.map(function(img){
   var ndwi = img.normalizedDifference(['B3','B8']);
   return img.updateMask(ndwi.gt(0));
@@ -153,6 +167,7 @@ var waterOnly = collection.map(function(img){
 
 var median = waterOnly.median();
 
+// Calculate DO
 var DO = median.expression(
   '3.449174 + (0.538437 * B2) + (317.589192 * B3) - (345.811647 * B4) - (152.504728 * B8) + (223.886541 * B11) - (35.820433 * B12)',
   {
@@ -165,8 +180,10 @@ var DO = median.expression(
   }
 ).rename('DO');
 
+// Clip to shapefile
 var DO_clipped = DO.clip(lake);
 
+// Add to map
 Map.addLayer(DO_clipped, { min: 0, max: 14, palette: ['red', 'yellow', 'green', 'blue'] }, 'Estimated DO');
 
 var doStats = DO_clipped.reduceRegion({
@@ -181,25 +198,58 @@ print('Mean DO:', doStats);
 
 # Step 10
 Add a DO Legend.
-
 ```js
-var doLegend = ui.Panel({ style: { position: 'bottom-right', padding: '8px 15px' } });
-var doTitle = ui.Label({ value: 'Dissolved Oxygen (mg/L)', style: { fontWeight: 'bold', fontSize: '16px' } });
-doLegend.add(doTitle);
+var doLegend = ui.Panel({ 
+  style: { 
+    position: 'bottom-right', 
+    padding: '8px 15px' 
+  } 
+}); 
 
-doLegend.add(makeRow('red', '0–3 mg/L'));
-doLegend.add(makeRow('orange', '3–5 mg/L'));
-doLegend.add(makeRow('yellow', '5–7 mg/L'));
-doLegend.add(makeRow('green', '7–10 mg/L'));
-doLegend.add(makeRow('blue', '>10 mg/L'));
+// Legend Title 
+var doTitle = ui.Label({ 
+  value: 'Dissolved Oxygen (mg/L)', 
+  style: { 
+    fontWeight: 'bold', 
+    fontSize: '16px' 
+  } 
+}); 
+doLegend.add(doTitle); 
 
-Map.add(doLegend);
+// Legend row function 
+var makeRow = function(color, label) { 
+  var colorBox = ui.Label({ 
+    style: { 
+      backgroundColor: color, 
+      padding: '8px', 
+      margin: '0 0 4px 0' 
+    } 
+  }); 
+  var description = ui.Label({ 
+    value: label, 
+    style: {margin: '0 0 4px 6px'} 
+  }); 
+  return ui.Panel({ 
+    widgets: [colorBox, description], 
+    layout: ui.Panel.Layout.Flow('horizontal') 
+  }); 
+}; 
+
+// Add DO categories 
+doLegend.add(makeRow('red', '0–3 mg/L')); 
+doLegend.add(makeRow('orange', '3–5 mg/L')); 
+doLegend.add(makeRow('yellow', '5–7 mg/L')); 
+doLegend.add(makeRow('green', '7–10 mg/L')); 
+doLegend.add(makeRow('blue', '>10 mg/L')); 
+
+// Add legend to map 
+Map.add(doLegend); 
 ```
-
+![do.png](..%2FImages%2Fdo.png)
 # Step 11
-Estimate Turbidity.
-
+Estimate Turbidity, estimated in NTU (Nephelometric Turbidity Unit. It is the standard unit of measurement used to quantify turbidity).
 ```js
+// Calculate turbidity index 
 var turbidity = median.expression(
   '(RED - GREEN) / (RED + GREEN)',
   {
@@ -208,6 +258,7 @@ var turbidity = median.expression(
   }
 ).rename('Turbidity');
 
+// Clip to shapefile 
 var Turbidity_clipped = turbidity.clip(lake);
 
 Map.addLayer(Turbidity_clipped, { min: -1, max: 1, palette: ['blue', 'cyan', 'yellow', 'orange', 'red'] }, 'Estimated Turbidity');
@@ -238,7 +289,8 @@ turbLegend.add(makeRow('red', 'Very High'));
 
 Map.add(turbLegend);
 ```
-
+![turbidity.png](..%2FImages%2Fturbidity.png)
+> **Tip:** To display the layer better, go into layer settings (the gear icon next to the layer name), go to the range section, click the drop down labeled custom, and select stretch 98%. 
 # Step 13
 Estimate Chlorophyll-a
 
@@ -282,7 +334,7 @@ chlLegend.add(makeRow('red', 'Very High'));
 
 Map.add(chlLegend);
 ```
-
+![ca.png](..%2FImages%2Fca.png)
 # Step 15
 Estimate Electrical Conductivity (EC).
 ```js
@@ -326,9 +378,9 @@ ecLegend.add(makeRow('red', 'Very High'));
 
 Map.add(ecLegend);
 ```
-
+![ec.png](..%2FImages%2Fec.png)
 # Step 17
-Map Aquatic Vegetation (NDRE).
+Map Aquatic Vegetation (NDRE: Normalized Difference Red Edge), use NDRE over NDVI because it better visualizes chlorophyll content in plants.
 ```js
 var ndre = median.expression(
   '(NIR - REDEDGE) / (NIR + REDEDGE)',
@@ -366,6 +418,7 @@ vegLegend.add(makeRow('brown', 'Very Dense'));
 
 Map.add(vegLegend);
 ```
+![av.png](..%2FImages%2Fav.png)
 
 ## Summary: Water Quality Parameters
 
