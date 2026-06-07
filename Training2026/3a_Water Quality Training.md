@@ -469,6 +469,19 @@ Map.add(chlLegend);
 ![ca.png](..%2FImages%2Fca.png)
 # Step 15
 Estimate Electrical Conductivity (EC).
+
+
+>[!TIP]
+> For more information on electrical conductivity visit:
+>
+>
+>https://www.epa.gov/national-aquatic-resource-surveys/indicators-conductivity
+>
+>
+>**OR**
+>
+>https://www.usgs.gov/water-science-school/science/conductivity-electrical-conductance-and-water
+
 ```js
 // Select bands 
 var BLUE = median.select('B2') 
