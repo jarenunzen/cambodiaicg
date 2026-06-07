@@ -420,7 +420,7 @@ Map.add(chlLegend);
 # Step 15
 Estimate Electrical Conductivity (EC).
 ```js
-/ Select bands 
+// Select bands 
 var BLUE = median.select('B2') 
 var GREEN = median.select('B3') 
 var RED = median.select('B4') 
