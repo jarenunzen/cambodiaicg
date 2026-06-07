@@ -144,7 +144,7 @@ https://rstudio-education.github.io/hopr/starting.html
 Add the header to your script.
 
 
-```
+```{r}
 # WCS/GCBC Spectral Species Diversity Tutorial	
 # June 2026 Training
 
