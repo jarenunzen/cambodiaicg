@@ -214,7 +214,7 @@ write_sf(obj = poly_obj, dsn = aoi_path, overwrite = TRUE)
 ```
 
 
-### Step 3
+### Step 5
 A Sentinel-2 acquisition with minimal cloud cover needs to be identified. 
 The [Copernicus Browser](https://browser.dataspace.copernicus.eu) is a useful 
 service to explore the availability of Sentinel-2 acquisitions. 
@@ -295,7 +295,7 @@ It follows this file/folder structure:
 >```
 >
 
-### Step 4
+### Step 6
 `collections/plot_001.rds` corresponds to the item collection resulting from 
 the spatiotemporal query. 
 
@@ -330,7 +330,7 @@ readRDS('./01_DATA/amazon/raster_data/sentinel-2/collections/plot_001.rds')
   Blue mask to remove hazy/cloudy pixels, and NIR mask to remove shaded pixels.
 
 
-### Step 5
+### Step 7
 You can adjust threshold for cloudMask (B02), shadeMask (B08), and NDVIMask.
 See [here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html#spectral-transformation) for additional information on how these masks work.
            ─ `amazon_001_2024-08-23_SCL.tiff`: scene classification provided by sen2cor 
@@ -358,7 +358,7 @@ See [here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html#spec
 
 
 
-### Step 6
+### Step 8
 
 
 # END
