@@ -36,7 +36,6 @@ You can also review the **Downey et al. 2023 paper and code from the READ ME fil
 ## Phase 1 Gathering Remotely Sensed Imagery and Preparing it 
 1.	Define area of interest (AOI)
 2.	Download Sentinel-2 image
-a.	Specify dates
 3.	Create a mask to clean the imagery (e.g., cloud cover, shadows)
 
 
@@ -63,19 +62,18 @@ We will focus on the SPCA and the Spectral Indices. Principal component analysis
 
 ## Phase 3 Biodiversity Mapping
 1.	K-means clustering – defines the spectral species 
-    a.	These clusters become the spectral “species”. The number of clusters must be defined (k). It has been generally recommended to use k=20 when using
-  	Shannon diversity metrics (Downey et al. 2023).
+    a.	These clusters become the spectral “species”. The number of clusters must be defined (k). It has been generally recommended to use k=20 when using Shannon diversity metrics (Downey et al. 2023).
 
 
 **More information:** https://gjkoplik.github.io/spectral_clustering/#k-means_clustering 
 
 
-3.	Diversity index maps (rasters)
-    a.	Alpha diversity  how diverse is the vegetation within each local window?
-  	b.	Beta diversity  how different are vegetation communities between locations?
+2.	Diversity index maps (rasters)
+    a.	Alpha diversity == how diverse is the vegetation within each local window?
+  	b.	Beta diversity == how different are vegetation communities between locations?
 
   
-5.	Diversity maps – show spatial patterns of vegetation heterogeneity
+3.	Diversity maps – show spatial patterns of vegetation heterogeneity
 
 
 ## Flowchart
