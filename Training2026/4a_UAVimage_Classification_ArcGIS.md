@@ -156,7 +156,7 @@ This tutorial will proceed through using the ArcGIS Pro classification wizard, u
 
 The Read Me file associated with this training repository includes additional details on classifying UAV imagery using either the ArcGIS Pro Deep Learning Package or R Studio. Both may achieve comparable or better results. 
 
-> [CAUTION]
+> [!CAUTION]
 > The classificaiton and accuracy assessment performed during this training are for **training demsontrations only**, users should rely on a more statistically valid amount of training and validation (reference) data during standalone projects. This means, at a minimum there should be 50 samples per class for training and 50 smaples per class for validaiton. Point-based samples should not be used and are not allowed within the ArcGIS Pro classification wizard. 
 
 
@@ -193,13 +193,13 @@ Select the **Random Trees** classifier and edit the number of trees to **500**. 
 
 <img width="575" height="380" alt="image" src="https://github.com/user-attachments/assets/49dd908b-bfa4-4dc2-b880-2a0748ff2023" />
 
->[!CAUTION]
+> [!CAUTION]
 > The number of samples per class parameter in this step will randomly generate points within each provided training data polygon. If the number of samples per class exceeds the number of training data polygons, more than one point per polygon will be generated, thus biasing the classification (spatial autocorrelation). Typically, the number of randomly generated samples here should be equal to or less than the number of training data polygons available in the smallest class. 
 
 ### Step 5
 Before clicking Next, expand the classifier metadata at the bottom and review the **train accuracy** and **variable importance** statistics. 
 
->[!CAUTION]
+> [!CAUTION]
 > This information can be used to understand the relative importance of the input variables as well as an initial understadning of the classification performance. This is the only place to retrieve this information, and it is lost after the classification wizard is completed and/or closed out. To save this information for future use, copy and paste it to an excel file. 
 
 
@@ -243,8 +243,8 @@ Review this new table, including special attention to the class-specific and ove
 <img width="528" height="261" alt="image" src="https://github.com/user-attachments/assets/d77d8e09-b887-4ee2-8386-1fc8eb200268" />
 
 
->[!Tip]
->You can rerun just the accuracy assessment step by modifying the output table name and clicking Run again. Because the validation points are randomized, this may result in (slightly) different accuracies for each class. Running the accuracy assessment at least 2-3 times can be a good way to more fully understand the error / confusion in the classification as well as ensure that the number or placement of the validation points is not biasing the accuracy assessment. **If you notice substantial changes in the accuracy for any specific class, you should further review the classified map and validation samples (iterate the process)**.
+> [!Tip]
+> You can rerun just the accuracy assessment step by modifying the output table name and clicking Run again. Because the validation points are randomized, this may result in (slightly) different accuracies for each class. Running the accuracy assessment at least 2-3 times can be a good way to more fully understand the error / confusion in the classification as well as ensure that the number or placement of the validation points is not biasing the accuracy assessment. **If you notice substantial changes in the accuracy for any specific class, you should further review the classified map and validation samples (iterate the process)**.
 >
 > Addiitonally, the validation points made for each specific assessment will be written to the default geodatabase as a shapefile. 
 
