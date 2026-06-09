@@ -69,11 +69,15 @@ We will focus on the SPCA and the Spectral Indices. Principal component analysis
 
 
 2.	Diversity index maps (rasters)
+
+
     a.	Alpha diversity == how diverse is the vegetation within each local window?
+
+
   	b.	Beta diversity == how different are vegetation communities between locations?
 
   
-3.	Diversity maps – show spatial patterns of vegetation heterogeneity
+4.	Diversity maps – show spatial patterns of vegetation heterogeneity
 
 
 ## Flowchart
