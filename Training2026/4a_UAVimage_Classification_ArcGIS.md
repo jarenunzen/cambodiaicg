@@ -156,8 +156,8 @@ This tutorial will proceed through using the ArcGIS Pro classification wizard, u
 
 The Read Me file associated with this training repository includes additional details on classifying UAV imagery using either the ArcGIS Pro Deep Learning Package or R Studio. Both may achieve comparable or better results. 
 
->[CAUTION]
->The classificaiton and accuracy assessment performed during this training are for **training demsontrations only**, users should rely on a more statistically valid amount of training and validation (reference) data during standalone projects. This means, at a minimum there should be 50 samples per class for training and 50 smaples per class for validaiton. Point-based samples should not be used and are not allowed within the ArcGIS Pro classification wizard. 
+> [CAUTION]
+> The classificaiton and accuracy assessment performed during this training are for **training demsontrations only**, users should rely on a more statistically valid amount of training and validation (reference) data during standalone projects. This means, at a minimum there should be 50 samples per class for training and 50 smaples per class for validaiton. Point-based samples should not be used and are not allowed within the ArcGIS Pro classification wizard. 
 
 
 ### Step 1
