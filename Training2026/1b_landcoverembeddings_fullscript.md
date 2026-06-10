@@ -302,8 +302,8 @@ for (var i = 0; i < 10; i++) {
 Map.add(legend);
 
 Map.addLayer(KSWS, {color: 'white'}, 'Keo Seima Boundary');
-Map.addLayer(classified_rf.clip(KSWS), {palette: landcoverPalette, min: 0, max: 9}, 'Classification: Random Forest', false);
-Map.addLayer(classified_xgb.clip(KSWS), {palette: landcoverPalette, min: 0, max: 9}, 'Classification: XGBoost', true);
+Map.addLayer(classified_rf.clip(KSWS), {palette: landcoverPalette, min: 1, max: 10}, 'Classification: Random Forest', false);
+Map.addLayer(classified_xgb.clip(KSWS), {palette: landcoverPalette, min: 1, max: 10}, 'Classification: XGBoost', true);
 Map.centerObject(KSWS);
 
 
