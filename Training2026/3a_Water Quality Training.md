@@ -69,60 +69,44 @@ var visualization = {
 Map.addLayer(median, visualization, 'Median Pixel Composite', false);
 ```
 
-## Step 4
-CALCULATE WATER INDICES (NDWI and AWEInsh (Automated water extraction index) for pH analysis).
+# Step 4
+Estimate water pH.
 ```js
-// NDWI
-var ndwi = median.normalizedDifference(['B3', 'B8'])
-  .rename('NDWI');
-
-// AWEInsh
-var aweinsh = median.expression(
-  '4 * (GREEN - SWIR1) - (0.25 * NIR + 2.75 * SWIR2)',
-  {
-    'GREEN': median.select('B3'),
-    'NIR': median.select('B8'),
-    'SWIR1': median.select('B11'),
-    'SWIR2': median.select('B12')
-  }
-).rename('AWEInsh');
+// =============================== 
+// 4. pH ESTIMATION EQUATION 
+// =============================== 
+ 
+// Coefficients for the pH equation 
+var a = 7.866422; 
+var b = 15.804186; 
+var c = 1.366983; 
+var d = 22.499174; 
+var e = 5.929357; 
+var f = 2.661643; 
+var g = 8.793555; 
+ 
+// Estimate pH 
+var pH = median.expression( 
+  'a - (b*B2) - (c*B3) + (d*B4) + (e*NIR) - (f*SWIR1) - (g*SWIR2)', 
+  { 
+    'B2': median.select('B2'), 
+    'B4': median.select('B4'), 
+    'B3': median.select('B3'), 
+    'a': a, 
+    'b': b, 
+    'c': c, 
+    'd': d, 
+    'e': e, 
+    'f': f, 
+    'g': g, 
+    'SWIR1': median.select('B11'), 
+    'SWIR2': median.select('B12'), 
+    'NIR': median.select('B8'), 
+  } 
+).rename('pH'); 
 ```
-- **NDWI (Normalized Difference Water Index):** Uses green (B3) and near-infrared (B8) bands to identify open water. Values closer to 1 indicate water.
-- **AWEInsh (Automated Water Extraction Index, no shadow):** A more complex index designed to separate water from other land cover types, particularly in areas where shadow can be confused with water.
 
 # Step 5
- Estimate water body pH.
-
->[!TIP]
-> To learn more about water chemisty and pH, visit:
->https://www.epa.gov/caddis/ph
->**OR**
->https://www.usgs.gov/water-science-school/science/ph-and-water
- 
-```js
-var a = 1.36338;
-var b = 0.00110;
-var c = 0.00818;
-var d = 0.00392;
-var e = 0.00120;
-
-// Estimate pH
-var pH = median.expression(
-  'a - b*AWEI + c*B2 - d*B4 + e*NDWI',
-  {
-    'AWEI': aweinsh,
-    'B2': median.select('B2').multiply(10000),
-    'B4': median.select('B4').multiply(10000),
-    'NDWI': ndwi,
-    'a': a, 'b': b, 'c': c, 'd': d, 'e': e
-  }
-).rename('pH');
-
-var pH_adjusted = pH.add(3.7);
-```
-> **Note:** The +3.7 adjustment is a sensor correction: the original equation was developed for Landsat, so a bias correction is needed when applying it to Sentinel-2 data. If using Landsat imagery, remove this adjustment.
-
-# Step 6
 Display the pH Map and clip to shapefile.
 ```js
 var phVis = {
@@ -131,12 +115,12 @@ var phVis = {
   palette: ['red', 'orange', 'yellow', 'green', 'blue']
 };
 
-var pH_clipped = pH_adjusted.clip(lake);
+var pH_clipped = pH.clip(lake);
 Map.addLayer(pH_clipped, phVis, 'pH');
 ```
-![pH.png](..%2FImages%2FpH.png)
+![phnew.png](..%2FImages%2Fphnew.png)
 
-# Step 7 Add a pH Legend
+# Step 6 Add a pH Legend
  Add a pH Legend corresponding color to pH level.
 ```js
 var legend = ui.Panel({ style: { position: 'bottom-left', padding: '8px 15px' } });
@@ -161,7 +145,7 @@ legend.add(makeRow('blue', 'pH 9'));
 Map.add(legend);
 ```
 
-# Step 8
+# Step 7
 Calculate and print mean pH statistic.
 ```js
 var stats = pH_clipped.reduceRegion({
@@ -179,7 +163,7 @@ print('Mean Lake pH:', stats);
 
 
 
-# Step 9
+# Step 8
 Estimate Dissolved Oxygen (DO).
 
 
@@ -198,12 +182,12 @@ var RED = median.select('B4');
 var BLUE = median.select('B2'); 
 
 // Restrict the analysis to clean water pixels, mask analysis to NDWI to eliminate the influence of any land/shoreline pixels   
-var waterOnly = collection.map(function(img){
-  var ndwi = img.normalizedDifference(['B3','B8']);
-  return img.updateMask(ndwi.gt(0));
-});
+var waterOnly = collection.map(function(img) { 
+  var ndwi = img.normalizedDifference(['B3', 'B8']); 
+  return img.updateMask(ndwi.gt(0)); 
+}); 
 
-var median = waterOnly.median();
+var medianDO = waterOnly.median(); 
 
 // Calculate DO
 var DO = median.expression(
@@ -234,7 +218,7 @@ var doStats = DO_clipped.reduceRegion({
 print('Mean DO:', doStats);
 ```
 
-# Step 10
+# Step 9
 Add a DO Legend.
 ```js
 var doLegend = ui.Panel({ 
@@ -284,7 +268,7 @@ doLegend.add(makeRow('blue', '>10 mg/L'));
 Map.add(doLegend); 
 ```
 ![do.png](..%2FImages%2Fdo.png)
-# Step 11
+# Step 10
 Estimate Turbidity, estimated in NTU (Nephelometric Turbidity Unit. It is the standard unit of measurement used to quantify turbidity).
 
 
@@ -337,7 +321,7 @@ var turbidityStats = turbidity_clean.reduceRegion({
 print('Mean Turbidity:', turbidityStats); 
 ```
 
-# Step 12
+# Step 11
 Add a Turbidity Legend. Unlike the pH and DO legends which use numeric thresholds, this legend uses qualitative categories since the turbidity index is a relative (unitless) measure rather than a calibrated physical quantity.
 
 ```js
@@ -381,93 +365,119 @@ Map.add(turbLegend);
 ```
 ![turbidity.png](..%2FImages%2Fturbidity.png)
 > **Tip:** To display the layer better, go into layer settings (the gear icon next to the layer name), go to the range section, click the drop down labeled custom, and select stretch 98%. 
-# Step 13
+# Step 12
 Estimate Chlorophyll-a
 
 
 >[!TIP]
 > For more information on Chlorophyll-a visit: https://www.epa.gov/national-aquatic-resource-surveys/indicators-chlorophyll
 
-
 ```js
+// =============================== 
+// CHLOROPHYLL-A ESTIMATION: NDCI (Normalized Difference Chlorophyll Index) 
+// =============================== 
+ 
 // Select bands 
-var BLUE = median.select('B2'); 
-var GREEN = median.select('B3'); 
 var RED = median.select('B4'); 
-
-// Calculate chlorophyll-a index 
-var chlorophyll = median.expression( 
-  '(BLUE - RED) / GREEN', 
-  { 
-    'BLUE': BLUE, 
-    'GREEN': GREEN, 
-    'RED': RED 
-  } 
-).rename('Chlorophyll_a'); 
-
-// Clip to shapefile 
-var chlorophyll_clipped = chlorophyll.clip(lake); 
-
+var REDEDGE = median.select('B5'); 
+ 
+// Calculate NDCI 
+var ndci = REDEDGE.subtract(RED) 
+  .divide(REDEDGE.add(RED)) 
+  .rename('NDCI'); 
+  
 // Add Chlorophyll Layer  
-var chlVis = { 
-  min: -1, 
-  max: 1, 
+var ndciVis = { 
+  min: -0.4, 
+  max: 0.6, 
   palette: [ 
-    'blue', 
-    'cyan', 
-    'green', 
-    'yellow', 
-    'red' 
+    '0000FF', // low chlorophyll 
+    '00FFFF', 
+    '00FF00', 
+    'FFFF00', 
+    'FF0000'  // high chlorophyll 
   ] 
 }; 
-
-Map.addLayer( 
-  chlorophyll_clipped, 
-  chlVis, 
-  'Estimated Chlorophyll-a' 
-); 
-
-// Add stats  
-var chlStats = chlorophyll_clipped.reduceRegion({ 
-  reducer: ee.Reducer.mean(), 
-  geometry: lake, 
-  scale: 10, 
-  maxPixels: 1e13 
-}); 
-
-print('Mean Chlorophyll-a:', chlStats); 
+// Clip to shapefile  
+var ndci_clipped = ndci.clip(lake); 
+Map.addLayer(ndci_clipped, ndciVis, 'NDCI - Chlorophyll-a'); 
 ```
 
 # Step 14
 Add a Chlorophyll-a Legend.
 
 ```js
-var chlLegend = ui.Panel({ 
+// Add Chlorophyll legend  
+// =============================== 
+// NDCI LEGEND 
+// =============================== 
+ 
+// Create panel 
+var legend = ui.Panel({ 
   style: { 
     position: 'top-left', 
     padding: '8px 15px' 
   } 
 }); 
-
-var chlTitle = ui.Label({ 
-  value: 'Chlorophyll-a', 
+ 
+// Title 
+var legendTitle = ui.Label({ 
+  value: 'NDCI - Chlorophyll-a', 
   style: { 
     fontWeight: 'bold', 
-    fontSize: '16px' 
+    fontSize: '16px', 
+    margin: '0 0 4px 0', 
+    padding: '0' 
   } 
 }); 
-
-chlLegend.add(chlTitle); 
-chlLegend.add(makeRow('blue', 'Low')); 
-chlLegend.add(makeRow('cyan', 'Moderate')); 
-chlLegend.add(makeRow('green', 'Elevated')); 
-chlLegend.add(makeRow('yellow', 'High')); 
-chlLegend.add(makeRow('red', 'Very High')); 
-
-Map.add(chlLegend);  
+ 
+legend.add(legendTitle); 
+ 
+// Color bar 
+var makeColorBar = function(palette) { 
+  return ui.Thumbnail({ 
+    image: ee.Image.pixelLonLat().select(0), 
+    params: { 
+      bbox: [0, 0, 1, 0.1], 
+      dimensions: '200x20', 
+      format: 'png', 
+      min: 0, 
+      max: 1, 
+      palette: palette 
+    }, 
+    style: {stretch: 'horizontal', margin: '0px 8px'} 
+  }); 
+}; 
+ 
+// Add color bar 
+legend.add(makeColorBar([ 
+  '0000FF', 
+  '00FFFF', 
+  '00FF00', 
+  'FFFF00', 
+  'FF0000' 
+])); 
+ 
+// Labels 
+var labels = ui.Panel({ 
+  widgets: [ 
+    ui.Label('Low'), 
+    ui.Label('Moderate', { 
+      textAlign: 'center', 
+      stretch: 'horizontal' 
+    }), 
+    ui.Label('High') 
+  ], 
+  layout: ui.Panel.Layout.flow('horizontal') 
+}); 
+ 
+legend.add(labels); 
+ 
+// Add legend to map 
+Map.add(legend);  
 ```
-![ca.png](..%2FImages%2Fca.png)
-# Step 15
+![canew.png](..%2FImages%2Fcanew.png)
+# Step 14
 Estimate Electrical Conductivity (EC).
 
 
@@ -521,19 +531,9 @@ Map.addLayer(
   ecVis, 
   'Electrical Conductivity' 
 ); 
-
-// Add conductivity stats  
-var ecStats = conductivity_clipped.reduceRegion({ 
-  reducer: ee.Reducer.mean(), 
-  geometry: lake.geometry(), 
-  scale: 10, 
-  maxPixels: 1e13 
-}); 
-
-print('Mean Electrical Conductivity:', ecStats); 
 ```
 
-# Step 16
+# Step 15
 Add an EC Legend.
 
 ```js
@@ -563,7 +563,7 @@ ecLegend.add(makeRow('red', 'Very High'));
 Map.add(ecLegend); 
 ```
 ![ec.png](..%2FImages%2Fec.png)
-# Step 17
+# Step 16
 Map Aquatic Vegetation (NDRE: Normalized Difference Red Edge), use NDRE over NDVI because it better visualizes chlorophyll content in plants.
 ```js
 // Select bands 
@@ -600,20 +600,10 @@ Map.addLayer(
   ndre, 
   vegVis, 
   'Aquatic Vegetation' 
-); 
-
-//Add stats  
-var vegStats = ndre.reduceRegion({ 
-  reducer: ee.Reducer.mean(), 
-  geometry: lake.geometry(), 
-  scale: 10, 
-  maxPixels: 1e13 
-}); 
- 
-print('Mean Aquatic Vegetation (NDRE):', vegStats); 
+);   
 ```
 
-# Step 18
+# Step 17
 Add an Aquatic Vegetation Legend.
 
 ```js
@@ -640,9 +630,9 @@ vegLegend.add(makeRow('brown', 'Very Dense'));
 
 Map.add(vegLegend); 
 ```
-![av.png](..%2FImages%2Fav.png)
+![avnew.png](..%2FImages%2Favnew.png)
 
-# Step 19
+# Step 18
 Calculate the standardized water quality index.
 
 
@@ -687,6 +677,15 @@ var veg_score = ee.Image(100)
       .multiply(250) 
   ) 
   .clamp(0,100); 
+  
+// Normalize chlorophyll a where higher chlorophyll-a means poorer water quality 
+var chl_score = ee.Image(100) 
+  .subtract( 
+    ndci.subtract(-0.93) 
+      .divide(0.98 - (-0.93)) // max - min 
+      .multiply(100) 
+  ) 
+  .clamp(0,100);   
 
 // Normalize chlorphyll a 
 var chl_score = ee.Image(100) 
@@ -720,7 +719,7 @@ Map.addLayer(WQI.clip(lake), {
 }, 'Water Quality Index'); 
 ```
 
-# Step 20
+# Step 19
 Create water quality legend.
 ```js
 //Add legend 
@@ -782,7 +781,7 @@ for (var i = 0; i < palette.length; i++) {
 } 
 Map.add(legend); 
 ```
-![wqi.png](..%2FImages%2Fwqi.png)
+![wqinew.png](..%2FImages%2Fwqinew.png)
 ## Summary: Water Quality Parameters
 
 | Parameter | Index / Method        | Key Bands                | Output Range       |
@@ -790,7 +789,7 @@ Map.add(legend);
 | **pH** | Regression equation   | B2, B4, NDWI, AWEInsh    | 5–9 (pH units)     |
 | **Dissolved Oxygen** | Multi-band regression | B2, B3, B4, B8, B11, B12 | 0–14 mg/L          |
 | **Turbidity** | Regression equation   | B2, B3, B4, B8, B11, B12 | 0 to 70 ntu        |
-| **Chlorophyll-a** | Blue-Red-Green ratio  | B2, B3, B4               | -1 to 1 (relative) |
+| **Chlorophyll-a** | NDCI                  | B4, B5                   | -0.93 to 0.98      |
 | **Electrical Conductivity** | Blue-Red-Green ratio  | B2, B3, B4               | 0–1.5 (relative)   |
 | **Aquatic Vegetation** | NDRE                  | B5, B8                   | -1 to 1 (relative) |
 
