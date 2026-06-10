@@ -31,40 +31,48 @@ var collection = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
 // Create median composite, median allows us to analyze typcal spectral conditions over the seclected date range 
 var median = collection.median();
 
-// NDWI
-var ndwi = median.normalizedDifference(['B3', 'B8'])
-  .rename('NDWI');
+var visualization = {
+  bands: ['B4', 'B3', 'B2'],
+  min: 0.02879999950528145,
+  max: 0.263949990272522,
+};
 
-// AWEInsh
-var aweinsh = median.expression(
-  '4 * (GREEN - SWIR1) - (0.25 * NIR + 2.75 * SWIR2)',
-  {
-    'GREEN': median.select('B3'),
-    'NIR': median.select('B8'),
-    'SWIR1': median.select('B11'),
-    'SWIR2': median.select('B12')
-  }
-).rename('AWEInsh');
 
-var a = 1.36338;
-var b = 0.00110;
-var c = 0.00818;
-var d = 0.00392;
-var e = 0.00120;
+//Display the median composite on the map. 
+Map.addLayer(median, visualization, 'Median Pixel Composite', false);
 
-// Estimate pH
-var pH = median.expression(
-  'a - b*AWEI + c*B2 - d*B4 + e*NDWI',
-  {
-    'AWEI': aweinsh,
-    'B2': median.select('B2').multiply(10000),
-    'B4': median.select('B4').multiply(10000),
-    'NDWI': ndwi,
-    'a': a, 'b': b, 'c': c, 'd': d, 'e': e
-  }
-).rename('pH');
-
-var pH_adjusted = pH.add(3.7);
+// =============================== 
+// 4. pH ESTIMATION EQUATION 
+// =============================== 
+ 
+// Coefficients for the pH equation 
+var a = 7.866422; 
+var b = 15.804186; 
+var c = 1.366983; 
+var d = 22.499174; 
+var e = 5.929357; 
+var f = 2.661643; 
+var g = 8.793555; 
+ 
+// Estimate pH 
+var pH = median.expression( 
+  'a - (b*B2) - (c*B3) + (d*B4) + (e*NIR) - (f*SWIR1) - (g*SWIR2)', 
+  { 
+    'B2': median.select('B2'), 
+    'B4': median.select('B4'), 
+    'B3': median.select('B3'), 
+    'a': a, 
+    'b': b, 
+    'c': c, 
+    'd': d, 
+    'e': e, 
+    'f': f, 
+    'g': g, 
+    'SWIR1': median.select('B11'), 
+    'SWIR2': median.select('B12'), 
+    'NIR': median.select('B8'), 
+  } 
+).rename('pH'); 
 
 var phVis = {
   min: 5,
@@ -72,7 +80,7 @@ var phVis = {
   palette: ['red', 'orange', 'yellow', 'green', 'blue']
 };
 
-var pH_clipped = pH_adjusted.clip(lake);
+var pH_clipped = pH.clip(lake);
 Map.addLayer(pH_clipped, phVis, 'pH');
 
 var legend = ui.Panel({ style: { position: 'bottom-left', padding: '8px 15px' } });
@@ -110,12 +118,12 @@ var RED = median.select('B4');
 var BLUE = median.select('B2'); 
 
 // Restrict the analysis to clean water pixels, mask analysis to NDWI to eliminate the influence of any land/shoreline pixels   
-var waterOnly = collection.map(function(img){
-  var ndwi = img.normalizedDifference(['B3','B8']);
-  return img.updateMask(ndwi.gt(0));
-});
+var waterOnly = collection.map(function(img) { 
+  var ndwi = img.normalizedDifference(['B3', 'B8']); 
+  return img.updateMask(ndwi.gt(0)); 
+}); 
 
-var median = waterOnly.median();
+var medianDO = waterOnly.median(); 
 
 // Calculate DO
 var DO = median.expression(
@@ -271,76 +279,103 @@ for (var i = 0; i < turbPalette.length; i++) {
 } 
 Map.add(turbLegend); 
 
+// =============================== 
+// CHLOROPHYLL-A ESTIMATION: NDCI (Normalized Difference Chlorophyll Index) 
+// =============================== 
+ 
 // Select bands 
-var BLUE = median.select('B2'); 
-var GREEN = median.select('B3'); 
 var RED = median.select('B4'); 
-
-// Calculate chlorophyll-a index 
-var chlorophyll = median.expression( 
-  '(BLUE - RED) / GREEN', 
-  { 
-    'BLUE': BLUE, 
-    'GREEN': GREEN, 
-    'RED': RED 
-  } 
-).rename('Chlorophyll_a'); 
-
-// Clip to shapefile 
-var chlorophyll_clipped = chlorophyll.clip(lake); 
-
+var REDEDGE = median.select('B5'); 
+ 
+// Calculate NDCI 
+var ndci = REDEDGE.subtract(RED) 
+  .divide(REDEDGE.add(RED)) 
+  .rename('NDCI'); 
+  
 // Add Chlorophyll Layer  
-var chlVis = { 
-  min: -1, 
-  max: 1, 
+var ndciVis = { 
+  min: -0.4, 
+  max: 0.6, 
   palette: [ 
-    'blue', 
-    'cyan', 
-    'green', 
-    'yellow', 
-    'red' 
+    '0000FF', // low chlorophyll 
+    '00FFFF', 
+    '00FF00', 
+    'FFFF00', 
+    'FF0000'  // high chlorophyll 
   ] 
 }; 
+// Clip to shapefile  
+var ndci_clipped = ndci.clip(lake); 
+Map.addLayer(ndci_clipped, ndciVis, 'NDCI - Chlorophyll-a'); 
 
-Map.addLayer( 
-  chlorophyll_clipped, 
-  chlVis, 
-  'Estimated Chlorophyll-a' 
-); 
-
-// Add stats  
-var chlStats = chlorophyll_clipped.reduceRegion({ 
-  reducer: ee.Reducer.mean(), 
-  geometry: lake, 
-  scale: 10, 
-  maxPixels: 1e13 
-}); 
-
-print('Mean Chlorophyll-a:', chlStats); 
-
-var chlLegend = ui.Panel({ 
+// Add Chlorophyll legend  
+// =============================== 
+// NDCI LEGEND 
+// =============================== 
+ 
+// Create panel 
+var legend = ui.Panel({ 
   style: { 
     position: 'top-left', 
     padding: '8px 15px' 
   } 
 }); 
-
-var chlTitle = ui.Label({ 
-  value: 'Chlorophyll-a', 
+ 
+// Title 
+var legendTitle = ui.Label({ 
+  value: 'NDCI - Chlorophyll-a', 
   style: { 
     fontWeight: 'bold', 
-    fontSize: '16px' 
+    fontSize: '16px', 
+    margin: '0 0 4px 0', 
+    padding: '0' 
   } 
 }); 
-
-chlLegend.add(chlTitle); 
-chlLegend.add(makeRow('blue', 'Low')); 
-chlLegend.add(makeRow('cyan', 'Moderate')); 
-chlLegend.add(makeRow('green', 'Elevated')); 
-chlLegend.add(makeRow('yellow', 'High')); 
-chlLegend.add(makeRow('red', 'Very High')); 
-
-Map.add(chlLegend);  
+ 
+legend.add(legendTitle); 
+ 
+// Color bar 
+var makeColorBar = function(palette) { 
+  return ui.Thumbnail({ 
+    image: ee.Image.pixelLonLat().select(0), 
+    params: { 
+      bbox: [0, 0, 1, 0.1], 
+      dimensions: '200x20', 
+      format: 'png', 
+      min: 0, 
+      max: 1, 
+      palette: palette 
+    }, 
+    style: {stretch: 'horizontal', margin: '0px 8px'} 
+  }); 
+}; 
+ 
+// Add color bar 
+legend.add(makeColorBar([ 
+  '0000FF', 
+  '00FFFF', 
+  '00FF00', 
+  'FFFF00', 
+  'FF0000' 
+])); 
+ 
+// Labels 
+var labels = ui.Panel({ 
+  widgets: [ 
+    ui.Label('Low'), 
+    ui.Label('Moderate', { 
+      textAlign: 'center', 
+      stretch: 'horizontal' 
+    }), 
+    ui.Label('High') 
+  ], 
+  layout: ui.Panel.Layout.flow('horizontal') 
+}); 
+ 
+legend.add(labels); 
+ 
+// Add legend to map 
+Map.add(legend);  
 
 // Select bands 
 var BLUE = median.select('B2') 
@@ -380,16 +415,6 @@ Map.addLayer(
   ecVis, 
   'Electrical Conductivity' 
 ); 
-
-// Add conductivity stats  
-var ecStats = conductivity_clipped.reduceRegion({ 
-  reducer: ee.Reducer.mean(), 
-  geometry: lake.geometry(), 
-  scale: 10, 
-  maxPixels: 1e13 
-}); 
-
-print('Mean Electrical Conductivity:', ecStats); 
 
 var ecLegend = ui.Panel({ 
   style: { 
@@ -450,17 +475,7 @@ Map.addLayer(
   ndre, 
   vegVis, 
   'Aquatic Vegetation' 
-); 
-
-//Add stats  
-var vegStats = ndre.reduceRegion({ 
-  reducer: ee.Reducer.mean(), 
-  geometry: lake.geometry(), 
-  scale: 10, 
-  maxPixels: 1e13 
-}); 
- 
-print('Mean Aquatic Vegetation (NDRE):', vegStats); 
+);   
 
 var vegLegend = ui.Panel({ 
   style: { 
@@ -525,15 +540,16 @@ var veg_score = ee.Image(100)
       .multiply(250) 
   ) 
   .clamp(0,100); 
-
-// Normalize chlorphyll a 
+  
+// Normalize chlorophyll a where higher chlorophyll-a means poorer water quality 
 var chl_score = ee.Image(100) 
   .subtract( 
-    chlorophyll.subtract(-0.8) 
-      .divide(1.13 - (-0.8)) 
+    ndci.subtract(-0.93) 
+      .divide(0.98 - (-0.93)) // max - min 
       .multiply(100) 
   ) 
-  .clamp(0,100); 
+  .clamp(0,100);   
+
 
 // Add the scores into a water quality index (WQI) with weighted parameters, you can change the weight to emphasize certain parameters 
 var WQI = DO_score.multiply(0.30) 

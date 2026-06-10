@@ -403,7 +403,7 @@ var ndci_clipped = ndci.clip(lake);
 Map.addLayer(ndci_clipped, ndciVis, 'NDCI - Chlorophyll-a'); 
 ```
 
-# Step 14
+# Step 13
 Add a Chlorophyll-a Legend.
 
 ```js
@@ -686,15 +686,6 @@ var chl_score = ee.Image(100)
       .multiply(100) 
   ) 
   .clamp(0,100);   
-
-// Normalize chlorphyll a 
-var chl_score = ee.Image(100) 
-  .subtract( 
-    chlorophyll.subtract(-0.8) 
-      .divide(1.13 - (-0.8)) 
-      .multiply(100) 
-  ) 
-  .clamp(0,100); 
 
 // Add the scores into a water quality index (WQI) with weighted parameters, you can change the weight to emphasize certain parameters 
 var WQI = DO_score.multiply(0.30) 
