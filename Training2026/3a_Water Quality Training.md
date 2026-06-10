@@ -785,13 +785,13 @@ Map.add(legend);
 ![wqi.png](..%2FImages%2Fwqi.png)
 ## Summary: Water Quality Parameters
 
-| Parameter | Index / Method | Key Bands | Output Range |
-|---|---|---|---|
-| **pH** | Regression equation | B2, B4, NDWI, AWEInsh | 5–9 (pH units) |
-| **Dissolved Oxygen** | Multi-band regression | B2, B3, B4, B8, B11, B12 | 0–14 mg/L |
-| **Turbidity** | Normalized Red-Green | B3, B4 | -1 to 1 (relative) |
-| **Chlorophyll-a** | Blue-Red-Green ratio | B2, B3, B4 | -1 to 1 (relative) |
-| **Electrical Conductivity** | Blue-Red-Green ratio | B2, B3, B4 | 0–1.5 (relative) |
-| **Aquatic Vegetation** | NDRE | B5, B8 | -1 to 1 (relative) |
+| Parameter | Index / Method        | Key Bands                | Output Range       |
+|---|-----------------------|--------------------------|--------------------|
+| **pH** | Regression equation   | B2, B4, NDWI, AWEInsh    | 5–9 (pH units)     |
+| **Dissolved Oxygen** | Multi-band regression | B2, B3, B4, B8, B11, B12 | 0–14 mg/L          |
+| **Turbidity** | Regression equation   | B2, B3, B4, B8, B11, B12 | 0 to 70 ntu        |
+| **Chlorophyll-a** | Blue-Red-Green ratio  | B2, B3, B4               | -1 to 1 (relative) |
+| **Electrical Conductivity** | Blue-Red-Green ratio  | B2, B3, B4               | 0–1.5 (relative)   |
+| **Aquatic Vegetation** | NDRE                  | B5, B8                   | -1 to 1 (relative) |
 
 > **Note:** pH and DO are calibrated equations with physical units. Turbidity, chlorophyll-a, electrical conductivity, and NDRE are spectral indices — they are relative measures useful for spatial comparison but require field calibration to convert to absolute physical units.
