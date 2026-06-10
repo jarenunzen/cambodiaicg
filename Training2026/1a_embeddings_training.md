@@ -84,21 +84,13 @@ Map.addLayer(othercrop, {color: 'black'}, 'Other Crop Reference Data');
 Load the image collection and clip the imagery to the date range and area of interest.
 
 ```js
-//----------------------------------------------------------- 
 // 1.0 IMPORT STUDY AREA & EMBEDDINGS
-//----------------------------------------------------------- 
+var aoi = KSWS; 
+var dataset = ee.ImageCollection('GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL');
 
-// Study area
-var aoi = KSWS 
-
-// Load collection. 
-var dataset = ee.ImageCollection('GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL'); 
-
-
-// Get embedding images for 2024. 
-var image1 = dataset 
-      .filterDate('2024-01-01', '2025-01-01') 
-      .filterBounds(aoi);
+var image1 = dataset
+  .filterDate('2024-01-01', '2025-01-01')
+  .filterBounds(aoi);
 
 var median = image1.median();
 ```
@@ -133,8 +125,7 @@ var training = cashew.merge(cassava).merge(rubber).merge(paddyrice)
                       .merge(water).merge(developed).merge(forest)
                       .merge(openforest).merge(grassland).merge(othercrop);
 
-print("Training Data:", training.limit(1000));
-
+print("Training Data Sample:", training.limit(1000));
 
 // Define the 64 embedding bands
 var bands = [
@@ -243,6 +234,8 @@ var runSpectralPatternAnalysis = function(imageInput, trainingVectors, bandNames
   print('Spectral Pattern Analysis Chart:', patternChart);
 };
 
+
+
 // Execute the corrected pattern analysis function
 runSpectralPatternAnalysis(input, training, bands);
 ```
@@ -256,7 +249,7 @@ Split the training and validation data and run the Random Forest classification 
 
 
 ```js
-// 3.0 Split the reference data into TRAINING and VALIDATION (70% / 30%)
+// 3.0 SPLIT TRAINING AND VALIDATION (70% / 30%)
 var trainImage = median.sampleRegions({
   collection: training,
   properties: ['lclu'],
@@ -287,11 +280,11 @@ Run the Random Forest Algorithm for both classification and for mapping classifi
 
 
 ```js
+
+
 //-----------------------------------------------------------
 // 4.0 RANDOM FOREST CLASSIFICATION & CONFIDENCE SCORING
 //-----------------------------------------------------------
-// https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest
-
 var classifier_rf = ee.Classifier.smileRandomForest(500).train({
   features: trainSet,
   classProperty: 'lclu',
@@ -313,7 +306,7 @@ var probabilities_rf = input.classify(probabilityClassifier_rf);
 var confidence_rf = probabilities_rf.arrayReduce(ee.Reducer.max(), [0])
                                      .arrayGet([0]); 
 
-// RF METRICS & EXPORT
+// RF METRICS & EXPORTS
 var importance_rf = ee.Dictionary(classifier_rf.explain().get('importance'));
 var sum_rf = importance_rf.values().reduce(ee.Reducer.sum());
 var relativeImportance_rf = importance_rf.map(function(key, val) {
@@ -345,7 +338,6 @@ Export.image.toDrive({
   crs: 'EPSG:32648',
   region: KSWS
 });
-
 ```
 
 
@@ -366,24 +358,12 @@ Create a confusion matrix and assess accuracy of the model.
 
 
 ```js
-//----------------------------------------------------------- 
-// ACCURACY ASSESSSMENT
-//----------------------------------------------------------- 
 var confusionMatrix_rf = ee.ConfusionMatrix(validationSet.classify(classifier_rf).errorMatrix({
   actual: "lclu",
   predicted: 'classification'
 }));
 print('RF Confusion Matrix:', confusionMatrix_rf);
 print('RF Overall Accuracy:', confusionMatrix_rf.accuracy());
-
-
-// Values within the matrix will be the individual pixels contained within the provided polygons 
-print('Confusion Matrix:');
-print(confusionMatrix.array()); 
-print('Overall Accuracy:');
-print(confusionMatrix.accuracy()); 
-
-var exportAccuracy = ee.Feature(null, {matrix: confusionMatrix.array()}) 
 ```
 
 > [!TIP]
@@ -400,6 +380,7 @@ Volume 37, Issue 1, 1991, Pages 35-46, https://doi.org/10.1016/0034-4257(91)9004
 # Step 11
 Run the Extreme Gradient Boosting (XGBoost) Classification and compare the Accuracy
 ```js
+
 //-----------------------------------------------------------
 // 5.0 XGBOOST CLASSIFICATION
 //-----------------------------------------------------------
@@ -441,8 +422,9 @@ Print the structure of the first decision tree to the console
 >GEE does not have a simmple way to generate a decision tree from these classification functions. Users are encouraged to complete these steps through the Python api for the function support of decision tree plotting. 
 
 ```js
+
 //===========================================================
-// EXTRACTION FUNCTION FOR TREE STRUCTURES
+// EXTRACTION FUNCTION FOR TREE STRUCTURES (CLEAN FIX)
 //===========================================================
 var printFirstDecisionTree = function(classifier, modelName) {
   // Call .explain() to pull underlying model metadata
@@ -454,17 +436,18 @@ var printFirstDecisionTree = function(classifier, modelName) {
   // Isolate the very first tree (Index 0)
   var firstTreeString = ee.String(treeList.get(0));
   
-  // Print function
-  print('=== FIRST TREE: ' + modelName + ' ===', firstTreeString);
+  // FIX: Let standard JavaScript handle the text label combination
+  print('=== FIRST TREE STRUCTURE: ' + modelName + ' ===', firstTreeString);
 };
 
-// First tree for Random Forest
+// Execute for Random Forest
 printFirstDecisionTree(classifier_rf, 'Random Forest');
 ```
 
 # Step 13
 Add layers to map with comprehensive legend.
 ```js
+
 //-----------------------------------------------------------
 // 6.0 LEGEND AND MAP DISPLAY
 //-----------------------------------------------------------
@@ -502,7 +485,6 @@ Map.addLayer(KSWS, {color: 'white'}, 'Keo Seima Boundary');
 Map.addLayer(classified_rf.clip(KSWS), {palette: landcoverPalette, min: 0, max: 9}, 'Classification: Random Forest', false);
 Map.addLayer(classified_xgb.clip(KSWS), {palette: landcoverPalette, min: 0, max: 9}, 'Classification: XGBoost', true);
 Map.centerObject(KSWS);
-
 ```
 ![lulc.png](..%2FImages%2Flulc.png)
 
@@ -542,7 +524,7 @@ Map.addLayer(classified_rf_masked.clip(KSWS), {
 }, 'RF Classification (Masked < ' + (threshold * 100) + '%)', true);
 
 //-----------------------------------------------------------
-// 8.0 INTERACTIVE UI 
+// 8.0 INTERACTIVE UI FOR PER-CLASS CONFIDENCE MASKING (COMPLETED)
 //-----------------------------------------------------------
 
 // IDs matching array index logic safely
@@ -656,8 +638,6 @@ Map.add(controlPanel);
 
 // Initialize the visualization on script execution
 updateMapLayers();
-  region: ksws    
-}); 
 ```
 
 
