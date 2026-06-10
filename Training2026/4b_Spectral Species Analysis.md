@@ -159,6 +159,9 @@ Add the header to your script.
 ### Step 2
 Install the required packages, then load them to yo
 
+> [!NOTE]
+> Instlling R packages only needs to be completed once. If you have these packages installed already, either remove these lines or place them within a comment block. 
+
 ```
 ## Install packages in order
 install.packages('rstudioapi')
