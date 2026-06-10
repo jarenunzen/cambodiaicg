@@ -143,7 +143,7 @@ https://rstudio-education.github.io/hopr/starting.html
 #
 ## Part I: The biodivMap R package
 ### Step 1
-Add the header to your script.
+Add the header to your script. Once you have entered the name, date, and a short description (objective / site), save the R script. 
 
 
 ```
@@ -157,7 +157,7 @@ Add the header to your script.
 ```
 
 ### Step 2
-Install the required packages, then load them to yo
+Install the required packages, then load them to your newly saved script. 
 
 > [!NOTE]
 > Instlling R packages only needs to be completed once. If you have these packages installed already, either remove these lines or place them within a comment block. 
@@ -407,6 +407,99 @@ See [here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html#spec
 
 
 ### Step 8
+
+
+## Part II: Standardized PCA
+**producing spectral features from reflectance data: principle**
+
+A pre-processing step is usually required in order to produce relevant features 
+from remote sensing data. 
+
+
+When using multispectral/hyperspectral optical imagery, several alternatives can 
+be considered to produce these features.
+
+-   **Spectral transformation**. This includes principal component analysis, 
+minimum noise fraction, or any multidimensional method applying linear or 
+non-linear transformations using the spectral information
+
+-   **Spectral indices**. They consist in applying simple transformations 
+(difference, ratio, normalized difference...) on a limited number of spectral 
+bands available from sensor acquisition. 
+
+-   **Biophysical properties**. They involve physical information obtained from 
+radiative transfer models, combined with an inversion algorithm dedicated to 
+regression. 
+
+
+They aim at linking reflectance measured over part or all of the spectral 
+range covered by a sensor, to one or multiple vegetation characteristics, such 
+as LAI, leaf pigment and water content, LMA.
+
+
+This tutorial describes a selection of options available for users interested in 
+producing features from Sentinel-2 data to prepare for `biodivMapR` analysis. 
+
+
+
+## reflectance data and vegetation mask
+
+The image is assumed to be downloaded from the procedure described [previously](https://jbferet.github.io/biodivMapR/articles/biodivMapR_01.html){target="_blank"}
+
+The binary mask corresponding to the image to be processed is optional. 
+However we strongly recommend using a mask when possible in order to discard 
+pixels which may not be relevant for ecological analysis. 
+This is the case for shaded, cloudy and non-vegetated pixels when focusing on 
+vegetation biodiversity. 
+Artificial surfaces and mineral surfaces should also be masked as they usually 
+strongly contribute to spectral variability and do not inform about biological 
+diversity.
+
+__Insufficient masking of irrelevant pixels may lead to poor estimation of vegetation diversity__: 
+interfaces between vegetation non-vegetated regions (soil, artificial surface, 
+water) will show very high local spectral heterogeneity.  
+This will most probably lead to high spectral diversity, unrelated to species 
+diversity. 
+
+## spectral transformation
+
+Standardized Principal Component Analysis (SPCA) can be applied on Sentinel-2 
+images with the code below.
+
+First, the mask produced with `preprocS2` during the previous step is refined 
+using a combination of radiometric filters.
+
+-   **NDVI filtering**: allows filtering to eliminate non-vegetated pixels. 
+Nothing fancy so you may need to deal with mixed pixels. 
+`NDVI_Thresh` defines the minimum NDVI value to be kept. 
+By default, the NDVI is computed based on the NIR spectral band closest to 835 nm, 
+and the RED spectral band closest to 670 nm.
+
+-   **NIR filtering**: allows filtering of shadows and pixels with very low signal. 
+`NIR_Thresh` defines the minimum NIR value to be kept. 
+By default, the NIR spectral band closest to 835 nm is used.
+
+-   **BLUE filtering**: allows filtering of clouds, based on the hypothesis that 
+atmospheric scattering will lead to higher reflectance in the blue domain. 
+`Blue_Thresh` defines the maximum Blue reflectance to be kept. 
+By default, the Blue spectral band closest to 480 nm is used.
+
+Normalization of reflectance data with Continuum Removal can be performed as 
+additional pre-processing step. 
+This is done by setting `Continuum_Removal = T` as input for `perform_PCA`.
+
+**Continuum Removal** is available when working with reflectance data only. 
+It requires information on the sensor spectral bands, defined by `input_rast_wl`. 
+This procedure eliminates multiplicative effects on reflectance. 
+It proved to be relatively efficient in decreasing the effect of changes in 
+illumination within individual tree crowns, when using high spatial resolution
+imaging spectroscopy over tropical forests.
+
+Continuum Removal is recommended when processing high spatial resolution 
+(spatial resolution $\leq$ 10 m) multi and hyperspectral data.
+
+#
+### Step 1
 
 
 # END
