@@ -157,15 +157,22 @@ Add the header to your script.
 ```
 
 ### Step 2
-Install the required packages.
+Install the required packages, then load them to yo
 
 ```
+## Install packages in order
 install.packages('rstudioapi')
 install.packages('preprocS2')
-install.packages('biodivMapR')
-install.packages('spinR')
+install.packages('remotes')
+remotes::install_github("jbferet/biodivMapR")
+
 install.packages('terra')
 install.packages('sf')
+
+
+install.packages('biodivMapR')
+install.packages('spinR')
+
 install.packages("sfheaders")
 install.packages("maptiles")
 ```
@@ -175,13 +182,28 @@ install.packages("maptiles")
 ### Step 3
 Load required packages and prepare input and output directories.
 
+```
+## load the packages
+library(sf)
+library(terra)
+library(rstudioapi)
+library(biodivMapR)
+```
 
-```{r prepare download s2}
+> [!NOTE]
+>  You may need to verify that each of the pacakges (above) have been installed and activated.
+> <img width="1196" height="814" alt="image" src="https://github.com/user-attachments/assets/8f2f024b-4d15-43da-bd5c-9a004ce3eba8" />
+
+
+
+
+```
 # clean workspace
 rm(list = ls(all=TRUE)); gc()
+
+
 if (rstudioapi::isAvailable()) 
   setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-
 
 
 # 1.1- define input & output directories
@@ -206,11 +228,16 @@ The site is located next to **Guedes, Japurá - State of Amazonas, Brazil**.
 bbox <- st_bbox(c(xmin = -122.4, ymin = 37.7, xmax = -122.3, ymax = 37.8), 
                 crs = st_crs(4326))
 
+aoi_path <- file.path(input_dir_vect, "aoi.gpkg")
+
+
+
 # 1.3. Convert the bbox directly to a spatial polygon object
 poly_obj <- st_as_sf(st_as_sfc(bbox))
 
 # 1.4. Write it to your GeoPackage
 write_sf(obj = poly_obj, dsn = aoi_path, overwrite = TRUE)
+
 ```
 
 
