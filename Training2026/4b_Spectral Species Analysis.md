@@ -286,6 +286,8 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 
 #Install preprocS2 from the official GitHub repository
 remotes::install_github("jbferet/preprocS2")
+
+library(preprocS2)
 #######
 
 
