@@ -314,7 +314,7 @@ mask_path <- list_files$vegetation_mask         # S2 binary mask identifying veg
 >The information resulting from the spatiotemporal query are saved in the 
 directory defined with the variable `input_dir_rast`. 
 It follows this file/folder structure:
->```
+>
 >├── collections
 >├── plot_001.rds
 >├── raster_samples
@@ -324,7 +324,7 @@ It follows this file/folder structure:
 >└── amazon_001_2024-08-23_SCL.tiff
 >├── s2_tiles_amazon.rds
 >└── s2_footprint_amazon.gpkg
->```
+>
 >
 
 ### Step 6
