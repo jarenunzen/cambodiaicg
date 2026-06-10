@@ -316,13 +316,29 @@ directory defined with the variable `input_dir_rast`.
 It follows this file/folder structure:
 >
 >├── collections
+>
+>
 >├── plot_001.rds
+>
+>
 >├── raster_samples
+>
+>
 >├── amazon_001_2024-08-23.tiff
+>
+>
 >├── amazon_001_2024-08-23_BIN.tiff
+>
+>
 >├── amazon_001_2024-08-23_BIN_v2.tiff
+>
+>
 >└── amazon_001_2024-08-23_SCL.tiff
+>
+>
 >├── s2_tiles_amazon.rds
+>
+>
 >└── s2_footprint_amazon.gpkg
 >
 >
