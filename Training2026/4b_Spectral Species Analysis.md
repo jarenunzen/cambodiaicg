@@ -180,6 +180,8 @@ install.packages("sfheaders")
 install.packages("maptiles")
 ```
 
+> <img width="2731" height="631" alt="image" src="https://github.com/user-attachments/assets/699fbcff-0dfa-4a0c-aaab-e1ee646477c0" />
+
 
 
 ### Step 3
@@ -198,6 +200,7 @@ library(biodivMapR)
 > <img width="1196" height="814" alt="image" src="https://github.com/user-attachments/assets/8f2f024b-4d15-43da-bd5c-9a004ce3eba8" />
 
 
+<img width="1471" height="1013" alt="image" src="https://github.com/user-attachments/assets/2195f925-a036-4775-bd78-c228e6a6570c" />
 
 
 ```
@@ -501,7 +504,31 @@ Continuum Removal is recommended when processing high spatial resolution
 #
 ### Step 1
 
+### Step 2
+Once spectral transformation is performed, principal component (PC) selection 
+needs to be done. 
+`biodivMapR` currently does not provide automated procedure for PC selection. 
+Hence, PC selection is users responsibility. 
+We recommend selection based on visual inspection in order to identify spatial 
+features highlighting changes in vegetation types / species composition. 
+This procedure requires expertise on the ecosystem of interest. 
+PC selection should ideally be validated with ground information.
 
+Data-driven methods adjusted based on data distribution for a specific 
+image/site, such as PCA, usually show poor generalization ability, and cannot be 
+applied on other images. 
+As explained earlier, PC selection is a subjective step which prevents from 
+fully automated workflows. Moreover, spectral transformation such as PCA and MNF 
+are usually computationally demanding.
+
+Here, we selected components 1, 4, 5 and 6 to produce the diversity maps. 
+A color composition of components 1, 4 and 5 is displayed below. 
+
+
+### Step 3
+
+
+#
 # END
 
 #
