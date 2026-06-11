@@ -555,8 +555,8 @@ var chl_score = ee.Image(100)
 var WQI = DO_score.multiply(0.30) 
   .add(turb_score.multiply(0.20)) 
   .add(pH_score.multiply(0.30)) 
-  .add(EC_score.multiply(0.5)) 
-  .add(veg_score.multiply(0.5)) 
+  .add(EC_score.multiply(0.05)) 
+  .add(veg_score.multiply(0.05)) 
   .add(chl_score.multiply(0.10)) 
   .rename('WQI'); 
   
