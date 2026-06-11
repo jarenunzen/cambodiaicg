@@ -220,6 +220,7 @@ var firms = ee.ImageCollection('FIRMS')
 var fireFrequency = firms.select('T21')
   .map(function(img) { return img.gt(0).rename('fire'); })
   .sum()
+  .unmask(0)
   .clip(roi).rename('FireFrequency');
 ```
 
