@@ -225,6 +225,8 @@ install.packages(c('rstudioapi', 'remotes', 'terra', 'sf', 'sfheaders', 'maptile
 
 ```
 
+>[!NOTE]
+> If you recieve an error for installing the dependency **RTools** because of versioning, you will need to follow the prompts to download the most recent version of RTools as an independent application (from the web). 
 > <img width="2731" height="631" alt="image" src="https://github.com/user-attachments/assets/699fbcff-0dfa-4a0c-aaab-e1ee646477c0" />
 
 
@@ -361,198 +363,33 @@ plotRGB(my_clamped, r = 4, g = 3, b = 2,
 
 
 ### Step 9
-The spatial extent of the area of interest (aoi) needs to be defined as a vector 
-file. 
-
-Such aoi can be defined with `QGIS`, `Google Earth`, or your favorite tool. 
+Access the classified (land cover) raster for your study area. This will be required later in the script for looking at the species diversity for each land cover class. 
 
 
-Here an aoi located in Brazilian Amazon forest is defined. 
-The site is located next to **Guedes, Japurá - State of Amazonas, Brazil**. 
-
-```{r, eval=FALSE}
-# 1.2- define area of interest
-bbox <- st_bbox(c(xmin = -122.4, ymin = 37.7, xmax = -122.3, ymax = 37.8), 
-                crs = st_crs(4326))
-
-aoi_path <- file.path(input_dir_vect, "aoi.gpkg")
-
-
-
-# 1.3. Convert the bbox directly to a spatial polygon object
-poly_obj <- st_as_sf(st_as_sfc(bbox))
-
-# 1.4. Write it to your GeoPackage
-write_sf(obj = poly_obj, dsn = aoi_path, overwrite = TRUE)
+In this tutorial, we use a 9-class raster based on the results of **training 1a.** The other crop class is not present 
 
 ```
+## Load the classified raster (2024) for Keo Seima, clipped to the study region.
+##  This is a 9 class raster
+print("Forcing explicit load of Land Cover raster values...")
 
+# Initialize the raster pointer
+ms_pointer <- rast("C:/Users/btc28/OneDrive - USNH/Desktop/GCBC Training/Classified_embeddings_2024_GCBC.tif")
 
-### Step 5
-A Sentinel-2 acquisition with minimal cloud cover needs to be identified. 
-The [Copernicus Browser](https://browser.dataspace.copernicus.eu) is a useful 
-service to explore the availability of Sentinel-2 acquisitions. 
-In addition to spatio-temporal filters, it includes filters such as the maximum 
-cloud cover.
-
-
-Images with a maximum cloud cover  < 5%, are identified for August 2024. 
-An acquisition from 23 August 2024 shows good conditions of acquisition. 
-
-`preprocS2` allows downloading from multiple providers. 
-Microsoft Planetary computer is currently the default option. 
-
-The function `get_s2_raster` downloads Sentinel-2 data corresponding to the
-spatio-temporal query. 
-
-- `aoi_path`: path for vector layer. Must include a **unique polygon** 
-- `datetime`: date of acquisition, provided as a _Date_ object.
-- `stac_info`: list including provider identifier (default = `mpc`)
-- `output_dir`: output directory where to store data
-- `site_name`: this will allow identifying rasters later
-- `options`: options including maximum cloud cover and higher level processing
-
-
->[!WARNING]
->Installing the 'jbferet' and 'preproS2' repo here may take some time due to the number of dependencies.
->This process might also take several installs. **Follow the prompts in the R Studio Console**. 
-
-
-```
-### download Sentinel-2 acquisition from online STAC resource
-# 1.5- download  S2 acquisition
-datetime <- as.Date('2024-08-23')
-stac_info <- list('provider' = 'mpc')
-site_name = 'amazon'
-
-########
-#Install 'remotes' if you don't have it already
-if (!requireNamespace("remotes", quietly = TRUE)) {
-  install.packages("remotes")
+# Force terra to read the values directly into memory blocks
+if  (readStart(ms_pointer)) {
+  ms <- ms_pointer * 1  # Multiplying by 1 forces R to compute and cache all pixel data
+  readStop(ms_pointer)
+} else {
+  ms <- ms_pointer
 }
 
-#Install preprocS2 from the official GitHub repository
-remotes::install_github("jbferet/preprocS2")
-
-library(preprocS2)
-#######
-
-
-options <- set_options_preprocS2(fun = 'get_s2_raster')
-options$overwrite <- FALSE
-
-
-
-list_files <- get_s2_raster(aoi_path = aoi_path, 
-                            datetime = datetime, 
-                            stac_info = stac_info, 
-                            output_dir = input_dir_rast, 
-                            site_name = site_name, 
-                            options = options)
-
-rast_path <- list_files$Refl_L2A                # S2 L2A reflectance
-mask_path <- list_files$vegetation_mask         # S2 binary mask identifying vegetation, discarding clouds & shadows
-```
-
->[!NOTE]
->The information resulting from the spatiotemporal query are saved in the 
-directory defined with the variable `input_dir_rast`. 
-It follows this file/folder structure:
->
->├── collections
->
->
->├── plot_001.rds
->
->
->├── raster_samples
->
->
->├── amazon_001_2024-08-23.tiff
->
->
->├── amazon_001_2024-08-23_BIN.tiff
->
->
->├── amazon_001_2024-08-23_BIN_v2.tiff
->
->
->└── amazon_001_2024-08-23_SCL.tiff
->
->
->├── s2_tiles_amazon.rds
->
->
->└── s2_footprint_amazon.gpkg
->
->
-
-### Step 6
-`collections/plot_001.rds` corresponds to the item collection resulting from 
-the spatiotemporal query. 
-
-
-Use the R function `readRDS` to access the content of the file.
-
-```
-readRDS('./01_DATA/amazon/raster_data/sentinel-2/collections/plot_001.rds')
-
-# ###Items
-# - features (1 item(s)):
-#   - S2A_MSIL2A_20240823T144731_R139_T19MHT_20240823T215907
-# - assets: 
-# AOT, B01, B02, B03, B04, B05, B06, B07, B08, B09, B11, B12, B8A, datastrip-metadata, granule-metadata, inspire-metadata, product-metadata, rendered_preview, safe-manifest, SCL, tilejson, visual, WVP
-# - item's fields: 
-# assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type
+# Add explicit names for biodivMapR to prevent errors
+names(ms) <- "Land_Cover"
 ```
 
 
-
-- `raster_samples` includes:
-
-
-  ─ `amazon_001_2024-08-23.tiff`: L2A (surface reflectance) Sentinel-2 data
-  
-  ─ `amazon_001_2024-08-23_BIN.tiff`: binary mask derived from
-  `amazon_001_2024-08-23_SCL.tiff` and focusing on vegetation class.
-
-
-  ─ `amazon_001_2024-08-23_BIN_v2.tiff`: binary mask produced from alternative
-  radiometric criteria, including NDVI mask to remove non vegetated pixels,
-  Blue mask to remove hazy/cloudy pixels, and NIR mask to remove shaded pixels.
-
-
-### Step 7
-You can adjust threshold for cloudMask (B02), shadeMask (B08), and NDVIMask.
-See [here](https://jbferet.github.io/biodivMapR/articles/biodivMapR_02.html#spectral-transformation) for additional information on how these masks work.
-           ─ `amazon_001_2024-08-23_SCL.tiff`: scene classification provided by sen2cor 
-           atmospheric correction.
-        
-           - `s2_tiles_amazon.rds` contains the Sentinel-2 tile ID for the scene
-           
-           - `s2_footprint_amazon.gpkg` contains the footprint of the Sentinel-2 tile ID
-           
-           The animated gif shows the Sentinel-2 acquisition. 
-           The pixels masked by the binary mask `amazon_001_2024-08-23_BIN_v2.tiff` are 
-           greyed.
-           The surface reflectance in sentinel-2 L2A products is rescaled from 0-1 to 
-           0-10000 and the data are stored in INT16 to save space. This allows 50% space 
-           saved compared to FLOAT32.
-           
-           The following animation displays the sentinel-2 acquisition along with the 
-           vegetation mask and with the following color dynamic: 
-             
-           - Red band: Band 04 (0 - 1000).
-           
-           - Green band: Band 03 (0 - 1000).
-           
-           - Blue band: Band 02 (0 - 1000).
-
-
-
-### Step 8
-
-
+#
 ## Part II: Standardized PCA
 **producing spectral features from reflectance data: principle**
 
@@ -644,14 +481,71 @@ Continuum Removal is recommended when processing high spatial resolution
 
 #
 ### Step 1
+Start the second section of this analysis. 
+
+```
+## Section 2 ---------------------------------------------
+### SPECTRAL SPECIES ANALYSIS (biodivMapR Workflow)
+```
+
 
 ### Step 2
+Create the director for the spectral species analysis (a package specific directory and file structure).
+
+```
+# Create a dedicated output folder 
+Output_Dir <- "C:/Users/btc28/OneDrive - USNH/Desktop/GCBC Training/SpectralSpecies"
+dir.create(Output_Dir, showWarnings = FALSE, recursive = TRUE)
+
+# Dynamically count the bands in YOUR specific raster file
+my_raster_temp <- rast(full_path)
+num_bands      <- nlyr(my_raster_temp)
+rm(my_raster_temp) # Free up memory
+
+print(paste("Detected", num_bands, "bands in your raster file. Generating matching spectrum..."))
+```
+
+### Step 3
+Search your input image for specific bands. These will be used for the principal component analysis (PCA or SPCA). This specific function differs from the original package in that it will call the bands that your image specifically has, not the standard set from Sentinel-2. 
+
+```
+# Create a generic wavelength vector matching your band count exactly
+dynamic_wavelengths <- seq(from = 400, to = 400 + (num_bands - 1) * 50, by = 50)
+```
+
+
+### Step 4
+Run the principal component analysis (PCA or SPCA options).
+
+```
+# --- Run PCA ---
+#   10-30 seconds of processing, a loading bar will be created in the console
+print("Running Principal Component Analysis natively on GeoTIFF...")
+PCA_Output <- perform_PCA(
+  input_raster_path = full_path,           # Path to your "KeoSeima_Sentinel2_2025.tif"
+  input_rast_wl     = dynamic_wavelengths, # Perfectly matches your raster's bands
+  output_dir        = Output_Dir,
+  input_mask_path   = NULL,                
+  Continuum_Removal = FALSE,               
+  TypePCA           = "SPCA",              # Standardized PCA
+  filetype          = "GTiff"              
+)
+
+# NOTE: Output of PCA_Output variable
+
+
+# Extract the generated PCA file paths list
+PCA_Files <- PCA_Output$PCA_Files
+print("PCA Step Successful!")
+```
+
+
 Once spectral transformation is performed, principal component (PC) selection 
 needs to be done. 
 `biodivMapR` currently does not provide automated procedure for PC selection. 
 Hence, PC selection is users responsibility. 
-We recommend selection based on visual inspection in order to identify spatial 
-features highlighting changes in vegetation types / species composition. 
+**We recommend selection based on visual inspection in order to identify spatial 
+features highlighting changes in vegetation types / species composition.**
 This procedure requires expertise on the ecosystem of interest. 
 PC selection should ideally be validated with ground information.
 
@@ -662,11 +556,35 @@ As explained earlier, PC selection is a subjective step which prevents from
 fully automated workflows. Moreover, spectral transformation such as PCA and MNF 
 are usually computationally demanding.
 
-Here, we selected components 1, 4, 5 and 6 to produce the diversity maps. 
-A color composition of components 1, 4 and 5 is displayed below. 
+
+#
+### Step 5
+Run the k-means clustering algorithm.
+
+> [!TIP]
+> There is a clustering algorithm used here to group clusters of species based on the SPA. This is an unsupervised classification for the SPA bands so that we can look at the heterogenity of clusters within each land cover class or defined patch.
+>
+> For more information on k-means clustering, visit: https://developers.google.com/machine-learning/clustering/kmeans/overview
+
+```
+# --- Map Spectral Species (Direct Native Clustering) ---
+print("Clustering PCs into Spectral Species categories...")
 
 
-### Step 3
+# This calculates the distance of each pixel to the 20 cluster centers
+km_predict <- function(data, kmeans_obj) {
+  centers <- kmeans_obj$centers
+  # Multi-band Euclidean distance calculation
+  distances <- apply(centers, 1, function(x) {
+    rowSums(sweep(data, 2, x, "-")^2)
+  })
+  # Find the index of the minimum distance (closest cluster center)
+  return(max.col(-distances))
+}
+```
+
+### Step 6
+
 
 
 #
