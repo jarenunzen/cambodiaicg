@@ -156,28 +156,73 @@ Add the header to your script. Once you have entered the name, date, and a short
 # https://github.com/jbferet/biodivMapR/tree/master/R
 ```
 
+<img width="971" height="309" alt="image" src="https://github.com/user-attachments/assets/770c014c-fc26-4b8c-a935-d9cc3145e65e" />
+
+
+### Optional
+Add in a description of the analysis, including the required inputs, flowchart, and description methods
+
+```
+
+# Notes of Spectral Species Workflow (for before using the Downey code) 
+ 
+# inputs I will need: 
+#   1) orthomosaic geotiff multispec file
+#   2) land use classification raster (categorical)
+#         use the multispec orthomosaic, training polygon 
+#         data (with known land use history), and run the classification. 
+
+# Export this as a categorical GeoTIFF. 
+#   The raster will be used for patch metrics, edge density, 
+#   land use proportions, and the spectral species composition per class
+
+
+# Spectral Species Anlaysis
+#   1) PCA
+#   2) k-means clustering
+#   3) create spectral species raster
+#   4) compute spectral species composition per hexagon
+#   5) compute spectral species composition per land use class
+
+
+# Disturbance metrics
+#   create hexagon grid
+#   compute edge density per hexagon
+#   compute land use proportions per hexagon
+#   build adjacency matrix (W)
+```
+
+
 ### Step 2
 Install the required packages, then load them to your newly saved script. 
 
 > [!NOTE]
-> Instlling R packages only needs to be completed once. If you have these packages installed already, either remove these lines or place them within a comment block. 
+> **Instlling R packages only needs to be completed once.** If you have these packages installed already, either remove these lines or place them within a comment block. 
 
 ```
-## Install packages in order
-install.packages('rstudioapi')
-install.packages('preprocS2')
-install.packages('remotes')
-remotes::install_github("jbferet/biodivMapR")
+# biodivMapR package
+## https://github.com/jbferet/biodivMapR
 
-install.packages('terra')
-install.packages('sf')
+#
+install.packages("remotes")
+# turn on remotes package via the pane (lower-right) to determine it was installed
+# OR 
+# library(remotes);
+
+remotes::install_github('cran/dissUtils')
+# turn on the package manually
 
 
-install.packages('biodivMapR')
-install.packages('spinR')
+# this may take a little bit and ask for updates
+remotes::install_github('jbferet/biodivMapR')
+# NOTE: choose CRAN only packages to update
 
-install.packages("sfheaders")
-install.packages("maptiles")
+#biodivMapR should not be visible in the Packages pane
+######
+
+# Optional (if you do not have these packages installed)
+install.packages(c('rstudioapi', 'remotes', 'terra', 'sf', 'sfheaders', 'maptiles'))
+
 ```
 
 > <img width="2731" height="631" alt="image" src="https://github.com/user-attachments/assets/699fbcff-0dfa-4a0c-aaab-e1ee646477c0" />
@@ -185,15 +230,36 @@ install.packages("maptiles")
 
 
 ### Step 3
-Load required packages and prepare input and output directories.
+Load required packages for use in this analysis
 
 ```
-## load the packages
-library(sf)
+#####
+## load the packages for this analysis
 library(terra)
-library(rstudioapi)
+library(sf)
 library(biodivMapR)
+library(landscapemetrics)
+library(dplyr)
+library(vegan)
+library(spdep)
+library(devtools)
+library(remotes)
+
 ```
+
+```
+#Install 'remotes' if you don't have it already
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+
+
+#Install preprocS2 from the official GitHub repository
+remotes::install_github("jbferet/preprocS2")
+
+library(preprocS2)
+```
+
 
 > [!NOTE]
 >  You may need to verify that each of the pacakges (above) have been installed and activated.
@@ -203,23 +269,98 @@ library(biodivMapR)
 <img width="1471" height="1013" alt="image" src="https://github.com/user-attachments/assets/2195f925-a036-4775-bd78-c228e6a6570c" />
 
 
-```
-# clean workspace
-rm(list = ls(all=TRUE)); gc()
-
-
-if (rstudioapi::isAvailable()) 
-  setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-
-
-# 1.1- define input & output directories
-input_dir_vect <- './01_DATA/amazon/vector_data'
-input_dir_rast <- './01_DATA/amazon/raster_data/sentinel-2'
-dir.create(path = input_dir_rast, showWarnings = F, recursive = T)
-dir.create(path = input_dir_vect, showWarnings = F, recursive = T)
-```
-
 ### Step 4
+Define the working directory. We will use this file location for all inputs and outputs.
+
+```
+# Define the working directory
+getwd()
+setwd("C:/Users/btc28/OneDrive - USNH/Desktop/GCBC Training")
+```
+
+
+### Step 5
+Specify the file path and file name for the raster image (Sentinel-2 or UAV orthomosaic). 
+
+```
+# Define the path to your desktop folder
+# For many users, the pathway can be specified as '~/Desktop/GCBC Training'
+desktop_path <- "C:/Users/btc28/OneDrive - USNH/Desktop/GCBC Training"
+
+# Specify your raster (image) file name (Change "file.tif" to your actual file name and extension)
+file_name <- "KeoSeima_Sentinel2_2025.tif"
+
+# Combine them into the full file path
+full_path <- file.path(desktop_path, file_name)
+
+# Open/Load the raster image
+# The 'rast' function works for almost all formats (.tif, .png, .img, .nc, etc.)
+my_raster <- rast(full_path)
+```
+
+> [!WARNING]
+>  The **biodivMapR** package uses a very specific folder structure and naming convention for its processing pipeline. After this point, all files will be saved relative to this directory and file name.
+
+
+### Step 6
+Print the metadata for your raster image to the console and plot the bands for your image to the Plots window. 
+
+```
+# Verify and visualize
+print(my_raster)  # Displays metadata (resolution, CRS, dimensions)
+plot(my_raster)   # Plots the raster image
+```
+
+
+### Step 8
+Plot the remote sensing imagery with band combinations. 
+
+Two options for displaying the imagery are provided here. 
+
+
+```
+## OPTION 1
+# 'r=4, g=3, b=2' maps band 4 to Red, band 3 to Green, and band 2 to Blue
+plotRGB(my_raster, 
+        r = 4, g = 3, b = 2, 
+        stretch = "lin",  # Options: "lin" (linear) or "hist" (histogram) to boost contrast
+        main = "True Color Composite (Bands 4, 3, 2)")
+
+
+## OPTION 2
+# Calculate the mean and standard deviation of your raster layers
+# (Using 2 standard deviations is the industry standard)
+img_mean <- global(my_raster, "mean", na.rm = TRUE)$mean
+img_sd   <- global(my_raster, "sd", na.rm = TRUE)$sd
+
+# 2. Define the upper and lower bounds (Mean +/- 2*SD)
+lower_bound <- img_mean - (2 * img_sd)
+upper_bound <- img_mean + (2 * img_sd)
+
+# 3. 'Clamp' the raster data so outliers are forced into these boundaries
+my_clamped <- clamp(my_raster, lower = lower_bound, upper = upper_bound)
+
+# 4. Plot the clamped image with a standard linear stretch
+plotRGB(my_clamped, r = 4, g = 3, b = 2, 
+        stretch = "lin", 
+        main = "2-Standard Deviation Stretch")
+
+```
+
+**Option 1 Visual**
+
+
+<img width="1581" height="1054" alt="image" src="https://github.com/user-attachments/assets/1740b428-abea-4521-98ff-365272dcbaec" />
+
+
+**Option 2 Visual**
+
+
+<img width="1581" height="1054" alt="image" src="https://github.com/user-attachments/assets/06d21c3d-8bcb-4dbb-9a3e-c3eb3d483df3" />
+
+
+
+### Step 9
 The spatial extent of the area of interest (aoi) needs to be defined as a vector 
 file. 
 
