@@ -710,6 +710,20 @@ To finish the analysis, open the spectral species (cluster) map in ArcGIS Pro.
 
 Use either the land cover class raster OR your defined plots to calculate the heterogenity of this layer within your classes of interest. 
 
+
+<img width="1785" height="1103" alt="image" src="https://github.com/user-attachments/assets/e463e6ee-deab-4114-9dc9-33461cda18ce" />
+
+
+> [!TIP]
+> Compare the natural forest and cropland areas. The natural forest has a high diversity across the SSA clusters. The croplands are much more hetergeoneous. Either the **Zonal Histograms** or **Zonal Statistics** tools can be used to calculate statistics on these classes using defined boundary areas.
+>
+> The Downey et al. analysis does this for vegetation plots, measured in the field, and defined systemmatic grids (hexagons).
+
+
+
+<img width="3177" height="1886" alt="image" src="https://github.com/user-attachments/assets/956618c4-e146-4520-b70e-a3c980ed623d" />
+
+
 #
 # END
 
