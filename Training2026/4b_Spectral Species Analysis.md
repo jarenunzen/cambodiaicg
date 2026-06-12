@@ -646,7 +646,69 @@ samples <- v_clean[sample_idx, ]
 
 
 ### Step 8
+Traing and predict using the k-means clustering algorithm. **This step can take a couple of minutes and be RAM intensive.**
 
+```
+# Train the K-means clustering model
+print("Training K-means model (20 clusters)...")
+kmeans_model <- kmeans(samples, centers = 20, iter.max = 10, nstart = 5)
+
+
+# Predict / Assign clusters back to ALL valid pixels in the image
+print("Assigning spectral species to all pixels...")
+predicted_species <- rep(NA, nrow(v))
+clean_indices <- which(!rowSums(is.na(v))) # Keep track of where the data is stored
+
+
+# Predict using the closest cluster center
+predicted_species[clean_indices] <- km_predict(v_clean, kmeans_model)
+```
+
+### Step 9
+Rebuild the output of the clustering algorithm as a raster dataset. 
+
+```
+# Rebuild the Spatial Raster Layer
+spectral_species_raster <- rast(pc_raster, nlyr = 1)
+
+values(spectral_species_raster) <- predicted_species
+
+names(spectral_species_raster) <- "Spectral_Species"
+```
+
+### Step 10
+Write the spectral species raster file to your output directory and also plot the results within the RStudio package. 
+
+
+```
+
+# Save your results as a categorical GeoTIFF
+ss_raster_path <- file.path(Output_Dir, "KeoSeima_SpectralSpecies_2025.tif")
+writeRaster(spectral_species_raster, ss_raster_path, overwrite = TRUE, datatype = "INT1U")
+
+
+print("Spectral Species Mapping Complete!")
+plot(spectral_species_raster, type = "classes", main = "Spectral Species Map (20 Archetypes)")
+
+```
+
+<img width="1532" height="744" alt="image" src="https://github.com/user-attachments/assets/a8188c94-5d95-4494-82a3-f6364ec227e8" />
+
+
+
+> [!NOTE]
+> A high Shannon_H value indicates a land cover type that contains a high mix of multiple optical profiles (e.g., a complex primary forest canopy). A low score indicates structural/spectral homogeneity (e.g., bare ground, monoculture plantation, or water bodies).
+
+
+<img width="1532" height="744" alt="image" src="https://github.com/user-attachments/assets/884b6d12-aefc-4653-88f6-bc24c1a50ea5" />
+
+
+
+### Step 11
+To finish the analysis, open the spectral species (cluster) map in ArcGIS Pro.
+
+
+Use either the land cover class raster OR your defined plots to calculate the heterogenity of this layer within your classes of interest. 
 
 #
 # END
